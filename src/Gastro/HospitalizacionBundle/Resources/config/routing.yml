@@ -1,0 +1,3 @@
+hospitalizacion_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: HospitalizacionBundle:Default:index }

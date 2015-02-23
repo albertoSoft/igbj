@@ -1,0 +1,4 @@
+services:
+#    hospitalizacion.example:
+#        class: Gastro\HospitalizacionBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
