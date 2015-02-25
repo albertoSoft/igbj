@@ -9,3 +9,8 @@ hospitalizacion:
 app:
     resource: @AppBundle/Controller/
     type:     annotation
+    
+pagina_inicial:
+    path: /bienvenida/
+    defaults: { _controller: HospitalizacionBundle:default:inicio }
+    

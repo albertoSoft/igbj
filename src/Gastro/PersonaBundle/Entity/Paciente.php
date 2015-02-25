@@ -5,12 +5,12 @@ namespace Gastro\PersonaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Persona
+ * Paciente
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Persona
+class Paciente
 {
     /**
      * @var integer
@@ -106,7 +106,7 @@ class Persona
      * Set hc
      *
      * @param integer $hc
-     * @return Persona
+     * @return Paciente
      */
     public function setHc($hc)
     {
@@ -129,7 +129,7 @@ class Persona
      * Set nombre
      *
      * @param string $nombre
-     * @return Persona
+     * @return Paciente
      */
     public function setNombre($nombre)
     {
@@ -152,7 +152,7 @@ class Persona
      * Set appat
      *
      * @param string $appat
-     * @return Persona
+     * @return Paciente
      */
     public function setAppat($appat)
     {
@@ -175,7 +175,7 @@ class Persona
      * Set apmat
      *
      * @param string $apmat
-     * @return Persona
+     * @return Paciente
      */
     public function setApmat($apmat)
     {
@@ -198,7 +198,7 @@ class Persona
      * Set fechanac
      *
      * @param \DateTime $fechanac
-     * @return Persona
+     * @return Paciente
      */
     public function setFechanac($fechanac)
     {
@@ -221,7 +221,7 @@ class Persona
      * Set sexo
      *
      * @param string $sexo
-     * @return Persona
+     * @return Paciente
      */
     public function setSexo($sexo)
     {
@@ -244,7 +244,7 @@ class Persona
      * Set ci
      *
      * @param string $ci
-     * @return Persona
+     * @return Paciente
      */
     public function setCi($ci)
     {
@@ -267,7 +267,7 @@ class Persona
      * Set estciv
      *
      * @param string $estciv
-     * @return Persona
+     * @return Paciente
      */
     public function setEstciv($estciv)
     {
@@ -290,7 +290,7 @@ class Persona
      * Set teldom
      *
      * @param string $teldom
-     * @return Persona
+     * @return Paciente
      */
     public function setTeldom($teldom)
     {
@@ -313,7 +313,7 @@ class Persona
      * Set direcc
      *
      * @param string $direcc
-     * @return Persona
+     * @return Paciente
      */
     public function setDirecc($direcc)
     {

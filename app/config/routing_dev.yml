@@ -17,9 +17,9 @@ _main:
 #_acme_demo:
 #    resource: "@AcmeDemoBundle/Resources/config/routing.yml"
 
-pagina_inicial:
-    path: /bienvenida/
-    defaults: { _controller: HospitalizacionBundle:default:inicio }
+#pagina_inicial:
+#    path: /bienvenida/
+#    defaults: { _controller: HospitalizacionBundle:default:inicio }
     
-_hospitalizacion:
-    resource: "@HospitalizacionBundle/Resources/config/routing.yml"
+#_hospitalizacion:
+#   resource: "@HospitalizacionBundle/Resources/config/routing.yml"

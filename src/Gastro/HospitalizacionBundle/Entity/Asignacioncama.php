@@ -1,0 +1,146 @@
+<?php
+
+namespace Gastro\HospitalizacionBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Asignacioncama
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Asignacioncama
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="datetime")
+     */
+    private $fecha;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="hora", type="time")
+     */
+    private $hora;
+
+    /** @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Admision") */
+    private $admision;
+
+    /** @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Cama") */
+    private $cama;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return Asignacioncama
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime 
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    /**
+     * Set hora
+     *
+     * @param \DateTime $hora
+     * @return Asignacioncama
+     */
+    public function setHora($hora)
+    {
+        $this->hora = $hora;
+
+        return $this;
+    }
+
+    /**
+     * Get hora
+     *
+     * @return \DateTime 
+     */
+    public function getHora()
+    {
+        return $this->hora;
+    }
+
+    /**
+     * Set admision
+     *
+     * @param string $admision
+     * @return Asignacioncama
+     */
+    public function setAdmision(\Gastro\HospitalizacionBundle\Entity\Admision $admision)
+    {
+        $this->admision = $admision;
+
+        return $this;
+    }
+
+    /**
+     * Get admision
+     *
+     * @return string 
+     */
+    public function getAdmision()
+    {
+        return $this->admision;
+    }
+
+    /**
+     * Set cama
+     *
+     * @param string $cama
+     * @return Asignacioncama
+     */
+    public function setCama($cama)
+    {
+        $this->cama = $cama;
+
+        return $this;
+    }
+
+    /**
+     * Get cama
+     *
+     * @return string 
+     */
+    public function getCama()
+    {
+        return $this->cama;
+    }
+}
