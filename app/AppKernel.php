@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new Gastro\HospitalizacionBundle\HospitalizacionBundle(),
             new Gastro\PersonaBundle\PersonaBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle() ,
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

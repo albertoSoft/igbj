@@ -10,8 +10,8 @@ class DefaultController extends Controller
     {
         return $this->render('HospitalizacionBundle:Default:index.html.twig', array('name' => $name));
     }
-    public function inicioAction($name="RLB")
+    public function inicioAction()
     {
-        return $this->render('HospitalizacionBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('HospitalizacionBundle:Default:inicio.html.twig');
     }
 }

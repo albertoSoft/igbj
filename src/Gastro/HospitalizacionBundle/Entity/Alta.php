@@ -27,6 +27,13 @@ class Alta
      * @ORM\Column(name="fecha", type="datetime")
      */
     private $fecha;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="hora", type="time")
+     */
+    private $hora;
 
     /** @ORM\ManyToOne(targetEntity="Gastro\PersonaBundle\Entity\Medico") */
     private $medico;
@@ -77,6 +84,29 @@ class Alta
      * @param string $medico
      * @return Alta
      */
+     /**
+     * Set hora
+     *
+     * @param \DateTime $hora
+     * @return Alta
+     */
+    public function setHora($hora)
+    {
+        $this->hora = $hora;
+
+        return $this;
+    }
+
+    /**
+     * Get hora
+     *
+     * @return \DateTime 
+     */
+    public function getHora()
+    {
+        return $this->hora;
+    }
+    
     public function setMedico(\Gastro\PersonaBundle\Entity\Medico $medico)
     {
         $this->medico = $medico;
