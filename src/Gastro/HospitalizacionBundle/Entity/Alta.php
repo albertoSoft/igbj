@@ -35,7 +35,7 @@ class Alta
      */
     private $hora;
 
-    /** @ORM\ManyToOne(targetEntity="Gastro\PersonaBundle\Entity\Medico") */
+    /** @ORM\ManyToOne(targetEntity="Gastro\PersonaBundle\Entity\Persona") */
     private $medico;
 
     /** @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Diagnostico") */
@@ -107,7 +107,7 @@ class Alta
         return $this->hora;
     }
     
-    public function setMedico(\Gastro\PersonaBundle\Entity\Medico $medico)
+    public function setPersona(\Gastro\PersonaBundle\Entity\Persona $medico)
     {
         $this->medico = $medico;
 
@@ -119,7 +119,7 @@ class Alta
      *
      * @return string 
      */
-    public function getMedico()
+    public function getPersona()
     {
         return $this->medico;
     }

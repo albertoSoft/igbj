@@ -30,8 +30,19 @@ class Sala
 
     /** @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Servicio") */
     private $servicio;
+    
+    /**
+     *
+     * @ORM\Column(type="integer")
+     */
+    Private $enumeracion;
 
-
+     /**
+     *
+     * @ORM\Column(type="integer")
+     */
+    Private $piso;
+    
     /**
      * Get id
      *
@@ -89,5 +100,51 @@ class Sala
     }
     public function __toString() {
         return $this->getNombre().' de '.$this->getServicio();
+    }
+
+    /**
+     * Set enumeracion
+     *
+     * @param integer $enumeracion
+     * @return Sala
+     */
+    public function setEnumeracion($enumeracion)
+    {
+        $this->enumeracion = $enumeracion;
+
+        return $this;
+    }
+
+    /**
+     * Get enumeracion
+     *
+     * @return integer 
+     */
+    public function getEnumeracion()
+    {
+        return $this->enumeracion;
+    }
+
+    /**
+     * Set piso
+     *
+     * @param integer $piso
+     * @return Sala
+     */
+    public function setPiso($piso)
+    {
+        $this->piso = $piso;
+
+        return $this;
+    }
+
+    /**
+     * Get piso
+     *
+     * @return integer 
+     */
+    public function getPiso()
+    {
+        return $this->piso;
     }
 }

@@ -31,13 +31,18 @@ class Cama
     /**
      * @var boolean
      *
-     * @ORM\Column(name="ocupada", type="boolean")
+     * @ORM\Column(type="boolean", name="ocupada")
      */
-    private $ocupada;
+    private $ocupada=false;
 
     /** @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Sala") */
     private $sala;
 
+    /**
+     *
+     * @ORM\Column(type="integer")
+     */
+    Private $enumeracion;
 
     /**
      * Get id
@@ -116,5 +121,28 @@ class Cama
     public function getSala()
     {
         return $this->sala;
+    }
+
+    /**
+     * Set enumeracion
+     *
+     * @param integer $enumeracion
+     * @return Cama
+     */
+    public function setEnumeracion($enumeracion)
+    {
+        $this->enumeracion = $enumeracion;
+
+        return $this;
+    }
+
+    /**
+     * Get enumeracion
+     *
+     * @return integer 
+     */
+    public function getEnumeracion()
+    {
+        return $this->enumeracion;
     }
 }

@@ -5,12 +5,12 @@ namespace Gastro\PersonaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Medico
+ * Persona
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Medico
+class Persona
 {
     /**
      * @var integer
@@ -71,7 +71,7 @@ class Medico
      * Set ideper
      *
      * @param string $ideper
-     * @return Medico
+     * @return Persona
      */
     public function setIdeper($ideper)
     {
@@ -94,7 +94,7 @@ class Medico
      * Set nombre
      *
      * @param string $nombre
-     * @return Medico
+     * @return Persona
      */
     public function setNombre($nombre)
     {
@@ -117,7 +117,7 @@ class Medico
      * Set patern
      *
      * @param string $patern
-     * @return Medico
+     * @return Persona
      */
     public function setPatern($patern)
     {
@@ -140,7 +140,7 @@ class Medico
      * Set matern
      *
      * @param string $matern
-     * @return Medico
+     * @return Persona
      */
     public function setMatern($matern)
     {
@@ -163,7 +163,7 @@ class Medico
      * Set swmedi
      *
      * @param integer $swmedi
-     * @return Medico
+     * @return Persona
      */
     public function setSwmedi($swmedi)
     {
