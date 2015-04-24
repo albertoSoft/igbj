@@ -3,12 +3,15 @@
 namespace Gastro\HospitalizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Referidode
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @UniqueEntity(fields = {"establecimiento", "admision"})
  */
 class Referidode
 {
@@ -25,6 +28,7 @@ class Referidode
      * @var string
      *
      * @ORM\Column(name="establecimiento", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $establecimiento;
 

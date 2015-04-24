@@ -1,3 +1,19 @@
 hospitalizacion_homepage:
     path:     /hello/{name}
     defaults: { _controller: HospitalizacionBundle:Default:index }
+
+pagina_inicial:
+    path: /bienvenida/
+    defaults: { _controller: HospitalizacionBundle:default:inicio }
+    
+nueva_admision:
+    path:   /formulario/admision
+    defaults: { _controller: HospitalizacionBundle:default:admision }
+    
+listar_diagnosticos:
+    path:      /diagnostico/listar
+    defaults: { _controller: HospitalizacionBundle:default:listardiagnosticos }
+    
+lista_diagnosticos:
+    path:      /diagnostico/lista
+    defaults: { _controller: HospitalizacionBundle:default:listadiagnosticos }

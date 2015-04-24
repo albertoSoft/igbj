@@ -20,14 +20,20 @@
     <article class="oferta">
         <section class="admision">
             <h1><a href="#"> ## seccion 1 de art. ## </a></h1>
-            ## DESCRIPCIÓN - SECCION CENTRAL ##
-            salas:
+            ## CENSO DE CAMAS - FECHA  ##
+            
             <ul>
             {% for sala in salas %}
                 <li> {{ sala.nombre }} : {{sala.servicio }}</li>
                 <ul>
                 {% for cama in camas[sala.id] %}
-                    <li>cama {{ cama.enumeracion }} : </li>
+                    <li>cama {{ cama.nombre }} : pac: 
+                        {% if pacientes[cama.id] %}
+                            <a href="{{ path('pagina_inicial') }}">{{ pacientes[cama.id].admision.paciente }} </a>
+                        {% else %}
+                            LIBRE
+                        {% endif %}
+                    </li>
                 {% endfor %}
                 </ul>
             {% endfor %}

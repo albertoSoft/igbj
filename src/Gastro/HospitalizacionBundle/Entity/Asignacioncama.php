@@ -3,6 +3,7 @@
 namespace Gastro\HospitalizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Asignacioncama
@@ -25,6 +26,8 @@ class Asignacioncama
      * @var \DateTime
      *
      * @ORM\Column(name="fecha", type="datetime")
+     * @Assert\NotBlank()
+     * 
      */
     private $fecha;
 

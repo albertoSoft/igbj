@@ -1,0 +1,92 @@
+{% extends 'HospitalizacionBundle::layout.html.twig' %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript" >
+            /*
+             *  DIAGNOSTICO
+             * @returns {undefined
+             */
+            $(function(){
+                $('#{{ formulario.admision.diagnostico.vars.id }}').autocomplete({
+                   source :[
+                    {% for diagnostico in diagnosticos %}
+                       '{{ diagnostico.nombre }}-{{ diagnostico.codigo }}',
+                    {% endfor %}
+                   ]
+                  
+                });
+            });/**/
+            
+            $(document).ready(function(){
+                $('#link_articulos').click(function(){
+                        $('#articulos').load('{{ path('listar_diagnosticos') }}');
+                });
+            });
+            /*
+            * PACIENTE
+            * @returns {undefined}             
+            */
+            $(function(){
+                $('#{{ formulario.admision.paciente.vars.id }}').autocomplete({
+                   source :[
+                    {% for paciente in pacientes %}
+                       '{{ paciente.appat }} {{ paciente.apmat }} {{paciente.nombre }} {{paciente.hc }}',
+                    {% endfor %}
+                   ]
+                  
+                });
+            });
+            /*
+            * CAMA
+            * @returns {undefined}             
+            */
+            $(function(){
+                $('#{{ formulario.cama.vars.id }}').autocomplete({
+                   source :[
+                    {% for cama in camas %}
+                       '{{ cama.sala.enumeracion }}{{ cama.nombre }}',
+                    {% endfor %}
+                   ]
+                  
+                });
+            });
+            $(function(){
+                $('#{{ formulario.fecha.vars.id }}').datepicker({
+                    dateFormat: 'yy-mm-dd',
+                }); 
+            })
+            /**
+            $('#{{ formulario.admision.diagnostico.vars.id }}').typeahead({
+                source: function (query, process) {
+                    var addressobj = $(this).parent();
+                    return $.get('{{ path('lista_diagnosticos') }}', { 'addr': query }, function (data) {
+                        return process(data);
+                    });
+                }
+            });/**/
+            
+    </script>
+
+    {% endblock %}
+ 
+{% block content %}
+    
+  {% for mensaje in app.session.flashbag.get('info' ) %}
+        <p class="info">{{ mensaje }}</p>
+  {% endfor %}
+  {% for mensaje in app.session.flashbag.get('error' ) %}
+        <p class="info">{{ mensaje }}</p>
+  {% endfor %}
+  
+  <form action="{{ path('nueva_admision' ) }}" method="post" {{form_enctype(formulario) }}>
+      {{ form_widget(formulario) }}
+      <input class="boton" type="submit" value="Registrarme" />
+  </form>
+    <hr />
+    <div id="articulos"></div>
+    <a id="link_articulos" href="#">Cargar articulos</a>
+    
+{% endblock %}
+
+

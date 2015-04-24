@@ -90,6 +90,12 @@ class Paciente
      * @ORM\Column(name="direcc", type="string", length=150)
      */
     private $direcc;
+    
+    /**
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $internado;
 
 
     /**
@@ -331,8 +337,33 @@ class Paciente
     {
         return $this->direcc;
     }
+
     public function __toString()
     {
-        return $this->getNombre().' '.$this->getAppat();
+        return $this->getAppat().' '.$this->getApmat().' '.$this->getNombre() ;
+    }
+
+
+    /**
+     * Set internado
+     *
+     * @param boolean $internado
+     * @return Paciente
+     */
+    public function setInternado($internado)
+    {
+        $this->internado = $internado;
+
+        return $this;
+    }
+
+    /**
+     * Get internado
+     *
+     * @return boolean 
+     */
+    public function getInternado()
+    {
+        return $this->internado;
     }
 }

@@ -3,12 +3,15 @@
 namespace Gastro\HospitalizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Diagnostico
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gastro\HospitalizacionBundle\Entity\DiagnosticoRepository")
+ * @UniqueEntity("nombre")
  */
 class Diagnostico
 {
@@ -25,6 +28,7 @@ class Diagnostico
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -32,6 +36,7 @@ class Diagnostico
      * @var string
      *
      * @ORM\Column(name="codigo", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $codigo;
 
@@ -92,6 +97,6 @@ class Diagnostico
         return $this->codigo;
     }
     public function __toString() {
-        return $this->getNombre();
+        return $this->getNombre().'-'.$this->getCodigo();
     }
 }

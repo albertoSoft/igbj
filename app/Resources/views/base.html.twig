@@ -3,7 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/hospitalizacion/css/jquery-ui.css') }}" />
+        {% endblock %}
+        {% block javascript %}
+            <script type="text/javascript" src="{{ asset('bundles/hospitalizacion/js/jquery-2.1.3.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/hospitalizacion/js/jquery-ui.js') }}"></script>
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>

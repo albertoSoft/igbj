@@ -3,12 +3,13 @@
 namespace Gastro\HospitalizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Cama
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gastro\HospitalizacionBundle\Entity\CamaRepository")
  */
 class Cama
 {
@@ -25,6 +26,7 @@ class Cama
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=50)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -32,6 +34,7 @@ class Cama
      * @var boolean
      *
      * @ORM\Column(type="boolean", name="ocupada")
+     * @Assert\NotBlank()
      */
     private $ocupada=false;
 
@@ -41,6 +44,7 @@ class Cama
     /**
      *
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
      */
     Private $enumeracion;
 
@@ -144,5 +148,8 @@ class Cama
     public function getEnumeracion()
     {
         return $this->enumeracion;
+    }
+    public function __toString() {
+        return $this->getSala()->getEnumeracion().$this->getNombre();
     }
 }

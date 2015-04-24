@@ -4,6 +4,7 @@ namespace Gastro\HospitalizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Admision
  *
@@ -21,7 +22,8 @@ class Admision
      */
     private $id;
 
-    /** @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Diagnostico") */
+    /** @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Diagnostico") 
+     */
     private $diagnostico;
     /**
      * @var string
@@ -177,7 +179,7 @@ class Admision
      * @param string $medico
      * @return Admision
      */
-    public function setPersona(\Gastro\PersonaBundle\Entity\Persona $medico)
+    public function setMedico(\Gastro\PersonaBundle\Entity\Persona $medico)
     {
         $this->medico = $medico;
 
@@ -189,11 +191,11 @@ class Admision
      *
      * @return string 
      */
-    public function getPersona()
+    public function getMedico()
     {
         return $this->medico;
     }
     public function __toString() {
-        return $this->getPaciente();
+        return ' '.$this->getId();
     }
 }

@@ -3,6 +3,7 @@
 namespace Gastro\HospitalizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Servicio
@@ -25,6 +26,7 @@ class Servicio
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=75)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
