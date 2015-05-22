@@ -1,7 +1,8 @@
 {% extends '::base.html.twig' %}
  
-{% block body %}
-  <h1>Blog Application</h1>
+{% block principal %}
+  <h1>{% block cabecera_principal %} Cabecera principal {% endblock %}</h1>
  
-  {% block content %}{% endblock %}
+  {% block contenido %}{% endblock %}
+  
 {% endblock %}

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Paciente
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gastro\PersonaBundle\Entity\PacienteRepository")
  */
 class Paciente
 {
@@ -50,6 +50,13 @@ class Paciente
     private $apmat;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="rutafoto", type="string", length=255)
+     */
+    private $rutafoto;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fechanac", type="datetime")
@@ -80,7 +87,7 @@ class Paciente
     /**
      * @var string
      *
-     * @ORM\Column(name="teldom", type="string", length=50)
+     * @ORM\Column(name="teldom", type="string", length=30)
      */
     private $teldom;
 
@@ -90,10 +97,11 @@ class Paciente
      * @ORM\Column(name="direcc", type="string", length=150)
      */
     private $direcc;
-    
+
     /**
+     * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(name="internado", type="boolean")
      */
     private $internado;
 
@@ -198,6 +206,29 @@ class Paciente
     public function getApmat()
     {
         return $this->apmat;
+    }
+
+    /**
+     * Set rutafoto
+     *
+     * @param string $rutafoto
+     * @return Paciente
+     */
+    public function setRutafoto($rutafoto)
+    {
+        $this->rutafoto = $rutafoto;
+
+        return $this;
+    }
+
+    /**
+     * Get rutafoto
+     *
+     * @return string 
+     */
+    public function getRutafoto()
+    {
+        return $this->rutafoto;
     }
 
     /**
@@ -338,12 +369,6 @@ class Paciente
         return $this->direcc;
     }
 
-    public function __toString()
-    {
-        return $this->getAppat().' '.$this->getApmat().' '.$this->getNombre() ;
-    }
-
-
     /**
      * Set internado
      *
@@ -365,5 +390,8 @@ class Paciente
     public function getInternado()
     {
         return $this->internado;
+    }
+    public function __toString() {
+        return $this->getAppat().' '.$this->getApmat().' '.$this->getNombre().' '.$this->getHc();
     }
 }

@@ -1,0 +1,60 @@
+<?php
+
+namespace Gastro\SiceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SeCie10
+ *
+ * @ORM\Table(name="se_cie10")
+ * @ORM\Entity
+ */
+class SeCie10
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CIE_CODIGO", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $cieCodigo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CIE_ALFA", type="string", length=5, nullable=true)
+     */
+    private $cieAlfa;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CIE_DESCRIPCION", type="string", length=200, nullable=true)
+     */
+    private $cieDescripcion;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CIE_GRUPO", type="integer", nullable=true)
+     */
+    private $cieGrupo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CIE_TIPO", type="string", length=20, nullable=true)
+     */
+    private $cieTipo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cie_otradescripcion", type="text", nullable=true)
+     */
+    private $cieOtradescripcion;
+
+
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SeSala" table="se_sala">
+    <id name="saCodigo" type="integer" column="SA_CODIGO">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="empCodigo" type="integer" column="EMP_CODIGO" nullable="true"/>
+    <field name="saEnum" type="string" column="SA_ENUM" length="15" nullable="true"/>
+    <field name="saDescripcion" type="text" column="SA_DESCRIPCION" nullable="true"/>
+    <field name="vgrucodigo" type="integer" column="VGRUCODIGO" nullable="true"/>
+    <field name="saPiso" type="string" column="SA_PISO" length="2" nullable="true"/>
+  </entity>
+</doctrine-mapping>

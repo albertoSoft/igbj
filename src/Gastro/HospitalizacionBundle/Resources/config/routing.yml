@@ -1,19 +1,38 @@
-hospitalizacion_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: HospitalizacionBundle:Default:index }
+# --------- HERENCIA 
+hospitalizacion_diagnostico:
+    resource: "@HospitalizacionBundle/Resources/config/routing/diagnostico.yml"
+    prefix:   /diagnostico
 
+hospitalizacion_censo_proceso:
+    resource: "@HospitalizacionBundle/Resources/config/routing/censo.yml"
+    prefix:   /censo/proceso
+
+# ----------------- enlaces
 pagina_inicial:
     path: /bienvenida/
     defaults: { _controller: HospitalizacionBundle:default:inicio }
-    
-nueva_admision:
-    path:   /formulario/admision
+
+nueva_admision_hc:
+    path:   /admisionhc/nueva/{cama_id}
     defaults: { _controller: HospitalizacionBundle:default:admision }
     
-listar_diagnosticos:
-    path:      /diagnostico/listar
-    defaults: { _controller: HospitalizacionBundle:default:listardiagnosticos }
+nueva_admision:
+    path:   /admision/nueva/
+    defaults: { _controller: HospitalizacionBundle:default:admision }
+
+nueva_admision_referida:
+    path:   /admision/referidode/{asignacioncama_id}
+    defaults: { _controller: HospitalizacionBundle:default:admisionreferida }
     
-lista_diagnosticos:
-    path:      /diagnostico/lista
-    defaults: { _controller: HospitalizacionBundle:default:listadiagnosticos }
+_listar_diagnosticos:
+    path:      /diagnostico/listar/
+    defaults: { _controller: HospitalizacionBundle:default:listardiagnosticos }
+
+listar_diagnosticos:
+    path:      /diagnostico/listar/{clave}/
+    defaults: { _controller: HospitalizacionBundle:default:listardiagnosticos }
+
+listar_diagnosticos_array:
+    path:      /diagnostico/array/
+    defaults: { _controller: HospitalizacionBundle:default:arraydiagnosticos }
+    methods:  [GET]

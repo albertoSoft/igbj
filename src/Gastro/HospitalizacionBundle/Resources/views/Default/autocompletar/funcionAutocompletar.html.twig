@@ -1,0 +1,9 @@
+            $(function(){
+                $('#{{ var_id }}').autocomplete({
+                   source :[
+                    {% for objeto in objetos %}
+                       '{{ objeto }}',
+                    {% endfor %}
+                   ]
+                });
+            });

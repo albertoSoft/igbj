@@ -1,0 +1,6 @@
+confirma_camalibre:
+    path: /camalibre/confirmada/{cama_id}
+    defaults: { _controller: CensoBundle:censo:confirmacama }
+confirma_camaocupada:
+    path: /camaocupada/confirmada/{cama_id}/{paciente_id}
+    defaults: { _controller: CensoBundle:censo:confirmacama }

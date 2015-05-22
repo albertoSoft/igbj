@@ -1,0 +1,291 @@
+<?php
+
+namespace Gastro\SiceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Perpersona
+ *
+ * @ORM\Table(name="perpersona")
+ * @ORM\Entity
+ */
+class Perpersona
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pperCodPer", type="smallint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $ppercodper;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pempCodEmp", type="smallint", nullable=true)
+     */
+    private $pempcodemp;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperIdePer", type="text", nullable=true)
+     */
+    private $pperideper;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperNombre", type="text", nullable=true)
+     */
+    private $ppernombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperPatern", type="text", nullable=true)
+     */
+    private $pperpatern;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperMatern", type="text", nullable=true)
+     */
+    private $ppermatern;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ptidCodTid", type="smallint", nullable=true)
+     */
+    private $ptidcodtid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperDocIde", type="text", nullable=true)
+     */
+    private $pperdocide;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperTelDom", type="text", nullable=true)
+     */
+    private $pperteldom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperTelCel", type="text", nullable=true)
+     */
+    private $ppertelcel;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="pperFecNac", type="datetime", nullable=true)
+     */
+    private $pperfecnac;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pperEdadpe", type="smallint", nullable=true)
+     */
+    private $pperedadpe;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pperSexope", type="smallint", nullable=true)
+     */
+    private $ppersexope;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperEstCiv", type="string", length=1, nullable=true)
+     */
+    private $pperestciv;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperEmaill", type="text", nullable=true)
+     */
+    private $pperemaill;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperDirecc", type="text", nullable=true)
+     */
+    private $pperdirecc;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="plugCodLug", type="smallint", nullable=true)
+     */
+    private $plugcodlug;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pproCodPro", type="smallint", nullable=true)
+     */
+    private $pprocodpro;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="pperFecIng", type="datetime", nullable=true)
+     */
+    private $pperfecing;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperSegCns", type="text", nullable=true)
+     */
+    private $ppersegcns;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="pperCatego", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $ppercatego;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pperSubNat", type="smallint", nullable=true)
+     */
+    private $ppersubnat;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="pperMonNat", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $ppermonnat;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pperSubLac", type="smallint", nullable=true)
+     */
+    private $ppersublac;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="pperMonLac", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $ppermonlac;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="pperFecVac", type="datetime", nullable=true)
+     */
+    private $pperfecvac;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pperDiaFal", type="smallint", nullable=true)
+     */
+    private $pperdiafal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperNroCta", type="text", nullable=true)
+     */
+    private $ppernrocta;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperDesCta", type="text", nullable=true)
+     */
+    private $pperdescta;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pperSwMedi", type="integer", nullable=true)
+     */
+    private $pperswmedi;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperNroMat", type="text", nullable=true)
+     */
+    private $ppernromat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperEspMed", type="text", nullable=true)
+     */
+    private $pperespmed;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperMatCol", type="text", nullable=true)
+     */
+    private $ppermatcol;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperNroNua", type="text", nullable=true)
+     */
+    private $ppernronua;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pafpCodAfp", type="smallint", nullable=true)
+     */
+    private $pafpcodafp;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperExtVig", type="string", length=1, nullable=true)
+     */
+    private $pperextvig;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pperCodBar", type="text", nullable=true)
+     */
+    private $ppercodbar;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="per_FechaSedes", type="datetime", nullable=true)
+     */
+    private $perFechasedes;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="lugarexpedicion", type="integer", nullable=true)
+     */
+    private $lugarexpedicion;
+
+
+}

@@ -1,0 +1,44 @@
+{% extends "HospitalizacionBundle::layout.html.twig"%}
+{% set titulo="Cambio de estado de la cama" %}
+
+{% block title  %}
+    {{ titulo }}
+{% endblock %}
+
+{% block cabecera_principal  %}
+    {{ titulo }}
+{% endblock %}
+
+{% block contenido  %}
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Nº</th>
+                <th>Pasos a seguir</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>SI LA CAMA AHORA ESTA VACIA</td>
+                <td>
+                    <form method="GET" action="{{ path('censo_cama_cambio') }}">
+                        <input type="button" value="LIBERAR CAMA" onclick='if(confirm("Esta seguro que esta cama esta libre?")){this.form.submit()}' />
+                    </form>
+                </td>
+                
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>SI HAY UN NUEVO OCUPANTE EN ESTA CAMA</td>
+                <td>
+                    <form method="GET" action="{{ path('censo_paciente') }}">
+                        <input type="submit" value="REGISTRAR OTRO PACIENTE EN CAMA"  />
+                    </form>
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+{% endblock  %}

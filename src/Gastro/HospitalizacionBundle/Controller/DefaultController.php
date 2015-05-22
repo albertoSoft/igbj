@@ -15,14 +15,16 @@ use Gastro\HospitalizacionBundle\Entity\Asignacioncama;
 use Gastro\HospitalizacionBundle\Form\asignacioncamaType;
 
 use Gastro\PersonaBundle\Entity\Paciente;
+use Gastro\PersonaBundle\Entity\Persona;
 
+use Gastro\HospitalizacionBundle\Entity\Referidode;
+use Gastro\HospitalizacionBundle\Form\ReferidodeType;
+
+use Symfony\Component\HttpFoundation\JsonResponse;
+//use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
-    {
-        return $this->render('HospitalizacionBundle:Default:index.html.twig', array('name' => $name));
-    }
     public function inicioAction()
     {
         $em=$this->getDoctrine()->getManager();
@@ -32,20 +34,20 @@ class DefaultController extends Controller
             $camas[$sala->getId()]=$em->getRepository('HospitalizacionBundle:Cama')->findBySala($sala);
             foreach ($camas[$sala->getId()] as $cama) {
                 $pacientes[$cama->getId()]=$em->getRepository('HospitalizacionBundle:Cama')->findPacienteEnCama($cama->getId());
+                $camasVerificadas[$cama->getId()]=$em->getRepository('CensoBundle:Verificacioncama')->camaVerificada($cama->getId());
             }
         }
-        return $this->render('HospitalizacionBundle:Default:inicio.html.twig',array('salas'=>$salas,'camas'=>$camas,'pacientes'=>$pacientes));
+        return $this->render('HospitalizacionBundle:Default:inicio.html.twig',array('salas'=>$salas,'camas'=>$camas,'pacientes'=>$pacientes,'camasVerificadas'=>$camasVerificadas));
     }
     
     public function admisionAction(Request $request)
     {     
         $em=  $this->getDoctrine()->getManager();
-        $diagnosticos=$em->getRepository('HospitalizacionBundle:Diagnostico')->findAll();
-        $pacientes=$em->getRepository('PersonaBundle:Paciente')->findAll();
-        $camas=$em->getRepository('HospitalizacionBundle:Cama')->findAll();
-        
+
         $asignacioncama=new Asignacioncama();
         $asignacioncama->setFecha(new \DateTime('today'));
+        $admision=new Admision();$admision->setPendiente(FALSE);
+        $asignacioncama->setAdmision($admision);
         
         $formulario= $this->createForm(new asignacioncamaType(),$asignacioncama );
         
@@ -60,25 +62,18 @@ class DefaultController extends Controller
                 $paciente=$asignacioncama->getAdmision()->getPaciente();
                 
                if($paciente->getInternado()==FALSE){
-                    $admision=new Admision();
-            
-                    $admision=$asignacioncama->getAdmision();
-                    $em->persist($admision);
-                    
-                    $asignacioncama->setAdmision($admision);
-                    $em->persist($asignacioncama);
-                    $em->flush();
-                 
-                    $cama=new Cama();                   $paciente=new Paciente();
-                    $cama=$asignacioncama->getCama();   $paciente=$asignacioncama->getAdmision()->getPaciente();
-                    $cama->setOcupada(TRUE);            $paciente->setInternado(TRUE);
-                    $em->persist($cama);                $em->persist($paciente);
-                   
-                    $em->flush();
+                    $em->getRepository('HospitalizacionBundle:Asignacioncama')->registrarAdmisionycama($asignacioncama);
+                    // **** Codigo para cama confirmada
+                    $em->getRepository('CensoBundle:Verificacioncama')->verificarCama($cama->getId());
 
-                    $this->get('session')->getFlashBag() ->add('info','¡Registro correcto! nueva admisión registrada1');
 
-                    return $this->redirect($this->generateUrl('nueva_admision'));
+                    $this->get('session')->getFlashBag() ->add('info','¡Registro correcto! nueva admisión registrada. ');
+
+                    if ($formulario->get('referido')->getData()==1){
+                        return $this->redirect($this->generateUrl('nueva_admision_referida',array('asignacioncama_id'=>$asignacioncama->getId())));
+                    }elseif($formulario->get('referido')->getData()==2){
+                        return $this->redirect($this->generateUrl('nueva_admision'));
+                    } 
                 }
                 else {
                     $this->get('session')->getFlashBag() ->add('error','REGISTRO INCORRECTO¡ EL PACIENTE "'.$paciente.'" ACTUALMENTE ESTA INTERNADO!');
@@ -93,27 +88,69 @@ class DefaultController extends Controller
                 }
             }  
         }
-        return $this->render('HospitalizacionBundle:Default:admision.html.twig', array('formulario' => $formulario->createView(),'diagnosticos'=>$diagnosticos,'pacientes'=>$pacientes,'camas'=>$camas));
+        $emSice=  $this->getDoctrine()->getManager('sice');
+        $diagnosticos=$em->getRepository('HospitalizacionBundle:Diagnostico')->findAll();
+        $pacientes=$em->getRepository('PersonaBundle:Paciente')->findAll();
+
+        $pacientesSice=$emSice->getRepository('SiceBundle:SeHc')->findRecientes();
+        $camas=$em->getRepository('HospitalizacionBundle:Cama')->findAll();
+        $medicos=$em->getRepository('PersonaBundle:Persona')->findAllMedicos();
+        
+        return $this->render('HospitalizacionBundle:Default:admision.html.twig', array('formulario' => $formulario->createView(),'diagnosticos'=>$diagnosticos,'pacientes'=>$pacientes,'pacSice'=>$pacientesSice,'camas'=>$camas,'medicos'=>$medicos));
     }
-    public function listardiagnosticosAction() {
+    public function admisionreferidaAction($asignacioncama_id){
+        $em=  $this->getDoctrine()->getManager();
+        $asignacioncama=$em->getRepository('HospitalizacionBundle:Asignacioncama')->find($asignacioncama_id);
+        $admision=$asignacioncama->getAdmision();
+        
+        $referidode=new Referidode();
+        $referidode->setAdmision($admision);
+        
+        $formulario= $this->createForm(new ReferidodeType(),$referidode );
+        /**
+        $formulario->handleRequest($request);
+        
+        if($formulario->isValid()){
+            
+        }/**/
+        
+        return $this->render('HospitalizacionBundle:Default:admisionreferida.html.twig',array('formulario' => $formulario->createView(),'admision'=>$admision,'asignacioncama'=>$asignacioncama) );
+    }
+
+    public function listardiagnosticosAction($clave=null) {
         
         $em=$this->getDoctrine()->getManager();        
-        $diagnosticos=$em->getRepository('HospitalizacionBundle:Diagnostico')->findAll();
+        $diagnosticos=$em->getRepository('HospitalizacionBundle:Diagnostico')->findDiagnosticos($clave);
 
         return $this->render('HospitalizacionBundle:Default:listardiagnoaticos.html.twig',array('diagnosticos'=>$diagnosticos));
-    }/**
-    public function listadiagnosticosAction(Request $request) {
-        
-        $em=  $this->getDoctrine()->getManager();
-        $diagnosticos=$em->getRepository('HospitalizacionBundle:Diagnostico')->findAll();
-                
-        return new JsonResponse(
-            array_map(
-                function ($val) {
-                    return (string) $val;
-                },
-                $diagnosticos
-            )
-        );
-    }/**/
+    }
+    public function arraydiagnosticosAction(Request $request) {
+        try {
+            $id=$request->get('term',null);
+            
+            //$id=$this->getRequest()->get('_term');
+            
+            $em=$this->getDoctrine()->getManager();
+            if ($id!=null){
+                $diagnosticos=$em->getRepository('HospitalizacionBundle:Diagnostico')->findDiagnosticos($id);
+            }else {
+                $diagnosticos=$em->getRepository('HospitalizacionBundle:Diagnostico')->findAll();
+            }
+            $arrayDiag=array();
+            foreach ($diagnosticos as $diagnostico){
+                $arrayDiag[]=array('value'=>''.$diagnostico);
+            }
+
+            return new JsonResponse($arrayDiag);
+
+        } catch (\Exception $exception) {
+
+            return new JsonResponse([
+                'success' => false,
+                'code'    => $exception->getCode(),
+                'message' => $exception->getMessage(),
+            ]);
+
+        }
+    }
 }

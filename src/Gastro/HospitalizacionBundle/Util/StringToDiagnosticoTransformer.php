@@ -4,6 +4,7 @@ namespace Gastro\HospitalizacionBundle\Util;
 
 use Symfony\Component\Form\DataTransformerInterface;
 //use Doctrine\ORM\EntityManager;
+use Gastro\HospitalizacionBundle\Util\Util;
 
 class StringToDiagnosticoTransformer implements DataTransformerInterface
 {
@@ -30,7 +31,7 @@ class StringToDiagnosticoTransformer implements DataTransformerInterface
             return null;
         }
 
-        $nombre=  strstr($diag, '-', TRUE);
+        $nombre= Util::extraerNoNumerico($diag);// strstr($diag, ' ', TRUE);
 
         
         $em= $GLOBALS['kernel']->getContainer()->get('doctrine')->getManager();

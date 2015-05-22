@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block principal -%}
+    <h1>Diagnostico creacion</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('diagnostico') }}">
+            Volver a la lista
+        </a>
+    </li>
+</ul>
+{% endblock %}

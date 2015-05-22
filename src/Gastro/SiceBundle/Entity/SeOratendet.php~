@@ -1,0 +1,251 @@
+<?php
+
+namespace Gastro\SiceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SeOratendet
+ *
+ * @ORM\Table(name="se_oratendet")
+ * @ORM\Entity
+ */
+class SeOratendet
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="EMP_CODIGO", type="integer", nullable=true)
+     */
+    private $empCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ORAT_CODIGO", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $oratCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ORATDET_CODIGO", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $oratdetCodigo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="ORATDET_FECHAI", type="datetime", nullable=true)
+     */
+    private $oratdetFechai;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="ORATDET_FECHAS", type="datetime", nullable=true)
+     */
+    private $oratdetFechas;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="PPERCODPER_DOCI", type="integer", nullable=true)
+     */
+    private $ppercodperDoci;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="PPERCODPER_DOCS", type="integer", nullable=true)
+     */
+    private $ppercodperDocs;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="PPERCODPER_ENFI", type="integer", nullable=true)
+     */
+    private $ppercodperEnfi;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="PPERCODPER_ENFS", type="integer", nullable=true)
+     */
+    private $ppercodperEnfs;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="TIP_CODIGO", type="integer", nullable=true)
+     */
+    private $tipCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CIEI_CODIGO", type="integer", nullable=true)
+     */
+    private $cieiCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CIEE_CODIGO", type="integer", nullable=true)
+     */
+    private $cieeCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CAM_CODIGO", type="integer", nullable=true)
+     */
+    private $camCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="VGRUCODIGO", type="integer", nullable=true)
+     */
+    private $vgrucodigo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ORATDET_EST", type="string", length=1, nullable=true)
+     */
+    private $oratdetEst;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="MED_TRAT1", type="integer", nullable=true)
+     */
+    private $medTrat1;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="MED_TRAT2", type="integer", nullable=true)
+     */
+    private $medTrat2;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CIEI_CODIGO1", type="integer", nullable=true)
+     */
+    private $cieiCodigo1;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CIEI_CODIGO2", type="integer", nullable=true)
+     */
+    private $cieiCodigo2;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CIEI_CODIGO3", type="integer", nullable=true)
+     */
+    private $cieiCodigo3;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CIEE_CODIGO1", type="integer", nullable=true)
+     */
+    private $cieeCodigo1;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CIEE_CODIGO2", type="integer", nullable=true)
+     */
+    private $cieeCodigo2;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CIEE_CODIGO3", type="integer", nullable=true)
+     */
+    private $cieeCodigo3;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="DAT_FILA", type="integer", nullable=true)
+     */
+    private $datFila;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ORAT_USUARIOI", type="text", nullable=true)
+     */
+    private $oratUsuarioi;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ORAT_USUARIOE", type="text", nullable=true)
+     */
+    private $oratUsuarioe;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ORAT_FNANIOI", type="smallint", nullable=true)
+     */
+    private $oratFnanioi;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ORAT_FNMESI", type="smallint", nullable=true)
+     */
+    private $oratFnmesi;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ORAT_FNDIAI", type="smallint", nullable=true)
+     */
+    private $oratFndiai;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ORAT_FNANIOE", type="smallint", nullable=true)
+     */
+    private $oratFnanioe;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ORAT_FNMESE", type="smallint", nullable=true)
+     */
+    private $oratFnmese;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ORAT_FNDIAE", type="smallint", nullable=true)
+     */
+    private $oratFndiae;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ORAT_SEXO", type="smallint", nullable=true)
+     */
+    private $oratSexo;
+
+
+}

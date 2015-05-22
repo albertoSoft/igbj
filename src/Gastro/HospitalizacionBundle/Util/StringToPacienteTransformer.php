@@ -2,6 +2,7 @@
 namespace Gastro\HospitalizacionBundle\Util;
 
 use Symfony\Component\Form\DataTransformerInterface;
+use Gastro\HospitalizacionBundle\Util\Util;
 //use Doctrine\ORM\EntityManager;
 
 class StringToPacienteTransformer implements DataTransformerInterface
@@ -25,8 +26,7 @@ class StringToPacienteTransformer implements DataTransformerInterface
             return null;
         }
 
-        $hc=  ereg_replace("[^0-9]","", $pac);
-//        $hc=  intval($pac);
+        $hc=  Util::extraerNumerico($pac);
 
         
         $em= $GLOBALS['kernel']->getContainer()->get('doctrine')->getManager();

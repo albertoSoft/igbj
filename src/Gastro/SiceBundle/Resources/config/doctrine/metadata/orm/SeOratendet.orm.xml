@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SeOratendet" table="se_oratendet">
+    <id name="oratCodigo" type="integer" column="ORAT_CODIGO"/>
+    <id name="oratdetCodigo" type="integer" column="ORATDET_CODIGO"/>
+    <field name="empCodigo" type="integer" column="EMP_CODIGO" nullable="true"/>
+    <field name="oratdetFechai" type="datetime" column="ORATDET_FECHAI" nullable="true"/>
+    <field name="oratdetFechas" type="datetime" column="ORATDET_FECHAS" nullable="true"/>
+    <field name="ppercodperDoci" type="integer" column="PPERCODPER_DOCI" nullable="true"/>
+    <field name="ppercodperDocs" type="integer" column="PPERCODPER_DOCS" nullable="true"/>
+    <field name="ppercodperEnfi" type="integer" column="PPERCODPER_ENFI" nullable="true"/>
+    <field name="ppercodperEnfs" type="integer" column="PPERCODPER_ENFS" nullable="true"/>
+    <field name="tipCodigo" type="integer" column="TIP_CODIGO" nullable="true"/>
+    <field name="cieiCodigo" type="integer" column="CIEI_CODIGO" nullable="true"/>
+    <field name="cieeCodigo" type="integer" column="CIEE_CODIGO" nullable="true"/>
+    <field name="camCodigo" type="integer" column="CAM_CODIGO" nullable="true"/>
+    <field name="vgrucodigo" type="integer" column="VGRUCODIGO" nullable="true"/>
+    <field name="oratdetEst" type="string" column="ORATDET_EST" length="1" nullable="true"/>
+    <field name="medTrat1" type="integer" column="MED_TRAT1" nullable="true"/>
+    <field name="medTrat2" type="integer" column="MED_TRAT2" nullable="true"/>
+    <field name="cieiCodigo1" type="integer" column="CIEI_CODIGO1" nullable="true"/>
+    <field name="cieiCodigo2" type="integer" column="CIEI_CODIGO2" nullable="true"/>
+    <field name="cieiCodigo3" type="integer" column="CIEI_CODIGO3" nullable="true"/>
+    <field name="cieeCodigo1" type="integer" column="CIEE_CODIGO1" nullable="true"/>
+    <field name="cieeCodigo2" type="integer" column="CIEE_CODIGO2" nullable="true"/>
+    <field name="cieeCodigo3" type="integer" column="CIEE_CODIGO3" nullable="true"/>
+    <field name="datFila" type="integer" column="DAT_FILA" nullable="true"/>
+    <field name="oratUsuarioi" type="text" column="ORAT_USUARIOI" nullable="true"/>
+    <field name="oratUsuarioe" type="text" column="ORAT_USUARIOE" nullable="true"/>
+    <field name="oratFnanioi" type="smallint" column="ORAT_FNANIOI" nullable="true"/>
+    <field name="oratFnmesi" type="smallint" column="ORAT_FNMESI" nullable="true"/>
+    <field name="oratFndiai" type="smallint" column="ORAT_FNDIAI" nullable="true"/>
+    <field name="oratFnanioe" type="smallint" column="ORAT_FNANIOE" nullable="true"/>
+    <field name="oratFnmese" type="smallint" column="ORAT_FNMESE" nullable="true"/>
+    <field name="oratFndiae" type="smallint" column="ORAT_FNDIAE" nullable="true"/>
+    <field name="oratSexo" type="smallint" column="ORAT_SEXO" nullable="true"/>
+  </entity>
+</doctrine-mapping>

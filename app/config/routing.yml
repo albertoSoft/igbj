@@ -1,3 +1,11 @@
+sice:
+    resource: "@SiceBundle/Resources/config/routing.yml"
+    prefix:   /
+
+censo:
+    resource: "@CensoBundle/Resources/config/routing.yml"
+    prefix:   /
+
 persona:
     resource: "@PersonaBundle/Resources/config/routing.yml"
     prefix:   /

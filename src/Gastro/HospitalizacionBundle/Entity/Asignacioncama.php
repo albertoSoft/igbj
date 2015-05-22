@@ -4,12 +4,14 @@ namespace Gastro\HospitalizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Asignacioncama
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gastro\HospitalizacionBundle\Entity\AsignacioncamaRepository")
+ * @UniqueEntity(fields = {"admision", "cama"})
  */
 class Asignacioncama
 {
@@ -30,13 +32,6 @@ class Asignacioncama
      * 
      */
     private $fecha;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="hora", type="time")
-     */
-    private $hora;
 
     /** @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Admision") */
     private $admision;
@@ -78,28 +73,6 @@ class Asignacioncama
         return $this->fecha;
     }
 
-    /**
-     * Set hora
-     *
-     * @param \DateTime $hora
-     * @return Asignacioncama
-     */
-    public function setHora($hora)
-    {
-        $this->hora = $hora;
-
-        return $this;
-    }
-
-    /**
-     * Get hora
-     *
-     * @return \DateTime 
-     */
-    public function getHora()
-    {
-        return $this->hora;
-    }
 
     /**
      * Set admision

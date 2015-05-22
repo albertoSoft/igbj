@@ -1,0 +1,30 @@
+diagnostico:
+    path:     /
+    defaults: { _controller: "HospitalizacionBundle:Diagnostico:index" }
+
+diagnostico_show:
+    path:     /{id}/show
+    defaults: { _controller: "HospitalizacionBundle:Diagnostico:show" }
+
+diagnostico_new:
+    path:     /new
+    defaults: { _controller: "HospitalizacionBundle:Diagnostico:new" }
+
+diagnostico_create:
+    path:     /create
+    defaults: { _controller: "HospitalizacionBundle:Diagnostico:create" }
+    requirements: { _method: post }
+
+diagnostico_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "HospitalizacionBundle:Diagnostico:edit" }
+
+diagnostico_update:
+    path:     /{id}/update
+    defaults: { _controller: "HospitalizacionBundle:Diagnostico:update" }
+    requirements: { _method: post|put }
+
+diagnostico_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HospitalizacionBundle:Diagnostico:delete" }
+    requirements: { _method: post|delete }

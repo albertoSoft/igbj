@@ -2,6 +2,7 @@
 namespace Gastro\HospitalizacionBundle\Util;
 
 use Symfony\Component\Form\DataTransformerInterface;
+use Gastro\HospitalizacionBundle\Util\Util;
 
 class StringToCamaTransformer implements DataTransformerInterface
 {
@@ -22,16 +23,9 @@ class StringToCamaTransformer implements DataTransformerInterface
         if (null === $camStr) {
             return null;
         }
-        $sala=ereg_replace("[^0-9]","", $camStr);
-        $cama=ereg_replace("[0-9]","", $camStr);
-        /*
-        $sala=intval($camStr)
-        ;$cama='';
-        for ($i = 0 ; $i < strlen($camStr) ; $i ++){
-            if(!is_numeric((int)$camStr[$i])){
-                $cama .=  $camStr[$i];
-            }
-        } /**/
+        $sala=Util::extraerNumerico($camStr);
+        $cama=Util::extraerNoNumerico($camStr);
+  
         $em= $GLOBALS['kernel']->getContainer()->get('doctrine')->getManager();
         $camaObjeto=$em->getRepository('HospitalizacionBundle:Cama')->findOneBySalaCama($sala,$cama);
         

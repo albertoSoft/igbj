@@ -1,0 +1,74 @@
+<?php
+
+namespace Gastro\SiceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SeCama
+ *
+ * @ORM\Table(name="se_cama")
+ * @ORM\Entity
+ */
+class SeCama
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="EMP_CODIGO", type="integer", nullable=true)
+     */
+    private $empCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CAM_CODIGO", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $camCodigo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CAM_ENUM", type="string", length=15, nullable=true)
+     */
+    private $camEnum;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="SA_CODIGO", type="integer", nullable=true)
+     */
+    private $saCodigo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CAM_DESCRIPCION", type="string", length=50, nullable=true)
+     */
+    private $camDescripcion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CAM_ESTADO", type="string", length=1, nullable=true)
+     */
+    private $camEstado;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CAM_REAL", type="string", length=1, nullable=true)
+     */
+    private $camReal;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="cam_cor", type="smallint", nullable=true)
+     */
+    private $camCor;
+
+
+}

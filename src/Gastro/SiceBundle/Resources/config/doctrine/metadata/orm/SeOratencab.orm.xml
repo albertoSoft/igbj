@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SeOratencab" table="se_oratencab">
+    <id name="oratCodigo" type="integer" column="ORAT_CODIGO">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="empCodigo" type="integer" column="EMP_CODIGO" nullable="true"/>
+    <field name="vtpacodigo" type="integer" column="VTPACODIGO" nullable="true"/>
+    <field name="vreccodcli" type="integer" column="VRECCODCLI" nullable="true"/>
+    <field name="oratProv" type="integer" column="ORAT_PROV" nullable="true"/>
+    <field name="refdCodigo" type="integer" column="REFD_CODIGO" nullable="true"/>
+    <field name="refaCodigo" type="integer" column="REFA_CODIGO" nullable="true"/>
+    <field name="oratObsi" type="text" column="ORAT_OBSI" nullable="true"/>
+    <field name="oratObss" type="text" column="ORAT_OBSS" nullable="true"/>
+    <field name="hclCodigo" type="integer" column="HCL_CODIGO" nullable="true"/>
+    <field name="oratCondi" type="string" column="ORAT_CONDI" length="1" nullable="true"/>
+    <field name="oratFechaoi" type="datetime" column="ORAT_FECHAOI" nullable="true"/>
+    <field name="oratTipo" type="string" column="ORAT_TIPO" length="1" nullable="true"/>
+    <field name="codEstbl" type="decimal" column="cod_estbl" precision="10" scale="0" nullable="true"/>
+  </entity>
+</doctrine-mapping>

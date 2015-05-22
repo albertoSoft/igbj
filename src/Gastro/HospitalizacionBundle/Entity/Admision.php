@@ -3,6 +3,7 @@
 namespace Gastro\HospitalizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -22,9 +23,12 @@ class Admision
      */
     private $id;
 
-    /** @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Diagnostico") 
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Diagnostico")
      */
     private $diagnostico;
+
     /**
      * @var string
      *
@@ -32,21 +36,36 @@ class Admision
      */
     private $ingresapor;
 
-    /** @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Servicio") */
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Servicio")
+     */
     private $servicio;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="tipopac", type="string", length=50)
+     * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Seguro")
+     * @Assert\NotNull(message="Debe elegir un valor")
      */
-    private $tipopac;
+    private $seguro;
 
-    /** @ORM\ManyToOne(targetEntity="Gastro\PersonaBundle\Entity\Paciente") */
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Gastro\PersonaBundle\Entity\Paciente")
+     */
     private $paciente;
 
-    /** @ORM\ManyToOne(targetEntity="Gastro\PersonaBundle\Entity\Persona") */
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Gastro\PersonaBundle\Entity\Persona")
+     */
     private $medico;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="pendiente", type="boolean")
+     */
+    private $pendiente;
 
 
     /**
@@ -68,6 +87,7 @@ class Admision
     public function setDiagnostico(\Gastro\HospitalizacionBundle\Entity\Diagnostico $diagnostico)
     {
         $this->diagnostico = $diagnostico;
+
         return $this;
     }
 
@@ -80,7 +100,7 @@ class Admision
     {
         return $this->diagnostico;
     }
-    
+
     /**
      * Set ingresapor
      *
@@ -128,26 +148,26 @@ class Admision
     }
 
     /**
-     * Set tipopac
+     * Set seguro
      *
-     * @param string $tipopac
+     * @param string $seguro
      * @return Admision
      */
-    public function setTipopac($tipopac)
+    public function setSeguro(\Gastro\HospitalizacionBundle\Entity\Seguro $seguro)
     {
-        $this->tipopac = $tipopac;
+        $this->seguro = $seguro;
 
         return $this;
     }
 
     /**
-     * Get tipopac
+     * Get seguro
      *
      * @return string 
      */
-    public function getTipopac()
+    public function getSeguro()
     {
-        return $this->tipopac;
+        return $this->seguro;
     }
 
     /**
@@ -195,7 +215,30 @@ class Admision
     {
         return $this->medico;
     }
+
+    /**
+     * Set pendiente
+     *
+     * @param boolean $pendiente
+     * @return Admision
+     */
+    public function setPendiente($pendiente)
+    {
+        $this->pendiente = $pendiente;
+
+        return $this;
+    }
+
+    /**
+     * Get pendiente
+     *
+     * @return boolean 
+     */
+    public function getPendiente()
+    {
+        return $this->pendiente;
+    }
     public function __toString() {
-        return ' '.$this->getId();
+        return $this->getId();
     }
 }

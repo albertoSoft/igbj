@@ -1,0 +1,54 @@
+{% extends 'HospitalizacionBundle::layout.html.twig' %}
+
+{% block title %}            
+    nueva admisión referida
+{% endblock %}
+ 
+{% block contenido %}
+    
+  {% for mensaje in app.session.flashbag.get('info' ) %}
+        <p class="info">{{ mensaje }}</p>
+  {% endfor %}
+  
+  {% for mensaje in app.session.flashbag.get('error' ) %}
+        <p class="info">{{ mensaje }}</p>
+  {% endfor %}
+  <table>
+      <caption>Datos de Admisión</caption>
+  <tbody>
+    <tr>
+      <th rowspan="2">Paciente H.C.</th>
+      <th rowspan="2">{{ admision.paciente }}</th>
+      <th>Tipo Paciente</th>
+      <th>{{ admision.seguro }}</th>
+    </tr>
+    <tr>
+      
+      <th>Servicio</th>
+      <th>{{ admision.ingresapor }}</th>
+    </tr>
+    <tr>
+      <th>diagnostico</th>
+      <td>{{ admision.diagnostico }}</td>
+      <td>Mèdico</td>
+      <td>{{ admision.medico }}</td>
+
+    </tr>
+    <tr>
+      <th>Fecha (d-m-a)</th>
+      <td>{{ asignacioncama.fecha|date('d-m-Y') }}</td>
+      <th>Cama</th>
+      <td>{{ asignacioncama.cama }}</td>
+    </tr>
+  </tbody>
+  </table>
+      
+      
+  <form action="{{ path('nueva_admision_referida',{'asignacioncama_id': asignacioncama.id}) }}" method="post" {{form_enctype(formulario) }}>
+      {{ form_widget(formulario) }}
+      <input class="boton" type="submit" value="Registrarme" />
+  </form>
+    
+{% endblock %}
+
+

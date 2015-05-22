@@ -1,0 +1,9 @@
+            $(document).ready(function(){
+                $('#{{ var_id }}').autocomplete({
+                   source :[
+                    {% for objeto in objetos %}
+                       '{{ objeto.hclAppat }} {{ objeto.hclApmat }} {{ objeto.hclNombre }} {{ objeto.hclCodigo }}',
+                    {% endfor %}
+                   ]
+                });
+            });

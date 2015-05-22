@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityRepository;
 class CamaRepository extends EntityRepository
 {
     public function findPacienteEnCama($cama_id) {
+        // *** falta por fecha
         $em=  $this->getEntityManager();
         $consulta=$em->createQuery('SELECT p,ac,c,ad '
                 . 'FROM HospitalizacionBundle:AsignacionCama ac '
@@ -15,8 +16,6 @@ class CamaRepository extends EntityRepository
         
         $consulta->setParameter('cama_id', $cama_id);
         $consulta->setMaxResults(1);
-        
-        
         
         return $consulta->getOneOrNullResult();
     }

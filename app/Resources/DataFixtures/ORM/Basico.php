@@ -8,12 +8,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Gastro\HospitalizacionBundle\Entity\Servicio;
 use Gastro\HospitalizacionBundle\Entity\Sala;
 use Gastro\HospitalizacionBundle\Entity\Cama;
+use Gastro\HospitalizacionBundle\Entity\Seguro;
 
 use Gastro\PersonaBundle\Entity\Paciente;
 use Gastro\PersonaBundle\Entity\Persona;
 use Gastro\HospitalizacionBundle\Entity\Diagnostico;
 use Gastro\HospitalizacionBundle\Entity\Admision;
 use Gastro\HospitalizacionBundle\Entity\Asignacioncama;
+
+use Gastro\CensoBundle\Entity\Turnoverificacion;
 
 class Basico implements FixtureInterface, ContainerAwareInterface
 {
@@ -26,6 +29,36 @@ class Basico implements FixtureInterface, ContainerAwareInterface
     
     public function load(ObjectManager $manager)
     {
+        $turnosverificacion=array(
+            array('nombre'=>'mañana','horainicio'=>new \DateTime('0000-00-00 08:00:00'),'horafinal'=>new \DateTime('0000-00-00 14:00:0')),
+            array('nombre'=>'tarde','horainicio'=>new \DateTime('0000-00-00 14:00:01'),'horafinal'=>new \DateTime('0000-00-00 19:00:00')),
+//            array('nombre'=>'','horainicio'=>'','horafinal'=>''),
+        );
+        foreach ($turnosverificacion as $turno){
+            $entidad= new Turnoverificacion();
+
+            $entidad->setNombre($turno['nombre']);
+            $entidad->setHorainicio($turno['horainicio']);
+            $entidad->setHorafinal($turno['horafinal']);
+            
+            $manager->persist($entidad);
+        }
+        $seguros= array(
+            array('numero'=>'0','sigla'=>'INSTITUCIONAL','nombre'=>'SIN SEGURO'),
+            array('numero'=>'1','sigla'=>'P.P.S.S','nombre'=>'PROGRAMA DE PROTECCION SOCIAL EN SALUD'),
+            array('numero'=>'2','sigla'=>'S.P.S (LEY 475)','nombre'=>'SEGURO PÚBLICON DE SALUD'),
+            array('numero'=>'3','sigla'=>'S.C.C','nombre'=>'Seguro regional Caja Cordes'),
+//            array('numero'=>'','sigla'=>'','nombre'=>''),
+        );
+        foreach ($seguros as $seguro) {
+            $entidad = new Seguro() ;
+            
+            $entidad->setNumero($seguro['numero' ] );
+            $entidad->setSigla($seguro['sigla' ] );
+            $entidad->setNombre($seguro['nombre' ] );
+
+            $manager->persist($entidad) ;
+        }
         $servicios = array(
             array('nombre' => 'Medicina') ,
             array('nombre' => 'Cirugia') ,
@@ -102,6 +135,7 @@ class Basico implements FixtureInterface, ContainerAwareInterface
             $entidad->setAppat($paciente['appat']);
             $entidad->setApmat($paciente['apmat']);
             $entidad->setNombre($paciente['nombre']);
+            $entidad->setRutafoto('foto'.$paciente['hc'].'.jpg');
             $entidad->setCi($paciente['ci']);
             $entidad->setDirecc($paciente['direcc']);
             $entidad->setEstciv($paciente['estciv']);

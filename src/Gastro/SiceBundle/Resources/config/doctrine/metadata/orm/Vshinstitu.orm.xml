@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Vshinstitu" table="vshinstitu">
+    <id name="vinscodigo" type="integer" column="VINSCODIGO">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="empCodigo" type="integer" column="Emp_Codigo" nullable="true"/>
+    <field name="vinsnombre" type="text" column="VINSNOMBRE" nullable="true"/>
+    <field name="vinsporcen" type="decimal" column="VINSPORCEN" precision="3" scale="0" nullable="true"/>
+    <field name="vinsdirecc" type="text" column="VINSDIRECC" nullable="true"/>
+    <field name="vinsnumruc" type="text" column="VINSNUMRUC" nullable="true"/>
+    <field name="cuCodigo" type="integer" column="Cu_Codigo" nullable="true"/>
+    <field name="actCodigo" type="integer" column="Act_Codigo" nullable="true"/>
+    <field name="vinscategoria" type="integer" column="VINSCATEGORIA" nullable="true"/>
+    <field name="vinstipo" type="integer" column="vinstipo" nullable="true"/>
+    <field name="vinsestado" type="string" column="VINSESTADO" length="1" nullable="true"/>
+    <field name="vinsinforme" type="string" column="VINSInforme" length="200" nullable="true"/>
+    <field name="vinstipoins" type="string" column="VINSTIPOINS" length="1" nullable="true"/>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Vgruposi" table="vgruposi">
+    <id name="vgrucodigo" type="integer" column="VGRUCODIGO">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="empCodigo" type="integer" column="EMP_CODIGO" nullable="true"/>
+    <field name="vgrudescri" type="text" column="VGRUDESCRI" nullable="true"/>
+    <field name="vgruvensrv" type="string" column="VGRUVENSRV" length="1" nullable="true"/>
+    <field name="ccctcodigo" type="integer" column="ccctCodigo" nullable="true"/>
+    <field name="comAnio" type="smallint" column="com_anio" nullable="true"/>
+    <field name="cuaCodigo" type="integer" column="CUA_CODIGO" nullable="true"/>
+    <field name="vgrusigla" type="string" column="VGRUSIGLA" length="10" nullable="true"/>
+    <field name="vgrucamas" type="integer" column="vgrucamas" nullable="true"/>
+    <field name="esCodigo" type="integer" column="es_codigo" nullable="true"/>
+    <field name="esMaternidad" type="integer" column="es_maternidad" nullable="true"/>
+    <field name="codestabl" type="integer" column="codestabl" nullable="true"/>
+  </entity>
+</doctrine-mapping>

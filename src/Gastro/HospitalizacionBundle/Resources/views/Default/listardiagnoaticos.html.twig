@@ -1,10 +1,10 @@
-{% extends 'HospitalizacionBundle::layout.html.twig' %}
+{#% extends 'HospitalizacionBundle::layout.html.twig' %#}
 
-{% block content %}
+{% block principal %}
 
     {% for diagnostico in diagnosticos %}
         <ul>
-            <li> {{ diagnostico.nombre }} </li>
+            <li> {{ diagnostico.value }} </li>
         </ul>
     {% endfor %}
 {% endblock %}

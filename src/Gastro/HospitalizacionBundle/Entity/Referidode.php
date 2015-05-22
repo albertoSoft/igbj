@@ -23,6 +23,14 @@ class Referidode
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo", type="string", length=255)
+     * 
+     */
+    private $tipo;
 
     /**
      * @var string
@@ -46,6 +54,29 @@ class Referidode
         return $this->id;
     }
 
+    /**
+     * Set tipo
+     *
+     * @param string $tipo
+     * @return Referidode
+     */
+    public function setTipo($tipo)
+    {
+        $this->tipo = $tipo;
+
+        return $this;
+    }
+
+    /**
+     * Get tipo
+     *
+     * @return string 
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+    
     /**
      * Set establecimiento
      *

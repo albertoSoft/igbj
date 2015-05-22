@@ -1,0 +1,102 @@
+<?php
+
+namespace Gastro\SiceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Vgruposi
+ *
+ * @ORM\Table(name="vgruposi")
+ * @ORM\Entity
+ */
+class Vgruposi
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="EMP_CODIGO", type="integer", nullable=true)
+     */
+    private $empCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="VGRUCODIGO", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $vgrucodigo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="VGRUDESCRI", type="text", nullable=true)
+     */
+    private $vgrudescri;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="VGRUVENSRV", type="string", length=1, nullable=true)
+     */
+    private $vgruvensrv;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ccctCodigo", type="integer", nullable=true)
+     */
+    private $ccctcodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="com_anio", type="smallint", nullable=true)
+     */
+    private $comAnio;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CUA_CODIGO", type="integer", nullable=true)
+     */
+    private $cuaCodigo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="VGRUSIGLA", type="string", length=10, nullable=true)
+     */
+    private $vgrusigla;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="vgrucamas", type="integer", nullable=true)
+     */
+    private $vgrucamas;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="es_codigo", type="integer", nullable=true)
+     */
+    private $esCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="es_maternidad", type="integer", nullable=true)
+     */
+    private $esMaternidad;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="codestabl", type="integer", nullable=true)
+     */
+    private $codestabl;
+
+
+}

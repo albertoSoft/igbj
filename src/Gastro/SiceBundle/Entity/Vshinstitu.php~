@@ -1,0 +1,109 @@
+<?php
+
+namespace Gastro\SiceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Vshinstitu
+ *
+ * @ORM\Table(name="vshinstitu")
+ * @ORM\Entity
+ */
+class Vshinstitu
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Emp_Codigo", type="integer", nullable=true)
+     */
+    private $empCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="VINSCODIGO", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $vinscodigo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="VINSNOMBRE", type="text", nullable=true)
+     */
+    private $vinsnombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="VINSPORCEN", type="decimal", precision=3, scale=0, nullable=true)
+     */
+    private $vinsporcen;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="VINSDIRECC", type="text", nullable=true)
+     */
+    private $vinsdirecc;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="VINSNUMRUC", type="text", nullable=true)
+     */
+    private $vinsnumruc;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Cu_Codigo", type="integer", nullable=true)
+     */
+    private $cuCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Act_Codigo", type="integer", nullable=true)
+     */
+    private $actCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="VINSCATEGORIA", type="integer", nullable=true)
+     */
+    private $vinscategoria;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="vinstipo", type="integer", nullable=true)
+     */
+    private $vinstipo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="VINSESTADO", type="string", length=1, nullable=true)
+     */
+    private $vinsestado;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="VINSInforme", type="string", length=200, nullable=true)
+     */
+    private $vinsinforme;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="VINSTIPOINS", type="string", length=1, nullable=true)
+     */
+    private $vinstipoins;
+
+
+}

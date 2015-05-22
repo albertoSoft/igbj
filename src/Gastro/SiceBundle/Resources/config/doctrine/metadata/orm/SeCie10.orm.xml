@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SeCie10" table="se_cie10">
+    <id name="cieCodigo" type="integer" column="CIE_CODIGO">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="cieAlfa" type="string" column="CIE_ALFA" length="5" nullable="true"/>
+    <field name="cieDescripcion" type="string" column="CIE_DESCRIPCION" length="200" nullable="true"/>
+    <field name="cieGrupo" type="integer" column="CIE_GRUPO" nullable="true"/>
+    <field name="cieTipo" type="string" column="CIE_TIPO" length="20" nullable="true"/>
+    <field name="cieOtradescripcion" type="text" column="cie_otradescripcion" nullable="true"/>
+  </entity>
+</doctrine-mapping>

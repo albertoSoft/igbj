@@ -97,6 +97,6 @@ class Diagnostico
         return $this->codigo;
     }
     public function __toString() {
-        return $this->getNombre().'-'.$this->getCodigo();
+        return $this->getNombre().' '.$this->getCodigo();
     }
 }

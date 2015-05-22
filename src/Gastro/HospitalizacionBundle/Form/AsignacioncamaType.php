@@ -5,8 +5,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Gastro\HospitalizacionBundle\Util\StringToCamaTransformer;
+use Gastro\HospitalizacionBundle\Form\EventListener\AddReferidoSubscriber;
 
-class asignacioncamaType extends AbstractType
+class AsignacioncamaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -18,8 +19,17 @@ class asignacioncamaType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'y-MM-dd',
                         ))
-        ->add('hora' )
+//        ->add('hora' )
+//        ->add("referido2","checkbox", array("mapped" => false,))
+        ->add('referido', 'choice', array("mapped" => false,
+            'expanded' => true,
+            'choices' => array('1' => 'SI', '2' => 'NO'),
+//            'data' => '1',
+            'required'=>TRUE,
+        ))
         ;
+   //     $builder->addEventSubscriber(new AddReferidoSubscriber());
+        
     }
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {

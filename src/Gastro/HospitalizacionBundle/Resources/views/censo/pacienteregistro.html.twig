@@ -1,0 +1,35 @@
+{% extends "HospitalizacionBundle::layout.html.twig"%}
+{% set titulo="Registro de paciente en cama" %}
+
+{% block title  %}
+    {{ titulo }}
+{% endblock %}
+
+{% block cabecera_principal  %}
+    {{ titulo }}
+{% endblock %}
+
+{% block contenido  %}
+    {% for tipo, mensajes in app.session.flashbag.all() %}
+        {% for mensaje in mensajes %}
+            <p class="flash-{{ tipo }}">{{ mensaje }}</p>
+        {% endfor %}
+    {% endfor %}
+    
+    <form action="{{ path('censo_paciente' ) }}" method="post" {{form_enctype(formulario) }}>
+      {{ form_widget(formulario) }}
+      <input class="boton" type="submit" value="Registrarme" />
+    </form>
+    
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{ include('HospitalizacionBundle:Default:autocompletar/funcionAutocompletar.html.twig', {
+            'var_id' : formulario.paciente.vars.id,
+            'objetos' : pacientes
+            }) 
+    }}   
+{% endblock %}
+
+

@@ -1,26 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Portada | IGBJ </title>
-</head>
-<body id="portada">
-  <div id="contenedor">
-    <header>
-        <h1><a href="#">TITULO CABECERA - IGBJ </a></h1>
-        <nav>
-          <ul>
-            <li><a href="#">Opcion 1 cab</a></li>
-            <li><a href="#">Opcion 2 cab</a></li>
-            <li><a href="#">Opcion 3 cab</a></li>
-          </ul>
-        </nav>
-    </header>
-      
+{% extends 'HospitalizacionBundle::layout.html.twig' %}
+{% set titulo="CONTROL DEL CENSO DE CAMAS, ADMISIONES Y ALTAS" %}
+
+{% block title  %}
+    {{ titulo }}
+{% endblock %}
+
+{% block cabecera_principal  %}
+    {{ titulo }}
+{% endblock %}
+
+{% block contenido %}
     <article class="oferta">
         <section class="admision">
-            <h1><a href="#"> ## seccion 1 de art. ## </a></h1>
-            ## CENSO DE CAMAS - FECHA  ##
+            {% for mensaje in app.session.flashbag.get('info' ) %}
+                <p class="info">{{ mensaje }}</p>
+            {% endfor %}
             
             <ul>
             {% for sala in salas %}
@@ -29,39 +23,31 @@
                 {% for cama in camas[sala.id] %}
                     <li>cama {{ cama.nombre }} : pac: 
                         {% if pacientes[cama.id] %}
-                            <a href="{{ path('pagina_inicial') }}">{{ pacientes[cama.id].admision.paciente }} </a>
+                            <a href="{{ path('censo_cama_cambio') }}">{{ pacientes[cama.id].admision.paciente }}  </a> 
+                            <img alt="Foto" src="{{ asset('uploads/images/' ~pacientes[cama.id].admision.paciente.rutafoto) }}">
+                            {% if not camasVerificadas[cama.id] %}
+                            <form method="GET" action="{{ path('confirma_camaocupada', {'cama_id': cama.id,'paciente_id':pacientes[cama.id].admision.paciente.id})}}">
+                                <input type="submit" value="Conf.Paciente" />
+                            </form>
+                            {% endif %}
                         {% else %}
-                            LIBRE
+                            <a href="{{ path('censo_paciente') }}"> LIBRE </a>
+                            {% if not camasVerificadas[cama.id] %}
+                            <form method="GET" action="{{ path('confirma_camalibre', {'cama_id': cama.id})}}">
+                                <input type="submit" value="Conf.libre" />
+                            </form>
+                            {% endif %}
                         {% endif %}
                     </li>
                 {% endfor %}
                 </ul>
             {% endfor %}
             </ul>
-            <form action="{{ path('pagina_inicial' ) }}" method="post" {#{form_enctype(formulario) }#}>
-                {#{ form_widget(formulario) }#}
-                <input class="boton" type="submit" value="Registrarme" />
-            </form>
+
             
         </section>
 
     </article>
       
-    <aside>
-        ## LATERAL ---- FORMULARIO DE LOGIN ##
-        <section id="nosotros">
-            <h2>Sobre nosotros</h2>
-            <p>fin lateral...</p>
-        </section>
-    </aside>
-      
-    <footer>
-        &copy; PIE DE PAGINA 201X - IGBJ
-        <a href="#">Ayuda</a>
-        <a href="#">Contacto</a>
-        <a href="#">Privacidad</a>
-        <a href="#">Sobre nosotros</a>
-    </footer>
-  </div>
-</body>
-</html>
+            
+{% endblock %}

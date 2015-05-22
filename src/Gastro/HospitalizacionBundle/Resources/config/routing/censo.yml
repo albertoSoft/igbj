@@ -1,0 +1,11 @@
+censo_cama_cambio:
+    path:     /
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:camacambia" }
+
+censo_paciente:
+    path:     /paciente/registrar
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:paciente" }
+
+censo_paciente_pendiente:
+    path:     /cama/liberar
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:paciente" }

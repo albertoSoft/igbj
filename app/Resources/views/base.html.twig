@@ -2,18 +2,59 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Bienvenido!{% endblock %} - IGBJ</title>
         {% block stylesheets %}
             <link type="text/css" rel="stylesheet" href="{{ asset('bundles/hospitalizacion/css/jquery-ui.css') }}" />
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/hospitalizacion/css/comun.css') }}" />
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/hospitalizacion/css/normalizar.css') }}" />
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/hospitalizacion/css/frontend.css') }}" />
         {% endblock %}
-        {% block javascript %}
+        
             <script type="text/javascript" src="{{ asset('bundles/hospitalizacion/js/jquery-2.1.3.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/hospitalizacion/js/jquery-ui.js') }}"></script>
-        {% endblock %}
+        
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
+    
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+      <div id="contenedor">
+        <header>
+            <h1><a href="#">IGBJ </a></h1>
+            <nav>
+              <ul>
+                <li><a href="#">Opcion 1 cab</a></li>
+                <li><a href="#">Opcion 2 cab</a></li>
+                <li><a href="#">Opcion 3 cab</a></li>
+                <li><a href="#">Opcion despleglable</a></li>
+              </ul>
+            </nav>
+        </header>
+        
+        <article>
+            {% block principal %}
+
+
+            {% endblock %}
+        </article>
+
+        <aside>
+            ## LATERAL -- ##
+            <section id="nosotros">
+                <h2>Sobre nosotros</h2>
+                <p>fin lateral...</p>
+            </section>
+        </aside>
+        
+        <footer>
+            &copy; PIE DE PAGINA 201X - IGBJ
+            <a href="#">Ayuda</a>
+            <a href="#">Contacto</a>
+            <a href="#">Privacidad</a>
+            <a href="#">Sobre nosotros</a>
+        </footer>
+        <script type="text/javascript" >
+            {% block javascript %}{% endblock %}
+        </script>
+      </div>
     </body>
 </html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Perpersona" table="perpersona">
+    <id name="ppercodper" type="smallint" column="pperCodPer">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="pempcodemp" type="smallint" column="pempCodEmp" nullable="true"/>
+    <field name="pperideper" type="text" column="pperIdePer" nullable="true"/>
+    <field name="ppernombre" type="text" column="pperNombre" nullable="true"/>
+    <field name="pperpatern" type="text" column="pperPatern" nullable="true"/>
+    <field name="ppermatern" type="text" column="pperMatern" nullable="true"/>
+    <field name="ptidcodtid" type="smallint" column="ptidCodTid" nullable="true"/>
+    <field name="pperdocide" type="text" column="pperDocIde" nullable="true"/>
+    <field name="pperteldom" type="text" column="pperTelDom" nullable="true"/>
+    <field name="ppertelcel" type="text" column="pperTelCel" nullable="true"/>
+    <field name="pperfecnac" type="datetime" column="pperFecNac" nullable="true"/>
+    <field name="pperedadpe" type="smallint" column="pperEdadpe" nullable="true"/>
+    <field name="ppersexope" type="smallint" column="pperSexope" nullable="true"/>
+    <field name="pperestciv" type="string" column="pperEstCiv" length="1" nullable="true"/>
+    <field name="pperemaill" type="text" column="pperEmaill" nullable="true"/>
+    <field name="pperdirecc" type="text" column="pperDirecc" nullable="true"/>
+    <field name="plugcodlug" type="smallint" column="plugCodLug" nullable="true"/>
+    <field name="pprocodpro" type="smallint" column="pproCodPro" nullable="true"/>
+    <field name="pperfecing" type="datetime" column="pperFecIng" nullable="true"/>
+    <field name="ppersegcns" type="text" column="pperSegCns" nullable="true"/>
+    <field name="ppercatego" type="float" column="pperCatego" precision="10" scale="0" nullable="true"/>
+    <field name="ppersubnat" type="smallint" column="pperSubNat" nullable="true"/>
+    <field name="ppermonnat" type="float" column="pperMonNat" precision="10" scale="0" nullable="true"/>
+    <field name="ppersublac" type="smallint" column="pperSubLac" nullable="true"/>
+    <field name="ppermonlac" type="float" column="pperMonLac" precision="10" scale="0" nullable="true"/>
+    <field name="pperfecvac" type="datetime" column="pperFecVac" nullable="true"/>
+    <field name="pperdiafal" type="smallint" column="pperDiaFal" nullable="true"/>
+    <field name="ppernrocta" type="text" column="pperNroCta" nullable="true"/>
+    <field name="pperdescta" type="text" column="pperDesCta" nullable="true"/>
+    <field name="pperswmedi" type="integer" column="pperSwMedi" nullable="true"/>
+    <field name="ppernromat" type="text" column="pperNroMat" nullable="true"/>
+    <field name="pperespmed" type="text" column="pperEspMed" nullable="true"/>
+    <field name="ppermatcol" type="text" column="pperMatCol" nullable="true"/>
+    <field name="ppernronua" type="text" column="pperNroNua" nullable="true"/>
+    <field name="pafpcodafp" type="smallint" column="pafpCodAfp" nullable="true"/>
+    <field name="pperextvig" type="string" column="pperExtVig" length="1" nullable="true"/>
+    <field name="ppercodbar" type="text" column="pperCodBar" nullable="true"/>
+    <field name="perFechasedes" type="datetime" column="per_FechaSedes" nullable="true"/>
+    <field name="lugarexpedicion" type="integer" column="lugarexpedicion" nullable="true"/>
+  </entity>
+</doctrine-mapping>

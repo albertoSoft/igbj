@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SeCama" table="se_cama">
+    <id name="camCodigo" type="integer" column="CAM_CODIGO">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="empCodigo" type="integer" column="EMP_CODIGO" nullable="true"/>
+    <field name="camEnum" type="string" column="CAM_ENUM" length="15" nullable="true"/>
+    <field name="saCodigo" type="integer" column="SA_CODIGO" nullable="true"/>
+    <field name="camDescripcion" type="string" column="CAM_DESCRIPCION" length="50" nullable="true"/>
+    <field name="camEstado" type="string" column="CAM_ESTADO" length="1" nullable="true"/>
+    <field name="camReal" type="string" column="CAM_REAL" length="1" nullable="true"/>
+    <field name="camCor" type="smallint" column="cam_cor" nullable="true"/>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,116 @@
+<?php
+
+namespace Gastro\SiceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SeOratencab
+ *
+ * @ORM\Table(name="se_oratencab")
+ * @ORM\Entity
+ */
+class SeOratencab
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="EMP_CODIGO", type="integer", nullable=true)
+     */
+    private $empCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ORAT_CODIGO", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $oratCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="VTPACODIGO", type="integer", nullable=true)
+     */
+    private $vtpacodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="VRECCODCLI", type="integer", nullable=true)
+     */
+    private $vreccodcli;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ORAT_PROV", type="integer", nullable=true)
+     */
+    private $oratProv;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="REFD_CODIGO", type="integer", nullable=true)
+     */
+    private $refdCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="REFA_CODIGO", type="integer", nullable=true)
+     */
+    private $refaCodigo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ORAT_OBSI", type="text", nullable=true)
+     */
+    private $oratObsi;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ORAT_OBSS", type="text", nullable=true)
+     */
+    private $oratObss;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="HCL_CODIGO", type="integer", nullable=true)
+     */
+    private $hclCodigo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ORAT_CONDI", type="string", length=1, nullable=true)
+     */
+    private $oratCondi;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="ORAT_FECHAOI", type="datetime", nullable=true)
+     */
+    private $oratFechaoi;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ORAT_TIPO", type="string", length=1, nullable=true)
+     */
+    private $oratTipo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cod_estbl", type="decimal", precision=10, scale=0, nullable=true)
+     */
+    private $codEstbl;
+
+
+}

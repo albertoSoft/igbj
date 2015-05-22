@@ -1,0 +1,368 @@
+<?php
+
+namespace Gastro\SiceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SeHc
+ *
+ * @ORM\Table(name="se_hc")
+ * @ORM\Entity
+ */
+class SeHc
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Emp_Codigo", type="integer", nullable=true)
+     */
+    private $empCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="HCL_CODIGO", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $hclCodigo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="HCL_FECHA", type="datetime", nullable=true)
+     */
+    private $hclFecha;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_APPAT", type="text", nullable=true)
+     */
+    private $hclAppat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_APMAT", type="text", nullable=true)
+     */
+    private $hclApmat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_NOMBRE", type="text", nullable=true)
+     */
+    private $hclNombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_NUMCI", type="text", nullable=true)
+     */
+    private $hclNumci;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_SEXO", type="text", nullable=true)
+     */
+    private $hclSexo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="HCL_FECNAC", type="datetime", nullable=true)
+     */
+    private $hclFecnac;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="DEP_CODIGO_RES", type="integer", nullable=true)
+     */
+    private $depCodigoRes;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="PRO_CODIGO_RES", type="integer", nullable=true)
+     */
+    private $proCodigoRes;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="MUN_CODIGO_RES", type="integer", nullable=true)
+     */
+    private $munCodigoRes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_ESTCIV", type="string", length=1, nullable=true)
+     */
+    private $hclEstciv;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_DIRECC", type="text", nullable=true)
+     */
+    private $hclDirecc;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_TELDOM", type="text", nullable=true)
+     */
+    private $hclTeldom;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="PProCodPro", type="integer", nullable=true)
+     */
+    private $pprocodpro;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_LUGTRA", type="text", nullable=true)
+     */
+    private $hclLugtra;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_DIRTRA", type="text", nullable=true)
+     */
+    private $hclDirtra;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_TELTRA", type="text", nullable=true)
+     */
+    private $hclTeltra;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_NOMFAM", type="text", nullable=true)
+     */
+    private $hclNomfam;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_TELFAM", type="text", nullable=true)
+     */
+    private $hclTelfam;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_NOMPAD", type="text", nullable=true)
+     */
+    private $hclNompad;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_NOMMAD", type="text", nullable=true)
+     */
+    private $hclNommad;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_CodCSB", type="text", nullable=true)
+     */
+    private $hclCodcsb;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_CodSegSoc", type="text", nullable=true)
+     */
+    private $hclCodsegsoc;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="HCL_CODFAM", type="integer", nullable=true)
+     */
+    private $hclCodfam;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="DEP_CODIGO_LN", type="integer", nullable=true)
+     */
+    private $depCodigoLn;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="HCL_CODMEDICO", type="integer", nullable=true)
+     */
+    private $hclCodmedico;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="zon_codigo", type="integer", nullable=true)
+     */
+    private $zonCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="HCL_USUMOD", type="integer", nullable=true)
+     */
+    private $hclUsumod;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="HCL_FECMOD", type="datetime", nullable=true)
+     */
+    private $hclFecmod;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="DEP_CODIGO_NAC", type="integer", nullable=true)
+     */
+    private $depCodigoNac;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="PRO_CODIGO_NAC", type="integer", nullable=true)
+     */
+    private $proCodigoNac;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="MUN_CODIGO_NAC", type="integer", nullable=true)
+     */
+    private $munCodigoNac;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hc_alfa", type="string", length=1, nullable=true)
+     */
+    private $hcAlfa;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="hc_NivelEstudio", type="integer", nullable=true)
+     */
+    private $hcNivelestudio;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_SUMI", type="string", length=1, nullable=true)
+     */
+    private $hclSumi;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="HCL_SUMI_FECHA", type="datetime", nullable=true)
+     */
+    private $hclSumiFecha;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HCL_ESTADO", type="string", length=1, nullable=true)
+     */
+    private $hclEstado;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="HCL_TIPODOC", type="integer", nullable=true)
+     */
+    private $hclTipodoc;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hcl_migrado", type="string", length=1, nullable=true)
+     */
+    private $hclMigrado;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="af_codigo", type="integer", nullable=true)
+     */
+    private $afCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="af_mun_cod", type="integer", nullable=true)
+     */
+    private $afMunCod;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fa_codificacion", type="text", nullable=true)
+     */
+    private $faCodificacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="hcl_Fum", type="datetime", nullable=true)
+     */
+    private $hclFum;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="hcl_NroEmbarazo", type="integer", nullable=true)
+     */
+    private $hclNroembarazo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idioma", type="integer", nullable=true)
+     */
+    private $idioma;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idiomamaterno", type="integer", nullable=true)
+     */
+    private $idiomamaterno;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="autopertenencia", type="integer", nullable=true)
+     */
+    private $autopertenencia;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="lugarexpedicion", type="integer", nullable=true)
+     */
+    private $lugarexpedicion;
+
+
+}

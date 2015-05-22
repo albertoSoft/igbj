@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SeHc" table="se_hc">
+    <id name="hclCodigo" type="integer" column="HCL_CODIGO">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="empCodigo" type="integer" column="Emp_Codigo" nullable="true"/>
+    <field name="hclFecha" type="datetime" column="HCL_FECHA" nullable="true"/>
+    <field name="hclAppat" type="text" column="HCL_APPAT" nullable="true"/>
+    <field name="hclApmat" type="text" column="HCL_APMAT" nullable="true"/>
+    <field name="hclNombre" type="text" column="HCL_NOMBRE" nullable="true"/>
+    <field name="hclNumci" type="text" column="HCL_NUMCI" nullable="true"/>
+    <field name="hclSexo" type="text" column="HCL_SEXO" nullable="true"/>
+    <field name="hclFecnac" type="datetime" column="HCL_FECNAC" nullable="true"/>
+    <field name="depCodigoRes" type="integer" column="DEP_CODIGO_RES" nullable="true"/>
+    <field name="proCodigoRes" type="integer" column="PRO_CODIGO_RES" nullable="true"/>
+    <field name="munCodigoRes" type="integer" column="MUN_CODIGO_RES" nullable="true"/>
+    <field name="hclEstciv" type="string" column="HCL_ESTCIV" length="1" nullable="true"/>
+    <field name="hclDirecc" type="text" column="HCL_DIRECC" nullable="true"/>
+    <field name="hclTeldom" type="text" column="HCL_TELDOM" nullable="true"/>
+    <field name="pprocodpro" type="integer" column="PProCodPro" nullable="true"/>
+    <field name="hclLugtra" type="text" column="HCL_LUGTRA" nullable="true"/>
+    <field name="hclDirtra" type="text" column="HCL_DIRTRA" nullable="true"/>
+    <field name="hclTeltra" type="text" column="HCL_TELTRA" nullable="true"/>
+    <field name="hclNomfam" type="text" column="HCL_NOMFAM" nullable="true"/>
+    <field name="hclTelfam" type="text" column="HCL_TELFAM" nullable="true"/>
+    <field name="hclNompad" type="text" column="HCL_NOMPAD" nullable="true"/>
+    <field name="hclNommad" type="text" column="HCL_NOMMAD" nullable="true"/>
+    <field name="hclCodcsb" type="text" column="HCL_CodCSB" nullable="true"/>
+    <field name="hclCodsegsoc" type="text" column="HCL_CodSegSoc" nullable="true"/>
+    <field name="hclCodfam" type="integer" column="HCL_CODFAM" nullable="true"/>
+    <field name="depCodigoLn" type="integer" column="DEP_CODIGO_LN" nullable="true"/>
+    <field name="hclCodmedico" type="integer" column="HCL_CODMEDICO" nullable="true"/>
+    <field name="zonCodigo" type="integer" column="zon_codigo" nullable="true"/>
+    <field name="hclUsumod" type="integer" column="HCL_USUMOD" nullable="true"/>
+    <field name="hclFecmod" type="datetime" column="HCL_FECMOD" nullable="true"/>
+    <field name="depCodigoNac" type="integer" column="DEP_CODIGO_NAC" nullable="true"/>
+    <field name="proCodigoNac" type="integer" column="PRO_CODIGO_NAC" nullable="true"/>
+    <field name="munCodigoNac" type="integer" column="MUN_CODIGO_NAC" nullable="true"/>
+    <field name="hcAlfa" type="string" column="hc_alfa" length="1" nullable="true"/>
+    <field name="hcNivelestudio" type="integer" column="hc_NivelEstudio" nullable="true"/>
+    <field name="hclSumi" type="string" column="HCL_SUMI" length="1" nullable="true"/>
+    <field name="hclSumiFecha" type="datetime" column="HCL_SUMI_FECHA" nullable="true"/>
+    <field name="hclEstado" type="string" column="HCL_ESTADO" length="1" nullable="true"/>
+    <field name="hclTipodoc" type="integer" column="HCL_TIPODOC" nullable="true"/>
+    <field name="hclMigrado" type="string" column="hcl_migrado" length="1" nullable="true"/>
+    <field name="afCodigo" type="integer" column="af_codigo" nullable="true"/>
+    <field name="afMunCod" type="integer" column="af_mun_cod" nullable="true"/>
+    <field name="faCodificacion" type="text" column="fa_codificacion" nullable="true"/>
+    <field name="hclFum" type="datetime" column="hcl_Fum" nullable="true"/>
+    <field name="hclNroembarazo" type="integer" column="hcl_NroEmbarazo" nullable="true"/>
+    <field name="idioma" type="integer" column="idioma" nullable="true"/>
+    <field name="idiomamaterno" type="integer" column="idiomamaterno" nullable="true"/>
+    <field name="autopertenencia" type="integer" column="autopertenencia" nullable="true"/>
+    <field name="lugarexpedicion" type="integer" column="lugarexpedicion" nullable="true"/>
+  </entity>
+</doctrine-mapping>

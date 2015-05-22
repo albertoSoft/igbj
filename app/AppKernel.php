@@ -20,7 +20,10 @@ class AppKernel extends Kernel
             new Gastro\HospitalizacionBundle\HospitalizacionBundle(),
             new Gastro\PersonaBundle\PersonaBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle() ,
-//            new Genemu\Bundle\FormBundle\GenemuFormBundle()
+//            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+            new Gastro\CensoBundle\CensoBundle(),
+            new Gastro\SiceBundle\SiceBundle(),
+            new Realestate\MssqlBundle\RealestateMssqlBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
