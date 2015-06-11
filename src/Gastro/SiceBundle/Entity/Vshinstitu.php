@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Vshinstitu
  *
  * @ORM\Table(name="vshinstitu")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gastro\SiceBundle\Entity\VshinstituRepository")
  */
 class Vshinstitu
 {
@@ -391,5 +391,8 @@ class Vshinstitu
     public function getVinstipoins()
     {
         return $this->vinstipoins;
+    }
+    public function __toString() {
+        return $this->getVinsnombre();
     }
 }

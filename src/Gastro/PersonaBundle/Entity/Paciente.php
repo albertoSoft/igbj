@@ -31,21 +31,21 @@ class Paciente
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=50)
+     * @ORM\Column(name="nombre", type="string", length=30)
      */
     private $nombre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="appat", type="string", length=50)
+     * @ORM\Column(name="appat", type="string", length=20)
      */
     private $appat;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="apmat", type="string", length=50)
+     * @ORM\Column(name="apmat", type="string", length=20)
      */
     private $apmat;
 

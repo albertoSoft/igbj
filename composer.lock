@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "59b3fa18a73eb96ea8bb7bd470cf2307",
+    "hash": "9bb4e481930743ae5edee694f1463821",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -869,44 +869,6 @@
             "time": "2013-12-07 10:10:39"
         },
         {
-            "name": "isoft/mssql-bundle",
-            "version": "dev-master",
-            "target-dir": "Realestate/MssqlBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/intellectsoft-uk/MssqlBundle.git",
-                "reference": "19df6bfe9020145c73bab9fe0adb3c595bdd293f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/intellectsoft-uk/MssqlBundle/zipball/19df6bfe9020145c73bab9fe0adb3c595bdd293f",
-                "reference": "19df6bfe9020145c73bab9fe0adb3c595bdd293f",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Realestate\\MssqlBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Realestate"
-                },
-                {
-                    "name": "Vitaly Zhloba",
-                    "email": "vitaly.zhloba@gmail.com"
-                },
-                {
-                    "name": "Emanuele Panzeri - ThePanz",
-                    "email": "thepanz@gmail.com"
-                }
-            ],
-            "description": "Driver for work with MsSQL server",
-            "time": "2014-06-25 09:13:42"
-        },
-        {
             "name": "jdorn/sql-formatter",
             "version": "v1.2.17",
             "source": {
@@ -1741,8 +1703,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "doctrine/doctrine-fixtures-bundle": 20,
-        "doctrine/data-fixtures": 20,
-        "isoft/mssql-bundle": 20
+        "doctrine/data-fixtures": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

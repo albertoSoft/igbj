@@ -1,0 +1,3 @@
+sqlsvr_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: SqlsvrBundle:Default:index }

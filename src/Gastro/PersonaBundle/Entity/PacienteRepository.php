@@ -3,7 +3,11 @@
 namespace Gastro\PersonaBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Gastro\HospitalizacionBundle\Util\Util;
+use Symfony\Component\HttpFoundation\Session\Session;
 
+use Gastro\PersonaBundle\Entity\Paciente;
+use Gastro\SiceBundle\Entity\SeHc;
 /**
  * PacienteRepository
  *
@@ -12,4 +16,88 @@ use Doctrine\ORM\EntityRepository;
  */
 class PacienteRepository extends EntityRepository
 {
+    public function importarHcSice($hc=NULL)
+    {
+        $em=  $this->getEntityManager();
+        $emSice=$GLOBALS['kernel']->getContainer()->get('doctrine')->getManager('sice');  //$this->getEntityManager("sice");
+
+        $pacienteSice=new SeHc();
+        $pacienteSice=$emSice->getRepository('SiceBundle:SeHc')->findOneByHclCodigo($hc);
+        if($pacienteSice!=NULL){
+            $paciente=new Paciente();
+            $paciente->setHc($pacienteSice->getHclCodigo());
+            $paciente->setAppat($pacienteSice->getHclAppat());
+            $paciente->setApmat($pacienteSice->getHclApmat());
+            $paciente->setNombre($pacienteSice->getHclNombre());
+            $paciente->setFechanac($pacienteSice->getHclFecnac());
+            $paciente->setSexo($pacienteSice->getHclSexo());
+            $paciente->setCi($pacienteSice->getHclNumci());
+
+            $paciente->setEstciv($pacienteSice->getHclEstciv());
+            $paciente->setDirecc($pacienteSice->getHclDirecc());
+            $paciente->setTeldom($pacienteSice->getHclTeldom());
+
+            $paciente->setInternado(FALSE);
+            $paciente->setRutafoto('');
+
+            $em->persist($paciente);
+            $em->flush();
+            
+            return $paciente;
+        }
+        else{
+            return NULL;
+        }
+    }
+    
+    public function importarHcSiceVerificando($hc=NULL)
+    {  /**
+                    $session=new Session();
+                    if ($hc!=NULL){ /**/
+                        $paciente= $this->importarHcSice($hc);
+                        if($paciente!=NULL){
+                            return $paciente;
+                        }
+                        else{
+                            $session=new Session();
+                            $session->getFlashBag()->add('error','¡Debe introducir un paciente válido (existente en la lista)... No coincide H.C con paciente.!.');
+                        }/**
+                    }
+                    else{
+                        $session->getFlashBag()->add('error','¡Debe introducir un paciente válido (de la lista)!... ¡Dato sin H.C.!.');
+                    }/**/
+                    return NULL;
+    }
+    public function comprobarPaciente($paciente) {
+        if($paciente!=NULL){
+            if($paciente->getInternado()==TRUE){
+                $session=new Session();
+                $session->getFlashBag() ->add('error','Registro incorrecto¡ El paciente "'.$paciente.'" actualmente esta internado(a)!');
+            }
+        }
+        return $paciente;
+    }
+    /**funcion para extraer directamente del formulario --- No esta en uso porque el trasformer reemplaza esto
+     * 
+     *
+    public function findPacienteDelFormulario($datosFormulario) {
+        // ecuperamos HC del formulario llenado
+                    $hc=  Util::devolverHcPaciente($datosFormulario);
+                    $session=new Session();
+                    if ($hc!=NULL){
+                        $em=  $this->getEntityManager();
+                        $paciente= $this->importarHcSice($hc);
+                        if($paciente!=NULL){
+                            return $paciente;
+                        }
+                        else{
+                            
+                            $session->getFlashBag()->add('error','¡Debe introducir un paciente válido (existente en la lista)... No coincide H.C con paciente.!.');
+                        }
+                    }
+                    else{
+                        $session->getFlashBag()->add('error','¡Debe introducir un paciente válido (de la lista)!... ¡Dato sin H.C.!.');
+                    }
+                    return NULL;
+    }/**/
 }

@@ -35,9 +35,8 @@
 {% block javascript %}
     {{ parent() }}
             $(document).ready(function(){
+                if (document.getElementById("{{ formulario.admision.tipoPaciente.vars.id }}").value==1){$('#{{ formulario.admision.seguro.vars.id }}').hide();}
                 $('#{{ formulario.admision.diagnostico.vars.id }}').autocomplete({
-                    
-                    
                     source :'{{ path('listar_diagnosticos_array') }}'
                 });
             });
@@ -54,6 +53,12 @@
                 }) 
             }}
             
+            {{ include('HospitalizacionBundle:Default:autocompletar/funcionAutocompletar.html.twig', {
+                    'var_id' : formulario.admision.seguro.vars.id,
+                    'objetos' : convenios
+                }) 
+            }}
+            
             {% include 'HospitalizacionBundle:Default:autocompletar/funcionAutocompletar.html.twig' 
                 with {
                     'var_id' : formulario.cama.vars.id,
@@ -66,11 +71,36 @@
                     dateFormat: 'yy-mm-dd',
                 }); 
             })
-            
+            $(function(){
+                $('#{{ formulario.admision.tipoPaciente.vars.id }}').change(function() {
+                    switch ($(this).find(":selected").val()) {
+                        case '1':
+                           $('#{{ formulario.admision.seguro.vars.id }}').hide();
+// si se utiliza textbox   $('#{{ formulario.admision.seguro.vars.id }}').val('INSTITUCIONAL');
+                           break;
+                        case '2':
+                           $('#{{ formulario.admision.seguro.vars.id }}').show();
+// si se utiliza textbox   $('#{{ formulario.admision.seguro.vars.id }}').val('');
+                           break;
+                        default:
+                           alert( "H ");
+                      }
+                }); 
+            })
             
             $(document).ready(function(){
-                url='{{ path('listar_diagnosticos_array') }}';
-                $('#articulos').load(url);
+                $('#link_diagnosticos').click(function(){
+                        url='{{ path('_listar_diagnosticos') }}'+document.getElementById("clave_buscar").value;
+                        $('#articulos').load(url);
+                });
+                $('#clave_buscar').keypress(function(event){
+                        url='{{ path('_listar_diagnosticos') }}'+document.getElementById("clave_buscar").value;
+        //                $('#valor').html('<h3>valor :</h3>'+document.getElementById("clave_buscar").value+'. tecla: '+event.which);
+                        if(event.which==13){
+                            $('#articulos').load(url);
+                        }
+                });
             });
+
 
 {% endblock %}

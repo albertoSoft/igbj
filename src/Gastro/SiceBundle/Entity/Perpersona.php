@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Perpersona
  *
  * @ORM\Table(name="perpersona")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gastro\SiceBundle\Entity\PerpersonaRepository")
  */
 class Perpersona
 {
@@ -1171,5 +1171,9 @@ class Perpersona
     public function getLugarexpedicion()
     {
         return $this->lugarexpedicion;
+    }
+    public function __toString()
+    {
+        return $this->getPperpatern().' '.$this->getPpermatern().' '.$this->getPpernombre().' '.$this->getPpercodper();
     }
 }

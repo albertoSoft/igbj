@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityRepository;
 class SeHcRepository extends EntityRepository
 {
     public function findRecientes() {
-        $liminferior=95000;
+        $liminferior=90000;
         $limsuperior=900000;
         $em=  $this->getEntityManager();
         $dql="SELECT hc.hclCodigo,hc.hclAppat,hc.hclApmat,hc.hclNombre FROM SiceBundle:SeHc hc WHERE hc.hclCodigo>:liminf AND hc.hclCodigo<:limsup ORDER BY hc.hclCodigo DESC";

@@ -22,13 +22,14 @@ class AsignacioncamaRepository extends EntityRepository
         $em->persist($asignacioncama);
         $em->flush();
                  
-        $cama=new Cama();                   $paciente=new Paciente();
+//        $cama=new Cama();                   $paciente=new Paciente();
         $cama=$asignacioncama->getCama();   $paciente=$admision->getPaciente();
         $cama->setOcupada(TRUE);            $paciente->setInternado(TRUE);
         $em->persist($cama);                $em->persist($paciente);
                     
         $em->flush();
         
+        /**
         //***** AdmisionPaciente
         $admisionPaciente= new AdmisionPaciente();
         $admisionPaciente->setFecharegistro(new \DateTime('today'));
@@ -52,7 +53,13 @@ class AsignacioncamaRepository extends EntityRepository
         $admisionFecha->setFechainternacion($asignacioncama->getFecha());
         $em->persist($admisionFecha);
         $em->flush();
-        
+        /**/
         //********* AdmisionTipoPac
+    }
+    public function cambiarSeguro(Asignacioncama $asignacioncama,  Seguro $seguro) {
+        $admisionAux=$asignacioncama->getAdmision();
+        $admisionAux->setSeguro($seguro);
+        $asignacioncama->setAdmision($admisionAux);
+        
     }
 }

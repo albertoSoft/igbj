@@ -3,12 +3,14 @@
 namespace Gastro\SiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Gastro\SiceBundle\Entity\Vgruposi;
 
 /**
  * SeSala
  *
  * @ORM\Table(name="se_sala")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gastro\SiceBundle\Entity\SeSalaRepository")
  */
 class SeSala
 {
@@ -43,9 +45,8 @@ class SeSala
     private $saDescripcion;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="VGRUCODIGO", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Gastro\SiceBundle\Entity\Vgruposi")
+     * @JoinColumn(name="VGRUCODIGO", referencedColumnName="VGRUCODIGO")
      */
     private $vgrucodigo;
 

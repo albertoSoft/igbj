@@ -30,27 +30,29 @@ class Admision
     private $diagnostico;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="ingresapor", type="string", length=30)
+     * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Ingresapor")
      */
     private $ingresapor;
 
     /**
      *
      * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Servicio")
+     * @Assert\NotNull(message="Debe elegir un valor")
+     * @Assert\NotBlank(message="Debe elegir algun valor")
      */
     private $servicio;
 
     /**
      * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Seguro")
      * @Assert\NotNull(message="Debe elegir un valor")
+     * @Assert\NotBlank(message="Debe elegir algun valor")
      */
     private $seguro;
 
     /**
      *
      * @ORM\ManyToOne(targetEntity="Gastro\PersonaBundle\Entity\Paciente")
+     * @Assert\NotNull(message="Debe elegir un paciente")
      */
     private $paciente;
 
@@ -107,7 +109,7 @@ class Admision
      * @param string $ingresapor
      * @return Admision
      */
-    public function setIngresapor($ingresapor)
+    public function setIngresapor(\Gastro\HospitalizacionBundle\Entity\Ingresapor $ingresapor)
     {
         $this->ingresapor = $ingresapor;
 
@@ -239,6 +241,6 @@ class Admision
         return $this->pendiente;
     }
     public function __toString() {
-        return $this->getId();
+        return ''.$this->getId();
     }
 }

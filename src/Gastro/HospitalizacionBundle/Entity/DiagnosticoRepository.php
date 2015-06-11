@@ -15,4 +15,5 @@ class DiagnosticoRepository extends EntityRepository
         
      return $consulta->getResult();
     }
+
 }

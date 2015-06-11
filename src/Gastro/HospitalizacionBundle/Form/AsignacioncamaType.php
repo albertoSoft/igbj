@@ -4,8 +4,9 @@ namespace Gastro\HospitalizacionBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Gastro\HospitalizacionBundle\Util\StringToCamaTransformer;
-use Gastro\HospitalizacionBundle\Form\EventListener\AddReferidoSubscriber;
+
+use Gastro\HospitalizacionBundle\Form\Datatransformer\StringToCamaTransformer;
+//use Gastro\HospitalizacionBundle\Form\EventListener\AddReferidoSubscriber;
 
 class AsignacioncamaType extends AbstractType
 {
@@ -18,15 +19,16 @@ class AsignacioncamaType extends AbstractType
                 'attr' => array('class' => 'calendario'),
                 'widget' => 'single_text',
                 'format' => 'y-MM-dd',
-                        ))
+              ))
 //        ->add('hora' )
 //        ->add("referido2","checkbox", array("mapped" => false,))
-        ->add('referido', 'choice', array("mapped" => false,
-            'expanded' => true,
-            'choices' => array('1' => 'SI', '2' => 'NO'),
-//            'data' => '1',
-            'required'=>TRUE,
-        ))
+        ->add('referido', 'choice',
+                array('mapped'   => false,
+                      'expanded' => true,
+                      'choices'  => array('1' => 'SI', '2' => 'NO'),
+        //            'data'     => '1',
+                      'required' => TRUE,
+                     ))
         ;
    //     $builder->addEventSubscriber(new AddReferidoSubscriber());
         

@@ -1,5 +1,5 @@
 <?php
-namespace Gastro\HospitalizacionBundle\Util;
+namespace Gastro\HospitalizacionBundle\Form\Datatransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 

@@ -9,8 +9,12 @@ class VerificacioncamaRepository extends EntityRepository
         
         $em=  $this->getEntityManager();
         $turnoActual=$em->getRepository('CensoBundle:Turnoverificacion')->findTurnoActual();
-        $dql='SELECT vc,c FROM CensoBundle:Verificacioncama vc JOIN vc.cama c WHERE vc.fecha=:hoy AND vc.turnoverificacion=:turno AND c.id=:cama_id';
-        $consulta=$em->createQuery($dql);
+        
+        $consulta=$em->createQuery('SELECT vc,c '
+                                    . 'FROM CensoBundle:Verificacioncama vc JOIN vc.cama c '
+                                    . 'WHERE vc.fecha=:hoy '
+                                    . 'AND vc.turnoverificacion=:turno '
+                                    . 'AND c.id=:cama_id');
         $consulta->setParameter('cama_id', $cama_id);
         $consulta->setParameter('hoy', new \DateTime('today'));
         $consulta->setParameter('turno', $turnoActual);

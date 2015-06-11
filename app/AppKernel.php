@@ -23,7 +23,8 @@ class AppKernel extends Kernel
 //            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new Gastro\CensoBundle\CensoBundle(),
             new Gastro\SiceBundle\SiceBundle(),
-            new Realestate\MssqlBundle\RealestateMssqlBundle(),
+//            new Realestate\MssqlBundle\RealestateMssqlBundle(),
+            new Gastro\SqlsvrBundle\SqlsvrBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

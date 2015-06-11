@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use Gastro\HospitalizacionBundle\Util\StringToAdmisionTransformer;
+use Gastro\HospitalizacionBundle\Form\Datatransformer\StringToAdmisionTransformer;
 
 class ReferidodeType extends AbstractType
 {
@@ -14,7 +14,7 @@ class ReferidodeType extends AbstractType
     {
         $builder
         ->add($builder->create('admision','hidden')->addModelTransformer(new StringToAdmisionTransformer()))
-        ->add('establecimiento' )
+        ->add('establecimiento')
         ;
     }
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -3,6 +3,9 @@
 namespace Gastro\SiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Gastro\SiceBundle\Entity\SeSala;
+use Gastro\SiceBundle\Util\Util;
 
 /**
  * SeCama
@@ -36,11 +39,10 @@ class SeCama
     private $camEnum;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="SA_CODIGO", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Gastro\SiceBundle\Entity\SeSala")
+     * @JoinColumn(name="SA_CODIGO", referencedColumnName="SA_CODIGO")
      */
-    private $saCodigo;
+    private $sala;
 
     /**
      * @var string
@@ -129,26 +131,26 @@ class SeCama
     }
 
     /**
-     * Set saCodigo
+     * Set sala
      *
-     * @param integer $saCodigo
+     * @param integer $sala
      * @return SeCama
      */
-    public function setSaCodigo($saCodigo)
+    public function setSala($sala)
     {
-        $this->saCodigo = $saCodigo;
+        $this->sala = $sala;
 
         return $this;
     }
 
     /**
-     * Get saCodigo
+     * Get sala
      *
      * @return integer 
      */
-    public function getSaCodigo()
+    public function getSala()
     {
-        return $this->saCodigo;
+        return $this->sala;
     }
 
     /**
@@ -241,5 +243,9 @@ class SeCama
     public function getCamCor()
     {
         return $this->camCor;
+    }
+    public function __toString() {
+        
+        return trim($this->getSala()->getSaEnum()).Util::devolverLetraCama($this->getCamEnum());
     }
 }

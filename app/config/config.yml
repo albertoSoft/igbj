@@ -67,6 +67,14 @@ doctrine:
                 #   2. Uncomment database_path in parameters.yml.dist
                 #   3. Uncomment next line:
                 #     path:     "%database_path%"
+            sqlsrv:
+                driver:   "%database_driver3%"
+                #driver_class:   Realestate\MssqlBundle\Driver\PDODblib\Driver
+                host:     "%database_host3%"
+                port:     "%database_port3%"
+                dbname:   "%database_name3%"
+                user:     "%database_user3%"
+                password: "%database_password3"
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
@@ -83,6 +91,10 @@ doctrine:
                 connection:       sice
                 mappings:
                     SiceBundle: ~
+            sqlsrv:
+                connection:       sqlsrv
+                mappings:
+                    SqlsvrBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:

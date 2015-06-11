@@ -44,25 +44,24 @@ class Basico implements FixtureInterface, ContainerAwareInterface
             $manager->persist($entidad);
         }
         $seguros= array(
-            array('numero'=>'0','sigla'=>'INSTITUCIONAL','nombre'=>'SIN SEGURO'),
-            array('numero'=>'1','sigla'=>'P.P.S.S','nombre'=>'PROGRAMA DE PROTECCION SOCIAL EN SALUD'),
+            array('sigla'=>'INSTITUCIONAL','nombre'=>'INSTITUCIONAL'),
+/*            array('numero'=>'1','sigla'=>'P.P.S.S','nombre'=>'PROGRAMA DE PROTECCION SOCIAL EN SALUD'),
             array('numero'=>'2','sigla'=>'S.P.S (LEY 475)','nombre'=>'SEGURO PÚBLICON DE SALUD'),
             array('numero'=>'3','sigla'=>'S.C.C','nombre'=>'Seguro regional Caja Cordes'),
-//            array('numero'=>'','sigla'=>'','nombre'=>''),
+//            array('numero'=>'','sigla'=>'','nombre'=>''), /**/
         );
         foreach ($seguros as $seguro) {
             $entidad = new Seguro() ;
             
-            $entidad->setNumero($seguro['numero' ] );
             $entidad->setSigla($seguro['sigla' ] );
             $entidad->setNombre($seguro['nombre' ] );
 
             $manager->persist($entidad) ;
         }
         $servicios = array(
-            array('nombre' => 'Medicina') ,
-            array('nombre' => 'Cirugia') ,
-            array('nombre' => 'Unidad de terapia Intensiva') ,
+            array('nombre' => 'H. CIRUGIA') ,
+            array('nombre' => 'H. MEDICINA') ,
+            array('nombre' => 'H. UTI') ,
             // ...
         );
 
@@ -118,7 +117,7 @@ class Basico implements FixtureInterface, ContainerAwareInterface
         }
         
         $manager->flush() ;
-        
+/*        
         $pacientes=array(
             array('hc'=>'1','nombre'=>'Juan Jose','appat'=>'Perez','apmat'=>'Quiroga','fechanac'=>new \DateTime('2005-01-01'),'sexo'=>'1','ci'=>'0','estciv'=>'soltero','teldom'=>'6455551','direcc'=>'junin #3'),
             array('hc'=>'2','nombre'=>'Jorge','appat'=>'Lopez','apmat'=>'Ortega','fechanac'=>new \DateTime('1990-06-15'),'sexo'=>'1','ci'=>'7654321','estciv'=>'casado','teldom'=>'6444444','direcc'=>'junin #152'),
@@ -166,7 +165,7 @@ class Basico implements FixtureInterface, ContainerAwareInterface
             $manager->persist($entidad);
         }
         $manager->flush();
-        
+        /**/
         $enfermedades=array(
             array('nombre'=>'ABDOMEN AGUDO','codigo'=>'R100'),
             array('nombre'=>'APENDICITIS AGUDA','codigo'=>'K35'),

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Seguro
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gastro\HospitalizacionBundle\Entity\SeguroRepository")
  */
 class Seguro
 {
@@ -20,13 +20,6 @@ class Seguro
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="numero", type="integer")
-     */
-    private $numero;
 
     /**
      * @var string
@@ -51,29 +44,6 @@ class Seguro
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set numero
-     *
-     * @param integer $numero
-     * @return Seguro
-     */
-    public function setNumero($numero)
-    {
-        $this->numero = $numero;
-
-        return $this;
-    }
-
-    /**
-     * Get numero
-     *
-     * @return integer 
-     */
-    public function getNumero()
-    {
-        return $this->numero;
     }
 
     /**
@@ -122,6 +92,6 @@ class Seguro
         return $this->nombre;
     }
     public function __toString() {
-        return $this->getSigla().' - '.$this->getNumero();
+        return $this->getNombre();
     }
 }

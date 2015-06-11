@@ -23,4 +23,27 @@ class Util
         }
         return $alfa;
     }
+    
+    /*
+     * DEVUELVE H.C DIRECTAMENTE DEL FORMULARIO ENVIADO ----- NO ESTA EN USO
+     *
+    static public function devolverHcPaciente($data) {
+        // recuperar la HC del formulario de admisión 
+        $hc=NULL;
+                    foreach ($data as $clave => $valor) {
+                        foreach ($valor as $clave2 => $valor2) {
+                            if (is_array($valor2)){
+                                $cont=1;
+                                foreach ($valor2 as $clave3 => $valor3) {
+                                    if($cont==3){
+                                        $hc=Util::extraerNumerico($valor3);
+                                        break;
+                                    }
+                                    $cont++;
+                                }
+                            }  
+                        }
+                    }
+        return $hc;
+    }/**/
 }
