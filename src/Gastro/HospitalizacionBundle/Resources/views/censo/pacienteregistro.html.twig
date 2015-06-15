@@ -25,11 +25,12 @@
 
 {% block javascript %}
     {{ parent() }}
-    {{ include('HospitalizacionBundle:Default:autocompletar/funcionAutocompletar.html.twig', {
+    {{ include('HospitalizacionBundle:Default:autocompletar/funcionAutocompletarHc.html.twig', {
             'var_id' : formulario.paciente.vars.id,
             'objetos' : pacientes
             }) 
-    }}   
+    }}
+  
 {% endblock %}
 
 

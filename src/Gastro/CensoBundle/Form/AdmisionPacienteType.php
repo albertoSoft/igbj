@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 //use Gastro\HospitalizacionBundle\Util\StringToDiagnosticoTransformer;
-use Gastro\HospitalizacionBundle\Util\StringToPacienteTransformer;
+use Gastro\PersonaBundle\Form\Datatransformer\StringToPacienteTransformer;
 //use Gastro\PersonaBundle\Util\StringToPersonaTransformer;
 
 class AdmisionPacienteType extends AbstractType

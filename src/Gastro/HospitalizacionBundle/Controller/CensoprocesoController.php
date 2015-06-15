@@ -15,12 +15,13 @@ class CensoprocesoController extends Controller
     }
     public function pacienteAction()
     {
-        $em=  $this->getDoctrine()->getManager();
+     //   $em=  $this->getDoctrine()->getManager();
+        $emSice=  $this->getDoctrine()->getManager('sice');
         $admisionPaciente=new AdmisionPaciente();//$admision=new Admision();
         $admisionPaciente->setFecharegistro(new \Datetime('today'));
 
         $formulario= $this->createForm(new AdmisionPacienteType(),$admisionPaciente );
-        $pacientes=$em->getRepository('PersonaBundle:Paciente')->findAll();
+        $pacientes=$emSice->getRepository('SiceBundle:SeHc')->findRecientes();
         return $this->render('HospitalizacionBundle:Censo:pacienteregistro.html.twig', array('formulario' => $formulario->createView(),'pacientes'=>$pacientes));
     }
 }
