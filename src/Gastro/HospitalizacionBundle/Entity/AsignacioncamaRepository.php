@@ -7,14 +7,14 @@ use Gastro\PersonaBundle\Entity\Paciente;
 use Gastro\CensoBundle\Entity\AdmisionPaciente;
 use Gastro\CensoBundle\Entity\AdmisionCama;
 use Gastro\CensoBundle\Entity\AdmisionFecha;
+use Gastro\CensoBundle\Entity\AdmisionTipoAtencion;
 
 class AsignacioncamaRepository extends EntityRepository
 {
     public function registrarAdmisionycama(\Gastro\HospitalizacionBundle\Entity\Asignacioncama $asignacioncama) {
         //***** Admision y asignacion de cama
         $em=  $this->getEntityManager();
-        $admision=new Admision();
-            
+//        $admision=new Admision();
         $admision=$asignacioncama->getAdmision();
         $em->persist($admision);
                     
@@ -29,7 +29,7 @@ class AsignacioncamaRepository extends EntityRepository
                     
         $em->flush();
         
-        /**
+        /**/
         //***** AdmisionPaciente
         $admisionPaciente= new AdmisionPaciente();
         $admisionPaciente->setFecharegistro(new \DateTime('today'));
@@ -55,6 +55,11 @@ class AsignacioncamaRepository extends EntityRepository
         $em->flush();
         /**/
         //********* AdmisionTipoPac
+        $admisionTipoAtencion=new AdmisionTipoAtencion();
+        $admisionTipoAtencion->setAdmisionPaciente($admisionPaciente);
+        $admisionTipoAtencion->setSeguro($asignacioncama->getAdmision()->getSeguro());
+        $em->persist($admisionTipoAtencion);
+        $em->flush();
     }
     public function cambiarSeguro(Asignacioncama $asignacioncama,  Seguro $seguro) {
         $admisionAux=$asignacioncama->getAdmision();

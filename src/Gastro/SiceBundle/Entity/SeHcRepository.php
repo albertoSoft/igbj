@@ -19,7 +19,7 @@ class SeHcRepository extends EntityRepository
         $liminferior=90000;
         $limsuperior=900000;
         $em=  $this->getEntityManager();
-        $dql="SELECT hc.hclCodigo,hc.hclAppat,hc.hclApmat,hc.hclNombre FROM SiceBundle:SeHc hc WHERE hc.hclCodigo>:liminf AND hc.hclCodigo<:limsup ORDER BY hc.hclCodigo DESC";
+        $dql="SELECT hc.hclCodigo,hc.hclAppat,hc.hclApmat,hc.hclNombre FROM SiceBundle:SeHc hc WHERE hc.hclCodigo>:liminf AND hc.hclCodigo<:limsup ORDER BY hc.hclAppat,hc.hclApmat,hc.hclNombre,hc.hclCodigo DESC";
         $consulta=$em->createQuery($dql);
         $consulta->setParameter('liminf', $liminferior);
         $consulta->setParameter('limsup', $limsuperior);

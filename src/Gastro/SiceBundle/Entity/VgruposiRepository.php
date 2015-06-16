@@ -1,5 +1,5 @@
 <?php
-namespace Gastro\SicenBundle\Entity;
+namespace Gastro\SiceBundle\Entity;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\ORM\EntityRepository;

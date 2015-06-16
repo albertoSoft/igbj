@@ -28,4 +28,31 @@ class Util {
         }
         return $letra;
     }
+    
+    static public function devolverEnumeracionCama($camaLetra) {
+        switch ($camaLetra){
+            case 'A':
+                $numero=1;
+                break;
+            case 'B':
+                $numero=2;
+                break;
+            case 'C':
+                $numero=3;
+                break;
+            case 'D':
+                $numero=4;
+                break;
+            case 'E':
+                $numero=5;
+                break;
+            case 'F':
+                $numero=6;
+                break;
+            case 'G':
+                $numero=7;
+                break;
+        }
+        return $numero;
+    }
 }

@@ -11,7 +11,7 @@ use Gastro\SiceBundle\Util\Util;
  * SeCama
  *
  * @ORM\Table(name="se_cama")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gastro\SiceBundle\Entity\SeCamaRepository")
  */
 class SeCama
 {

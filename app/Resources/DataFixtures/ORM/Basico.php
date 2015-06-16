@@ -58,6 +58,7 @@ class Basico implements FixtureInterface, ContainerAwareInterface
 
             $manager->persist($entidad) ;
         }
+        /**
         $servicios = array(
             array('nombre' => 'H. CIRUGIA') ,
             array('nombre' => 'H. MEDICINA') ,

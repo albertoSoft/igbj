@@ -25,45 +25,59 @@ class CamaRepository extends EntityRepository
         
         return $consulta->getOneOrNullResult();
     }
-    public function importarCamaSice($salaEnum,$camaEnum)
-    {
+    public function existeCama($salaEnum,$camaLetra) {
         $em=  $this->getEntityManager();
-        $emSice=$GLOBALS['kernel']->getContainer()->get('doctrine')->getManager('sice');
+        $camaEnum=Util::devolverEnumeracionCama($camaLetra);
+        $sala=$em->getRepository('HospitalizacionBundle:Sala')->findOneByEnumeracion($salaEnum);
+        $cama=$em->getRepository('HospitalizacionBundle:Cama')->findOneBy(array('sala'=>$sala->getId(),'enumeracion'=>$camaEnum));
+        return $cama;
+    }
+    public function importarCamaSice($salaEnum,$camaLetra)
+    {
+        $cama=$this->existeCama($salaEnum, $camaLetra);
+        if(!$cama){
+            $camaEnum=Util::devolverEnumeracionCama($camaLetra);
 
-        $camaSice=new SeCama();
-        $salaSice=$emSice->getRepository('SiceBundle:SeSala')->findOneBy(array('saEnum'=>$salaEnum));
-        $camaSice=$emSice->getRepository('SiceBundle:SeCama')->findOneBy(array('sala'=>$salaSice->getSaCodigo(),'camEnum'=>$camaEnum));
-        if($camaSice!=NULL){
-            $cama=new Cama();
-            $cama->setEnumeracion($camaSice->getCamEnum());
-            $cama->setNombre(Util::devolverLetraCama($camaSice->getCamEnum()));
-            $cama->setOcupada(FALSE);
-            $cama->setSala($camaSice->getSala());
- 
-            $em->persist($cama);
-            $em->flush();
+            $em=  $this->getEntityManager();
+            $emSice=$GLOBALS['kernel']->getContainer()->get('doctrine')->getManager('sice');
 
-            return $cama;
+            $camaSice=new SeCama();
+            $salaSice=$emSice->getRepository('SiceBundle:SeSala')->findOneBy(array('saEnum'=>$salaEnum));
+            $camaSice=$emSice->getRepository('SiceBundle:SeCama')->findOneBy(array('sala'=>$salaSice->getSaCodigo(),'camEnum'=>$camaEnum));
+            if($camaSice!=NULL){
+                $cama=new Cama();
+                $cama->setEnumeracion($camaSice->getCamEnum());
+                $cama->setNombre(Util::devolverLetraCama($camaSice->getCamEnum()));
+                $cama->setOcupada(FALSE);
+
+                $sala=$em->getRepository('HospitalizacionBundle:Sala')->findOneByEnumeracion($salaEnum);
+
+                $cama->setSala($sala);
+
+                $em->persist($cama);
+                $em->flush();
+            }
+            else{
+               $cama=NULL;
+            }
         }
-        else{
-            return NULL;
-        }
+        return $cama;
     }
     
-    public function importarCamaSiceVerificando($salaEnum,$camaEnum)
+    public function importarCamaSiceVerificando($salaEnum,$camaLetra)
     {
         /**
         $session=new Session();
         if ($salaEnum!=NULL){
            if ($camaEnum!=NULL){
          */
-               $cama= $this->importarCamaSice($salaEnum,$camaEnum);
+               $cama= $this->importarCamaSice($salaEnum,$camaLetra);
                 if($cama!=NULL){
                     return $cama;
                 }
                 else{
                     $session=new Session();
-                    $session->getFlashBag()->add('error','¡Debe introducir una cama válida (seleccione de la lista)... No coincide Nª de sala y/o cama.!.');
+                    $session->getFlashBag()->add('error','¡Debe introducir una cama válida (seleccione de la lista)... No coincide con cama del SICE).! cama: '.$salaEnum.$camaEnum);
                 }
                 /**
             }

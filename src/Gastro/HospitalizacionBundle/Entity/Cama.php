@@ -4,12 +4,14 @@ namespace Gastro\HospitalizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Cama
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Gastro\HospitalizacionBundle\Entity\CamaRepository")
+ * @UniqueEntity(fields = {"sala", "enumeracion"})
  */
 class Cama
 {
@@ -26,27 +28,28 @@ class Cama
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=50)
-     * @Assert\NotBlank()
      */
     private $nombre;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean", name="ocupada")
-     * @Assert\NotBlank()
+     * @ORM\Column(name="ocupada", type="boolean")
      */
-    private $ocupada=false;
+    private $ocupada;
 
-    /** @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Sala") */
+    /**
+     * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Sala")
+     */
     private $sala;
 
     /**
+     * @var integer
      *
-     * @ORM\Column(type="integer")
-     * @Assert\NotBlank()
+     * @ORM\Column(name="enumeracion", type="integer")
      */
-    Private $enumeracion;
+    private $enumeracion;
+
 
     /**
      * Get id
@@ -152,4 +155,5 @@ class Cama
     public function __toString() {
         return $this->getSala()->getEnumeracion().$this->getNombre();
     }
+
 }

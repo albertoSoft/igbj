@@ -22,3 +22,7 @@ app:
     resource: @AppBundle/Controller/
     type:     annotation
     
+inicializar_camas:
+    path: /iniciar_camas/
+    defaults: { _controller: CensoBundle:censo:iniciarcamas }
+    

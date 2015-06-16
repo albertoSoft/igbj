@@ -53,7 +53,6 @@ class DefaultController extends Controller
         $asignacioncama->setAdmision($admision);
         
         $formulario= $this->createForm(new asignacioncamaType(),$asignacioncama );
-        
         $formulario->handleRequest($request);
         
         if($formulario->isValid()){
@@ -87,7 +86,7 @@ class DefaultController extends Controller
         }
         $diagnosticos=$em->getRepository('HospitalizacionBundle:Diagnostico')->findAll();
         $pacientesSice=$emSice->getRepository('SiceBundle:SeHc')->findRecientes();
-        $camas=$emSice->getRepository('SiceBundle:SeCama')->findAll();
+        $camas=$emSice->getRepository('SiceBundle:SeCama')->findAllOrederBySalaCama();
         $medicos=$emSice->getRepository('SiceBundle:Perpersona')->findAllMedicos();
         $convenios=$emSice->getRepository('SiceBundle:Vshinstitu')->findAll();
         

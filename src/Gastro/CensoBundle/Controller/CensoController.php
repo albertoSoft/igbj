@@ -1,12 +1,25 @@
 <?php
-
 namespace Gastro\CensoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Gastro\CensoBundle\Entity\Verificacioncama;
+use Gastro\HospitalizacionBundle\Form\Datatransformer\StringToCamaTransformer;
 
 class CensoController extends Controller
-{    
+{
+    public function iniciarcamasAction(){
+        $camaTransformer=new StringToCamaTransformer();
+        
+        $emSice= $GLOBALS['kernel']->getContainer()->get('doctrine')->getManager('sice');
+        $camasSice=$emSice->getRepository('SiceBundle:SeCama')->findAllOrederBySalaCama();
+        $i=1;
+        foreach ($camasSice as $cama) {
+            $camaSis[$i]=$camaTransformer->reverseTransform(''.$cama);
+            $i++;
+        }
+        
+        return $this->render('CensoBundle:Censo:iniciarcamas.html.twig',array('camas'=>$camasSice,'camas2'=>$camaSis));
+    }
     public function confirmacamaAction($cama_id,$paciente_id=null) {
         
         ini_set('date.timezone','America/La_Paz'); 
