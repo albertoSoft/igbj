@@ -1,15 +1,15 @@
 <?php
+namespace Gastro\CensoBundle\Entity;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
- * Description of AdmisionIngresapor
+ * AdmisionIngresapor
  *
- * @author EstadisticaIS
+ * @ORM\Table()
+ * @ORM\Entity
  */
 class AdmisionIngresapor {
     
@@ -22,8 +22,26 @@ class AdmisionIngresapor {
      */
     private $id;
 
-    /** @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente") */
+    /** @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente")
+     * @Assert\NotNull(message="Debe elegir un valor")
+     * @Assert\NotBlank(message="Debe elegir algun valor")
+     *  */
     private $admisionPaciente;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Ingresapor")
+     */
+    private $ingresapor;
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
     
     /**
      * Set admisionPaciente
@@ -31,7 +49,7 @@ class AdmisionIngresapor {
      * @param string $admisionPaciente
      * @return AdmisionFecha
      */
-    public function setAdmisionPaciente(\Gastro\HospitalizacionBundle\Entity\AdmisionPaciente $admisionPaciente)
+    public function setAdmisionPaciente(\Gastro\CensoBundle\Entity\AdmisionPaciente $admisionPaciente)
     {
         $this->admisionPaciente = $admisionPaciente;
 
@@ -46,5 +64,28 @@ class AdmisionIngresapor {
     public function getAdmisionPaciente()
     {
         return $this->admisionPaciente;
+    }
+    
+    /**
+     * Set ingresapor
+     *
+     * @param string $ingresapor
+     * @return AdmisionIngresapor
+     */
+    public function setIngresapor(\Gastro\HospitalizacionBundle\Entity\Ingresapor $ingresapor)
+    {
+        $this->ingresapor = $ingresapor;
+
+        return $this;
+    }
+
+    /**
+     * Get ingresapor
+     *
+     * @return string 
+     */
+    public function getIngresapor()
+    {
+        return $this->ingresapor;
     }
 }

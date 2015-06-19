@@ -31,6 +31,8 @@ class Admision
 
     /**
      * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Ingresapor")
+     * @Assert\NotNull(message="Debe elegir un valor")
+     * @Assert\NotBlank(message="Debe elegir algun valor")
      */
     private $ingresapor;
 

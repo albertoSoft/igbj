@@ -6,12 +6,10 @@
  
 {% block contenido %}
     
-  {% for mensaje in app.session.flashbag.get('info' ) %}
-        <p class="info">{{ mensaje }}</p>
-  {% endfor %}
-  
-  {% for mensaje in app.session.flashbag.get('error' ) %}
-        <p class="info">{{ mensaje }}</p>
+  {% for tipo, mensajes in app.session.flashbag.all() %}
+        {% for mensaje in mensajes %}
+            <p class="flash-{{ tipo }}">{{ mensaje }}</p>
+        {% endfor %}
   {% endfor %}
   <table>
       <caption>Datos de Admisión</caption>

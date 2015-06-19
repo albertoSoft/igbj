@@ -1,15 +1,15 @@
 <?php
+namespace Gastro\CensoBundle\Entity;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
- * Description of AdmisionServicio
+ * AdmisionServicio
  *
- * @author EstadisticaIS
+ * @ORM\Table()
+ * @ORM\Entity
  */
 class AdmisionServicio {
     
@@ -26,12 +26,30 @@ class AdmisionServicio {
     private $admisionPaciente;
     
     /**
+     *
+     * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Servicio")
+     * @Assert\NotNull(message="Debe elegir un valor")
+     * @Assert\NotBlank(message="Debe elegir algun valor")
+     */
+    private $servicio;
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    /**
      * Set admisionPaciente
      *
      * @param string $admisionPaciente
      * @return AdmisionFecha
      */
-    public function setAdmisionPaciente(\Gastro\HospitalizacionBundle\Entity\AdmisionPaciente $admisionPaciente)
+    public function setAdmisionPaciente(\Gastro\CensoBundle\Entity\AdmisionPaciente $admisionPaciente)
     {
         $this->admisionPaciente = $admisionPaciente;
 
@@ -46,5 +64,28 @@ class AdmisionServicio {
     public function getAdmisionPaciente()
     {
         return $this->admisionPaciente;
+    }
+    
+    /**
+     * Set servicio
+     *
+     * @param string $servicio
+     * @return AdmisionServicio
+     */
+    public function setServicio(\Gastro\HospitalizacionBundle\Entity\Servicio $servicio)
+    {
+        $this->servicio = $servicio;
+
+        return $this;
+    }
+
+    /**
+     * Get servicio
+     *
+     * @return string 
+     */
+    public function getServicio()
+    {
+        return $this->servicio;
     }
 }

@@ -18,7 +18,7 @@ class AdmisionPacienteType extends AbstractType
         
         ->add($builder->create('paciente','text')->addModelTransformer(new StringToPacienteTransformer()))
         ->add('fecharegistro','date',array(
-                'attr' => array('class' => 'calendario','readonly' => 'readonly','disabled'=>'disabled','style'=>'display:none'),
+                'attr' => array('class' => 'calendario','readonly' => 'readonly','style'=>'display:none'),
                 'widget' => 'single_text',
                 'format' => 'y-MM-dd',
                 'label' => ' ',

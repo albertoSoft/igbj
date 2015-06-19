@@ -35,7 +35,7 @@ class DefaultController extends Controller
         foreach ($salas as $sala) {
             $camas[$sala->getId()]=$em->getRepository('HospitalizacionBundle:Cama')->findBySala($sala);
             foreach ($camas[$sala->getId()] as $cama) {
-                $pacientes[$cama->getId()]=$em->getRepository('HospitalizacionBundle:Cama')->findPacienteEnCama($cama->getId());
+                $pacientes[$cama->getId()]=$em->getRepository('HospitalizacionBundle:Cama')->findPacienteEnCama($cama);
                 $camasVerificadas[$cama->getId()]=$em->getRepository('CensoBundle:Verificacioncama')->camaVerificada($cama->getId());
             }
         }
@@ -57,7 +57,8 @@ class DefaultController extends Controller
         
         if($formulario->isValid()){
             // ****** PACIENTE
-            $paciente=$em->getRepository('PersonaBundle:Paciente')->comprobarPaciente($asignacioncama->getAdmision()->getPaciente());
+            if($em->getRepository('PersonaBundle:Paciente')->comprobarPacienteEstaInternado($asignacioncama->getAdmision()->getPaciente()))
+                $this->get('session')->getFlashBag()->add('error','El paciente "'.$asignacioncama->getAdmision()->getPaciente().'" actualmente esta internado(a)!');
             
             // *************** CAMA
             $em->getRepository('HospitalizacionBundle:Cama')->comprobarCama($asignacioncama->getCama());
@@ -75,7 +76,7 @@ class DefaultController extends Controller
                 $em->getRepository('HospitalizacionBundle:Asignacioncama')->registrarAdmisionycama($asignacioncama);
                 // **** Codigo para cama confirmada
                 $em->getRepository('CensoBundle:Verificacioncama')->verificarCama($asignacioncama->getCama()->getId());
-                $this->get('session')->getFlashBag() ->add('info','¡Registro correcto! nueva admisión registrada. Paciente: '.$paciente);
+                $this->get('session')->getFlashBag() ->add('info','¡Registro correcto! nueva admisión registrada. Paciente: '.$asignacioncama->getAdmision()->getPaciente());
 
                 if ($formulario->get('referido')->getData()==1){
                     return $this->redirect($this->generateUrl('nueva_admision_referida',array('asignacioncama_id'=>$asignacioncama->getId())));

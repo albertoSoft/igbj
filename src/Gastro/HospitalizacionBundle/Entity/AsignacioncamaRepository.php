@@ -8,6 +8,9 @@ use Gastro\CensoBundle\Entity\AdmisionPaciente;
 use Gastro\CensoBundle\Entity\AdmisionCama;
 use Gastro\CensoBundle\Entity\AdmisionFecha;
 use Gastro\CensoBundle\Entity\AdmisionTipoAtencion;
+use Gastro\CensoBundle\Entity\AdmisionDiagnostico;
+use Gastro\CensoBundle\Entity\AdmisionServicio;
+use Gastro\CensoBundle\Entity\AdmisionIngresapor;
 
 class AsignacioncamaRepository extends EntityRepository
 {
@@ -59,6 +62,28 @@ class AsignacioncamaRepository extends EntityRepository
         $admisionTipoAtencion->setAdmisionPaciente($admisionPaciente);
         $admisionTipoAtencion->setSeguro($asignacioncama->getAdmision()->getSeguro());
         $em->persist($admisionTipoAtencion);
+        $em->flush();
+        
+        //**********AdmisionDiagnostico
+        $admisionDiagnostico=new AdmisionDiagnostico();
+        $admisionDiagnostico->setAdmisionPaciente($admisionPaciente);
+        $admisionDiagnostico->setDiagnostico($asignacioncama->getAdmision()->getDiagnostico());
+        $admisionDiagnostico->setMedico($asignacioncama->getAdmision()->getMedico());
+        $em->persist($admisionDiagnostico);
+        $em->flush();
+        
+        //********* AdmisionServicio
+        $admisionServicio=new AdmisionServicio();
+        $admisionServicio->setAdmisionPaciente($admisionPaciente);
+        $admisionServicio->setServicio($asignacioncama->getAdmision()->getServicio());
+        $em->persist($admisionServicio);
+        $em->flush();
+        
+        //********* AdmisionIngresapor
+        $admisionIngresapor=new AdmisionIngresapor();
+        $admisionIngresapor->setAdmisionPaciente($admisionPaciente);
+        $admisionIngresapor->setIngresapor($asignacioncama->getAdmision()->getIngresapor());
+        $em->persist($admisionIngresapor);
         $em->flush();
     }
     public function cambiarSeguro(Asignacioncama $asignacioncama,  Seguro $seguro) {

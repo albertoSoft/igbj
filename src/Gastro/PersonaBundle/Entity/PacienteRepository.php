@@ -68,14 +68,30 @@ class PacienteRepository extends EntityRepository
                     }/**/
                     return NULL;
     }
-    public function comprobarPaciente($paciente) {
+    public function comprobarPacienteEstaInternado(Paciente $paciente) {
         if($paciente!=NULL){
             if($paciente->getInternado()==TRUE){
-                $session=new Session();
-                $session->getFlashBag() ->add('error','Registro incorrecto¡ El paciente "'.$paciente.'" actualmente esta internado(a)!');
+                return true;
             }
         }
-        return $paciente;
+        return false;
+    }
+    public function comprobarPacienteEstaEnCama(Paciente $paciente,$camaStr) {
+        if($paciente->getInternado()==TRUE){
+            $cama=$this->findCamaDelPaciente($paciente);
+            if($cama->getSigla()==$camaStr)
+                return TRUE;
+        }
+        return FALSE;
+    }
+    public function findCamaDelPaciente(Paciente $paciente) {
+        if($paciente->getInternado()==TRUE){
+            $em=  $this->getEntityManager();
+            $admisionPaciente=$em->getRepository('CensoBundle:AdmisionPaciente')->findAdmisionPacienteVigente($paciente);
+            $admisionCama=$em->getRepository('CensoBundle:AdmisionCama')->findUltimaAdmisionCama($admisionPaciente);
+
+            return $admisionCama->getCama();
+        }
     }
     /**funcion para extraer directamente del formulario --- No esta en uso porque el trasformer reemplaza esto
      * 

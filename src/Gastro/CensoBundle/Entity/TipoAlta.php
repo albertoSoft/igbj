@@ -1,20 +1,27 @@
 <?php
 
-namespace Gastro\HospitalizacionBundle\Entity;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+namespace Gastro\CensoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Servicio
+ * Admision
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gastro\CensoBundle\Entity\AdmisionTipoAltaRepository")
  * @UniqueEntity("nombre")
+ * 
  */
-class Servicio
-{
+class TipoAlta {
+    
     /**
      * @var integer
      *
@@ -47,7 +54,7 @@ class Servicio
      * Set nombre
      *
      * @param string $nombre
-     * @return Servicio
+     * @return TipoAlta
      */
     public function setNombre($nombre)
     {

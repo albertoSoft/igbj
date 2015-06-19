@@ -1,11 +1,16 @@
+# ---- Todos estos tienen el  prefix:   /censo/proceso
 censo_cama_cambio:
-    path:     /
+    path:     /cama/cambio/{cama_id}/
     defaults: { _controller: "HospitalizacionBundle:Censoproceso:camacambia" }
 
 censo_paciente:
-    path:     /paciente/registrar
+    path:     /paciente/registrar/{cama_id}/
     defaults: { _controller: "HospitalizacionBundle:Censoproceso:paciente" }
+    
+censo_paciente_confirma_traslado:
+    path:     /paciente/registrar/confirma_traslado/{cama_id}/{paciente_id}/
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:pacienteconfirmatraslado" }
 
 censo_paciente_pendiente:
-    path:     /cama/liberar
-    defaults: { _controller: "HospitalizacionBundle:Censoproceso:paciente" }
+    path:     /cama/liberar/{cama_id}/
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:liberarcama" }

@@ -1,5 +1,5 @@
 {% extends "HospitalizacionBundle::layout.html.twig"%}
-{% set titulo="Registro de paciente en cama" %}
+{% set titulo="Registro de paciente en cama "~cama %}
 
 {% block title  %}
     {{ titulo }}
@@ -15,10 +15,15 @@
             <p class="flash-{{ tipo }}">{{ mensaje }}</p>
         {% endfor %}
     {% endfor %}
+    {% if traslado %}
+        <form method="GET" action="{{ path('censo_paciente_confirma_traslado', {'cama_id': cama.id,'paciente_id':paciente.id}) }}">
+            <input type="button" value="Confirma el cambio de cama" onclick="if(confirm('Esta seguro(a) del traslado del paciente: {{paciente}} a la cama: {{cama}}')){this.form.submit()}"/>
+        </form>
+    {% endif %}
     
-    <form action="{{ path('censo_paciente' ) }}" method="post" {{form_enctype(formulario) }}>
+    <form action="{{ path('censo_paciente', {'cama_id': cama.id}) }}" method="post" {{form_enctype(formulario) }}>
       {{ form_widget(formulario) }}
-      <input class="boton" type="submit" value="Registrarme" />
+      <input class="boton" type="submit" value="Registrar" />
     </form>
     
 {% endblock %}

@@ -152,6 +152,9 @@ class Cama
     {
         return $this->enumeracion;
     }
+    public function getSigla(){
+        return ''.$this->getSala()->getEnumeracion().$this->getNombre();
+    }
     public function __toString() {
         return $this->getSala()->getEnumeracion().$this->getNombre();
     }

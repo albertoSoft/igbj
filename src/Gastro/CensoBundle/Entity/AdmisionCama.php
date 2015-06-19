@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * AdmisionCama
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gastro\CensoBundle\Entity\AdmisionCamaRepository")
  * UniqueEntity(fields = {"admisionPaciente", "cama"})
  */
 class AdmisionCama {

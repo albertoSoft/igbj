@@ -5,6 +5,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+use Gastro\HospitalizacionBundle\Entity\Ingresapor;
 use Gastro\HospitalizacionBundle\Entity\Servicio;
 use Gastro\HospitalizacionBundle\Entity\Sala;
 use Gastro\HospitalizacionBundle\Entity\Cama;
@@ -15,6 +16,7 @@ use Gastro\PersonaBundle\Entity\Persona;
 use Gastro\HospitalizacionBundle\Entity\Diagnostico;
 use Gastro\HospitalizacionBundle\Entity\Admision;
 use Gastro\HospitalizacionBundle\Entity\Asignacioncama;
+use Gastro\CensoBundle\Entity\TipoAlta;
 
 use Gastro\CensoBundle\Entity\Turnoverificacion;
 
@@ -56,6 +58,30 @@ class Basico implements FixtureInterface, ContainerAwareInterface
             $entidad->setSigla($seguro['sigla' ] );
             $entidad->setNombre($seguro['nombre' ] );
 
+            $manager->persist($entidad) ;
+        }
+        $todosingresopor= array(
+            array('ingresapor'=>'Consulta externa'),
+            array('ingresapor'=>'Emergencia'),
+//            array('ingresapor'=>''),
+        );
+        foreach ($todosingresopor as $ingresopor) {
+            $entidad = new Ingresapor();
+            
+            $entidad->setIngresapor($ingresopor['ingresapor' ] );
+            $manager->persist($entidad) ;
+        }
+        $tiposAlta= array(
+            array('nombre'=>'Médica'),
+            array('nombre'=>'Solicitada'),
+            array('nombre'=>'Defuncion'),
+            array('nombre'=>'Fuga'),
+//            array('nombre'=>''),
+        );
+        foreach ($tiposAlta as $tipoAlta) {
+            $entidad = new TipoAlta();
+            
+            $entidad->setNombre($tipoAlta['nombre']);
             $manager->persist($entidad) ;
         }
         /**

@@ -15,7 +15,7 @@
         {% for mensaje in mensajes %}
             <p class="flash-{{ tipo }}">{{ mensaje }}</p>
         {% endfor %}
-    {% endfor %}
+  {% endfor %}
   
   <form action="{{ path('nueva_admision' ) }}" method="post" {{form_enctype(formulario) }}>
       {{ form_widget(formulario) }}

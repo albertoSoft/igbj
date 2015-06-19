@@ -1,15 +1,15 @@
 <?php
+namespace Gastro\CensoBundle\Entity;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
- * Description of AdmisionDiagnostico
+ * AdmisionDiagnostico
  *
- * @author EstadisticaIS
+ * @ORM\Table()
+ * @ORM\Entity
  */
 class AdmisionDiagnostico {
     
@@ -26,12 +26,38 @@ class AdmisionDiagnostico {
     private $admisionPaciente;
     
     /**
+     *
+     * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Diagnostico")
+     * @Assert\NotNull(message="Debe elegir un valor")
+     * @Assert\NotBlank(message="Debe elegir algun valor")
+     */
+    private $diagnostico;
+    
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Gastro\PersonaBundle\Entity\Persona")
+     * @Assert\NotNull(message="Debe elegir un valor")
+     * @Assert\NotBlank(message="Debe elegir algun valor")
+     */
+    private $medico;
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    /**
      * Set admisionPaciente
      *
      * @param string $admisionPaciente
-     * @return AdmisionFecha
+     * @return AdmisionDiagnostico
      */
-    public function setAdmisionPaciente(\Gastro\HospitalizacionBundle\Entity\AdmisionPaciente $admisionPaciente)
+    public function setAdmisionPaciente(\Gastro\CensoBundle\Entity\AdmisionPaciente $admisionPaciente)
     {
         $this->admisionPaciente = $admisionPaciente;
 
@@ -46,5 +72,51 @@ class AdmisionDiagnostico {
     public function getAdmisionPaciente()
     {
         return $this->admisionPaciente;
+    }
+    
+    /**
+     * Set diagnostico
+     *
+     * @param string $diagnostico
+     * @return AdmisionDiagnostico
+     */
+    public function setDiagnostico(\Gastro\HospitalizacionBundle\Entity\Diagnostico $diagnostico)
+    {
+        $this->diagnostico = $diagnostico;
+
+        return $this;
+    }
+
+    /**
+     * Get diagnostico
+     *
+     * @return string 
+     */
+    public function getDiagnostico()
+    {
+        return $this->diagnostico;
+    }
+    
+    /**
+     * Set medico
+     *
+     * @param string $medico
+     * @return AdmisionDiagnostico
+     */
+    public function setMedico(\Gastro\PersonaBundle\Entity\Persona $medico)
+    {
+        $this->medico = $medico;
+
+        return $this;
+    }
+
+    /**
+     * Get medico
+     *
+     * @return string 
+     */
+    public function getMedico()
+    {
+        return $this->medico;
     }
 }

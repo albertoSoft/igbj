@@ -15,6 +15,7 @@ class ReferidodeType extends AbstractType
         $builder
         ->add($builder->create('admision','hidden')->addModelTransformer(new StringToAdmisionTransformer()))
         ->add('establecimiento')
+                ->add('tipo')
         ;
     }
     public function setDefaultOptions(OptionsResolverInterface $resolver)

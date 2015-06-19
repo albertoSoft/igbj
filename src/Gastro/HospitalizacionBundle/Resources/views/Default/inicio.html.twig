@@ -12,8 +12,10 @@
 {% block contenido %}
     <article class="oferta">
         <section class="admision">
-            {% for mensaje in app.session.flashbag.get('info' ) %}
-                <p class="info">{{ mensaje }}</p>
+            {% for tipo, mensajes in app.session.flashbag.all() %}
+                {% for mensaje in mensajes %}
+                    <p class="flash-{{ tipo }}">{{ mensaje }}</p>
+                {% endfor %}
             {% endfor %}
             
             <ul>
@@ -23,17 +25,17 @@
                 {% for cama in camas[sala.id] %}
                     <li>cama {{ cama.nombre }} : pac: 
                         {% if pacientes[cama.id] %}
-                            <a href="{{ path('censo_cama_cambio') }}">{{ pacientes[cama.id].admision.paciente }}  </a> 
-                            <img alt="Foto" src="{{ asset('uploads/images/' ~pacientes[cama.id].admision.paciente.rutafoto) }}">
+                            <a href="{{ path('censo_cama_cambio',{'cama_id':cama.id}) }}">{{ pacientes[cama.id].admisionPaciente.paciente }}  </a> 
+                            <img alt="Foto" src="{{ asset('uploads/images/' ~pacientes[cama.id].admisionPaciente.paciente.rutafoto) }}">
                             {% if not camasVerificadas[cama.id] %}
-                            <form method="GET" action="{{ path('confirma_camaocupada', {'cama_id': cama.id,'paciente_id':pacientes[cama.id].admision.paciente.id})}}">
+                            <form method="GET" action="{{ path('confirma_camaocupada', {'cama_id': cama.id,'paciente_id':pacientes[cama.id].admisionPaciente.paciente.id})}}">
                                 <input type="submit" value="Conf.Paciente" />
                             </form>
                             {% endif %}
                         {% else %}
-                            <a href="{{ path('censo_paciente') }}"> LIBRE </a>
+                            <a href="{{ path('censo_paciente', {'cama_id': cama.id}) }}"> LIBRE </a>
                             {% if not camasVerificadas[cama.id] %}
-                            <form method="GET" action="{{ path('confirma_camalibre', {'cama_id': cama.id})}}">
+                            <form method="GET" action="{{ path('confirma_camalibre', {'cama_id': cama.id}) }}">
                                 <input type="submit" value="Conf.libre" />
                             </form>
                             {% endif %}

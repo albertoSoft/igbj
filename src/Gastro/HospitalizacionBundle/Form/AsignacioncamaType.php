@@ -19,6 +19,7 @@ class AsignacioncamaType extends AbstractType
                 'attr' => array('class' => 'calendario'),
                 'widget' => 'single_text',
                 'format' => 'y-MM-dd',
+            'label' => 'Fecha de internacion',
               ))
 //        ->add('hora' )
 //        ->add("referido2","checkbox", array("mapped" => false,))

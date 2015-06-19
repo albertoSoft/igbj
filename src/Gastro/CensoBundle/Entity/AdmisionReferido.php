@@ -1,16 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of AdmisionReferido
- *
- * @author EstadisticaIS
- */
 class AdmisionReferido {
     
     /**
@@ -26,12 +15,22 @@ class AdmisionReferido {
     private $admisionPaciente;
     
     /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    /**
      * Set admisionPaciente
      *
      * @param string $admisionPaciente
      * @return AdmisionFecha
      */
-    public function setAdmisionPaciente(\Gastro\HospitalizacionBundle\Entity\AdmisionPaciente $admisionPaciente)
+    public function setAdmisionPaciente(\Gastro\SiceBundle\Entity\AdmisionPaciente $admisionPaciente)
     {
         $this->admisionPaciente = $admisionPaciente;
 

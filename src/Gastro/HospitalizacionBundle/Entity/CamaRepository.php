@@ -11,16 +11,18 @@ use Gastro\SiceBundle\Util\Util;
 
 class CamaRepository extends EntityRepository
 {
-    public function findPacienteEnCama($cama_id) {
+    public function findPacienteEnCama(Cama $cama) {
         // *** falta por fecha
         $em=  $this->getEntityManager();
+        /**     anterior
         $consulta=$em->createQuery('SELECT p,ac,c,ad '
-                . 'FROM HospitalizacionBundle:AsignacionCama ac '
+                . 'FROM HospitalizacionBundle:Asignacioncama ac '
                 . 'JOIN ac.cama c JOIN ac.admision ad JOIN ad.paciente p '
                 . 'WHERE c.id=:cama_id AND c.ocupada=1'
                 . 'ORDER BY ac.fecha DESC');
-        
-        $consulta->setParameter('cama_id', $cama_id);
+        /**/
+        $consulta=$em->createQuery('SELECT p,ap,ac FROM CensoBundle:AdmisionCama ac JOIN ac.admisionPaciente ap JOIN ap.paciente p WHERE ac.cama=:cama_id ORDER BY ac.fecha DESC ');
+        $consulta->setParameter('cama_id', $cama->getId());
         $consulta->setMaxResults(1);
         
         return $consulta->getOneOrNullResult();

@@ -10,10 +10,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * AdmisionPaciente
  *
  * @ORM\Table(name="admisionpaciente")
- * @ORM\Entity
- * @UniqueEntity(fields = {"paciente", "fechainternacion"})
+ * @ORM\Entity(repositoryClass="Gastro\CensoBundle\Entity\AdmisionPacienteRepository")
+ * @UniqueEntity(fields = {"paciente", "fechaRegistro"},message="Este paciente ya se registro en la misma fecha")
  */
-class AdmisionPaciente {
+class AdmisionPaciente
+{
     /**
      * @var integer
      *
@@ -36,7 +37,7 @@ class AdmisionPaciente {
      * @Assert\NotBlank()
      * 
      */
-    private $fecharegistro;
+    private $fechaRegistro;
     
     /**
      * @var boolean
@@ -84,21 +85,21 @@ class AdmisionPaciente {
      * @param \DateTime $fecha
      * @return AdmisionPaciente
      */
-    public function setFecharegistro($fecha)
+    public function setFechaRegistro($fecha)
     {
-        $this->fecharegistro = $fecha;
+        $this->fechaRegistro = $fecha;
 
         return $this;
     }
 
     /**
-     * Get fecharegistro
+     * Get fechaRegistro
      *
      * @return \DateTime 
      */
-    public function getFecharegistro()
+    public function getFechaRegistro()
     {
-        return $this->fecharegistro;
+        return $this->fechaRegistro;
     }
     
     /**

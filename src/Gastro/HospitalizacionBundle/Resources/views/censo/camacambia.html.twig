@@ -23,7 +23,7 @@
                 <td>1</td>
                 <td>SI LA CAMA AHORA ESTA VACIA</td>
                 <td>
-                    <form method="GET" action="{{ path('censo_cama_cambio') }}">
+                    <form method="GET" action="{{ path('censo_paciente_pendiente',{'cama_id':cama_id}) }}">
                         <input type="button" value="LIBERAR CAMA" onclick='if(confirm("Esta seguro que esta cama esta libre?")){this.form.submit()}' />
                     </form>
                 </td>
@@ -33,7 +33,7 @@
                 <td>2</td>
                 <td>SI HAY UN NUEVO OCUPANTE EN ESTA CAMA</td>
                 <td>
-                    <form method="GET" action="{{ path('censo_paciente') }}">
+                    <form method="GET" action="{{ path('censo_paciente', {'cama_id': cama_id}) }}">
                         <input type="submit" value="REGISTRAR OTRO PACIENTE EN CAMA"  />
                     </form>
                 </td>
