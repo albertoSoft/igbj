@@ -6,27 +6,31 @@ use Doctrine\ORM\EntityRepository;
 
 use Gastro\SiceBundle\Entity\SeCama;
 use Gastro\SiceBundle\Entity\SeSala;
+use Gastro\CensoBundle\Entity\AdmisionCama;
+use Gastro\HospitalizacionBundle\Entity\Cama;
 
 use Gastro\SiceBundle\Util\Util;
 
 class CamaRepository extends EntityRepository
 {
-    public function findPacienteEnCama(Cama $cama) {
-        // *** falta por fecha
+    public function findPacienteEnCama(Cama $cama,$fecha=null){
+        $fecha=($fecha!=NULL)?$fecha:new \DateTime('today');
         $em=  $this->getEntityManager();
-        /**     anterior
-        $consulta=$em->createQuery('SELECT p,ac,c,ad '
-                . 'FROM HospitalizacionBundle:Asignacioncama ac '
-                . 'JOIN ac.cama c JOIN ac.admision ad JOIN ad.paciente p '
-                . 'WHERE c.id=:cama_id AND c.ocupada=1'
-                . 'ORDER BY ac.fecha DESC');
-        /**/
-        $consulta=$em->createQuery('SELECT p,ap,ac FROM CensoBundle:AdmisionCama ac JOIN ac.admisionPaciente ap JOIN ap.paciente p WHERE ac.cama=:cama_id ORDER BY ac.fecha DESC ');
-        $consulta->setParameter('cama_id', $cama->getId());
-        $consulta->setMaxResults(1);
+        $admisioncama=$em->getRepository('CensoBundle:AdmisionCama')->findAdmisionCamaVigenteByCama($cama,$fecha);
+        if($admisioncama!=null){
+            if($admisioncama->getAdmisionPaciente()->getPendiente()==TRUE){
+                $paciente=NULL;
+            }else{
+                $paciente=$admisioncama->getAdmisionPaciente()->getPaciente();
+            }
+        }else{
+            $paciente=NULL;
+        }
         
-        return $consulta->getOneOrNullResult();
+        return $paciente;
+        
     }
+    
     public function existeCama($salaEnum,$camaLetra) {
         $em=  $this->getEntityManager();
         $camaEnum=Util::devolverEnumeracionCama($camaLetra);
@@ -103,6 +107,27 @@ class CamaRepository extends EntityRepository
         }
     }
     
+    public function cambiarEstadoPacienteAPendiente(Cama $cama) {
+        $em=  $this->getEntityManager();
+        $admisioncama=$em->getRepository('CensoBundle:AdmisionCama')->findAdmisionCamaVigenteByCama($cama);
+        if($admisioncama!=NULL){
+            $admisioncama->getAdmisionPaciente()->setPendiente(TRUE);
+            $em->persist($admisioncama);
+
+            $unir=$em->getRepository('CensoBundle:AdmisionCama')->findAdmisionUnida($admisioncama);
+            if($unir!=null){
+                $unir->getAdmision()->setPendiente(TRUE);
+                $em->persist($unir);
+            }
+            $em->flush();
+            $sesion=new Session();
+            $sesion->getFlashBag()->add('info', 'El paciente '.$admisioncama->getAdmisionPaciente()->getPaciente().' pasa a la lista PENDIENTE');
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
+    }
     /*
      *esta funcion existe por defecto llamada con :   findOneBy(array('sala'=>$sala,'nombre'=>$cama)) 
      *

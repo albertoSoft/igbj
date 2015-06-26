@@ -1,5 +1,4 @@
 <?php
-
 namespace Gastro\HospitalizacionBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -29,17 +28,19 @@ class DefaultController extends Controller
 {
     public function inicioAction()
     {
+        date_default_timezone_set('America/La_Paz');
+        
         $em=$this->getDoctrine()->getManager();
         $salas=  $em->getRepository('HospitalizacionBundle:Sala')->findAll();
-
-        foreach ($salas as $sala) {
+        foreach ($salas as $sala){
             $camas[$sala->getId()]=$em->getRepository('HospitalizacionBundle:Cama')->findBySala($sala);
-            foreach ($camas[$sala->getId()] as $cama) {
+            foreach ($camas[$sala->getId()] as $cama){
                 $pacientes[$cama->getId()]=$em->getRepository('HospitalizacionBundle:Cama')->findPacienteEnCama($cama);
-                $camasVerificadas[$cama->getId()]=$em->getRepository('CensoBundle:Verificacioncama')->camaVerificada($cama->getId());
+                $camasVerificadas[$cama->getId()]=$em->getRepository('CensoBundle:Verificacioncama')->camaVerificada($cama);
             }
         }
-        return $this->render('HospitalizacionBundle:Default:inicio.html.twig',array('salas'=>$salas,'camas'=>$camas,'pacientes'=>$pacientes,'camasVerificadas'=>$camasVerificadas));
+        $fechaActual=new \DateTime('today');
+        return $this->render('HospitalizacionBundle:Default:inicio.html.twig',array('salas'=>$salas,'camas'=>$camas,'pacientes'=>$pacientes,'camasVerificadas'=>$camasVerificadas,'factual'=>$fechaActual));
     }
     
     public function admisionAction(Request $request)
@@ -75,7 +76,7 @@ class DefaultController extends Controller
             if(!$this->get('session')->getFlashbag()->has('error')){
                 $em->getRepository('HospitalizacionBundle:Asignacioncama')->registrarAdmisionycama($asignacioncama);
                 // **** Codigo para cama confirmada
-                $em->getRepository('CensoBundle:Verificacioncama')->verificarCama($asignacioncama->getCama()->getId());
+                $em->getRepository('CensoBundle:Verificacioncama')->verificarCama($asignacioncama->getCama());
                 $this->get('session')->getFlashBag() ->add('info','¡Registro correcto! nueva admisión registrada. Paciente: '.$asignacioncama->getAdmision()->getPaciente());
 
                 if ($formulario->get('referido')->getData()==1){

@@ -22,17 +22,17 @@ class CensoController extends Controller
     }
     public function confirmacamaAction($cama_id,$paciente_id=null) {
         
-        ini_set('date.timezone','America/La_Paz'); 
+         
         $horaActual=  date("H:i:s");
         $em=$this->getDoctrine()->getManager();
-        
+        $cama=$em->getRepository('HospitalizacionBundle:Cama')->find($cama_id);
         if($paciente_id!=null){
             $msj='continua internado '.$em->getRepository('PersonaBundle:Paciente')->find($paciente_id);;
         }else{
             $msj=' sigue LIBRE';
         }
 
-        $em->getRepository('CensoBundle:Verificacioncama')->verificarCama($cama_id);
+        $em->getRepository('CensoBundle:Verificacioncama')->verificarCama($cama);
         
         $this->get('session')->getFlashBag() ->add('info','¡Cama confirmada a Hrs. '.$horaActual.' '.$msj);
 

@@ -1503,6 +1503,6 @@ class SeHc
         return $this->lugarexpedicion;
     }
     public function __toString() {
-        return 'funciona';//$this->getHclAppat();//.' '.$this->getHclApmat().' '.$this->getHclNombre().' '.$this->getHclCodigo();
+        return $this->getHclAppat().' '.$this->getHclApmat().' '.$this->getHclNombre().' '.$this->getHclCodigo();
     }
 }

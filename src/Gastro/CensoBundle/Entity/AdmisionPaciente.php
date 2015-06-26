@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="admisionpaciente")
  * @ORM\Entity(repositoryClass="Gastro\CensoBundle\Entity\AdmisionPacienteRepository")
- * @UniqueEntity(fields = {"paciente", "fechaRegistro"},message="Este paciente ya se registro en la misma fecha")
+ * @UniqueEntity(fields = {"id","paciente", "fechaRegistro"},message="Este paciente ya se registro en la misma fecha Admision-Paciente")
  */
 class AdmisionPaciente
 {
@@ -27,6 +27,8 @@ class AdmisionPaciente
     /**
      *
      * @ORM\ManyToOne(targetEntity="Gastro\PersonaBundle\Entity\Paciente")
+     * @Assert\NotBlank(message="El paciente debe tener un valor válido")
+     * @Assert\NotNull(message="El paciente debe estar registrado en el sistema ")
      */
     private $paciente;
     

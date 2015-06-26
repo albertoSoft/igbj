@@ -1,5 +1,5 @@
 {% extends 'HospitalizacionBundle::layout.html.twig' %}
-{% set titulo="CONTROL DEL CENSO DE CAMAS, ADMISIONES Y ALTAS" %}
+{% set titulo="CONTROL CENSO DE CAMAS, ADMISIONES Y ALTAS "~factual|date("d/m/Y") %}
 
 {% block title  %}
     {{ titulo }}
@@ -23,12 +23,12 @@
                 <li> {{ sala.nombre }} : {{sala.servicio }}</li>
                 <ul>
                 {% for cama in camas[sala.id] %}
-                    <li>cama {{ cama.nombre }} : pac: 
+                    <li>cama {{ cama.nombre }} : estado: {{ cama.ocupada?'Ocupada':'Libre' }} Pac.: 
                         {% if pacientes[cama.id] %}
-                            <a href="{{ path('censo_cama_cambio',{'cama_id':cama.id}) }}">{{ pacientes[cama.id].admisionPaciente.paciente }}  </a> 
-                            <img alt="Foto" src="{{ asset('uploads/images/' ~pacientes[cama.id].admisionPaciente.paciente.rutafoto) }}">
+                            <a href="{{ path('censo_cama_cambio',{'cama_id':cama.id}) }}">{{ pacientes[cama.id] }}  </a> 
+                            <img alt="Foto" src="{{ asset('uploads/images/' ~pacientes[cama.id].rutafoto) }}">
                             {% if not camasVerificadas[cama.id] %}
-                            <form method="GET" action="{{ path('confirma_camaocupada', {'cama_id': cama.id,'paciente_id':pacientes[cama.id].admisionPaciente.paciente.id})}}">
+                            <form method="GET" action="{{ path('confirma_camaocupada', {'cama_id': cama.id,'paciente_id':pacientes[cama.id].id})}}">
                                 <input type="submit" value="Conf.Paciente" />
                             </form>
                             {% endif %}

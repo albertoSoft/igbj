@@ -11,6 +11,7 @@ use Gastro\CensoBundle\Entity\AdmisionTipoAtencion;
 use Gastro\CensoBundle\Entity\AdmisionDiagnostico;
 use Gastro\CensoBundle\Entity\AdmisionServicio;
 use Gastro\CensoBundle\Entity\AdmisionIngresapor;
+use Gastro\HospitalizacionBundle\Entity\UnirAdmisionCenso;
 
 class AsignacioncamaRepository extends EntityRepository
 {
@@ -42,6 +43,13 @@ class AsignacioncamaRepository extends EntityRepository
         $em->persist($admisionPaciente);
         $em->flush();
         
+        //*************** Unir Admision con Censo
+        $unir=new UnirAdmisionCenso();
+        $unir->setAdmision($admision);
+        $unir->setAdmisionPaciente($admisionPaciente);
+        $em->persist($unir);
+//        $em->flush();
+        
         //******* AdmisionCama
         $admisionCama=new AdmisionCama();
         $admisionCama->setCama($asignacioncama->getCama());
@@ -55,14 +63,14 @@ class AsignacioncamaRepository extends EntityRepository
         $admisionFecha->setAdmisionPaciente($admisionPaciente);
         $admisionFecha->setFechainternacion($asignacioncama->getFecha());
         $em->persist($admisionFecha);
-        $em->flush();
+//        $em->flush();
         /**/
         //********* AdmisionTipoPac
         $admisionTipoAtencion=new AdmisionTipoAtencion();
         $admisionTipoAtencion->setAdmisionPaciente($admisionPaciente);
         $admisionTipoAtencion->setSeguro($asignacioncama->getAdmision()->getSeguro());
         $em->persist($admisionTipoAtencion);
-        $em->flush();
+//        $em->flush();
         
         //**********AdmisionDiagnostico
         $admisionDiagnostico=new AdmisionDiagnostico();
@@ -70,14 +78,14 @@ class AsignacioncamaRepository extends EntityRepository
         $admisionDiagnostico->setDiagnostico($asignacioncama->getAdmision()->getDiagnostico());
         $admisionDiagnostico->setMedico($asignacioncama->getAdmision()->getMedico());
         $em->persist($admisionDiagnostico);
-        $em->flush();
+//        $em->flush();
         
         //********* AdmisionServicio
         $admisionServicio=new AdmisionServicio();
         $admisionServicio->setAdmisionPaciente($admisionPaciente);
         $admisionServicio->setServicio($asignacioncama->getAdmision()->getServicio());
         $em->persist($admisionServicio);
-        $em->flush();
+//        $em->flush();
         
         //********* AdmisionIngresapor
         $admisionIngresapor=new AdmisionIngresapor();

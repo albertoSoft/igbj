@@ -1,26 +1,43 @@
 <?php
-namespace Gastro\CensoBundle\Entity;
+namespace Gastro\HospitalizacionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * AdmisionCama
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Gastro\CensoBundle\Entity\UnirAdmisionCensoRepository")
+ * @ORM\Entity(repositoryClass="Gastro\HospitalizacionBundle\Entity\UnirAdmisionCensoRepository")
+ * @UniqueEntity(fields={"admision", "admisionPaciente"}, message="solo deve existir una union entre Admision y Censo")
  */
 class UnirAdmisionCenso
 {
-    /*
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Admision") */
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /** @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Admision") */
     private $admision;
     
-    /*
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente") */
+    /** @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente") */
     private $admisionPaciente;
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
     
     /**
      * Set admision

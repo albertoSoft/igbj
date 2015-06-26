@@ -32,8 +32,8 @@ class Basico implements FixtureInterface, ContainerAwareInterface
     public function load(ObjectManager $manager)
     {
         $turnosverificacion=array(
-            array('nombre'=>'mañana','horainicio'=>new \DateTime('0000-00-00 08:00:00'),'horafinal'=>new \DateTime('0000-00-00 14:00:0')),
-            array('nombre'=>'tarde','horainicio'=>new \DateTime('0000-00-00 14:00:01'),'horafinal'=>new \DateTime('0000-00-00 19:00:00')),
+            array('nombre'=>'mañana','horainicio'=>new \DateTime('0000-00-00 06:00:00'),'horafinal'=>new \DateTime('0000-00-00 14:00:0')),
+            array('nombre'=>'tarde','horainicio'=>new \DateTime('0000-00-00 14:00:01'),'horafinal'=>new \DateTime('0000-00-00 21:00:00')),
 //            array('nombre'=>'','horainicio'=>'','horafinal'=>''),
         );
         foreach ($turnosverificacion as $turno){

@@ -30,11 +30,14 @@
 
 {% block javascript %}
     {{ parent() }}
-    {{ include('HospitalizacionBundle:Default:autocompletar/funcionAutocompletarHc.html.twig', {
-            'var_id' : formulario.paciente.vars.id,
-            'objetos' : pacientes
-            }) 
-    }}
+    
+            $(document).ready(function(){
+               $('#{{ formulario.paciente.vars.id }}').autocomplete({
+                    source :'{{ path('lista_paciente_array') }}'
+                });
+            });
+    
+    
   
 {% endblock %}
 

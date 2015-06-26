@@ -1,11 +1,12 @@
 <?php
 namespace Gastro\CensoBundle\Entity;
 use Doctrine\ORM\EntityRepository;
+use Gastro\HospitalizacionBundle\Entity\Cama;
 
 class VerificacioncamaRepository extends EntityRepository
 {
     //***** funcion devuelva verdadero  si la cama ha sido verificada
-    public function camaVerificada($cama_id) {
+    public function camaVerificada(Cama $cama) {
         
         $em=  $this->getEntityManager();
         $turnoActual=$em->getRepository('CensoBundle:Turnoverificacion')->findTurnoActual();
@@ -15,7 +16,7 @@ class VerificacioncamaRepository extends EntityRepository
                                     . 'WHERE vc.fecha=:hoy '
                                     . 'AND vc.turnoverificacion=:turno '
                                     . 'AND c.id=:cama_id');
-        $consulta->setParameter('cama_id', $cama_id);
+        $consulta->setParameter('cama_id', $cama->getId());
         $consulta->setParameter('hoy', new \DateTime('today'));
         $consulta->setParameter('turno', $turnoActual);
         $consulta->setMaxResults(1);
@@ -26,12 +27,12 @@ class VerificacioncamaRepository extends EntityRepository
             return TRUE;
 
     }
-    public function verificarCama($cama_id) {
-        $camaVerificada=  $this->camaVerificada($cama_id);
-        if (!$camaVerificada){
+    public function verificarCama(Cama $cama) {
+        
+        if (!$this->camaVerificada($cama)){
             $em=  $this->getEntityManager();
             $verificacionCama=new Verificacioncama();
-            $verificacionCama->setCama($em->getRepository('HospitalizacionBundle:Cama')->find($cama_id));
+            $verificacionCama->setCama($cama);
             $verificacionCama->setTurnoverificacion($em->getRepository('CensoBundle:Turnoverificacion')->findTurnoActual());
             $verificacionCama->setFecha(new \DateTime('today'));
             $em->persist($verificacionCama);
