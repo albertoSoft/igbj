@@ -127,6 +127,6 @@ class AdmisionPaciente
         return $this->pendiente;
     }
     public function __toString() {
-        return $this->getId();
+        return ''.$this->getId();
     }
 }

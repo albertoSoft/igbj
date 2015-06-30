@@ -11,9 +11,17 @@ use Gastro\CensoBundle\Form\AdmisionPacienteType;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use Gastro\CensoBundle\Entity\AdmisionFecha;
+use Gastro\CensoBundle\Form\AdmisionFechaType;
+
+use Gastro\CensoBundle\Entity\AdmisionDiagnostico;
+use Gastro\CensoBundle\Form\AdmisionDiagnosticoType;
+
+use Gastro\HospitalizacionBundle\Util\Util;
+
 class CensoprocesoController extends Controller
 {
-    public function camacambiaAction($cama_id) {
+    public function camacambiaAction($cama_id){
         
         return $this->render('HospitalizacionBundle:Censo:camacambia.html.twig',array('cama_id'=>$cama_id));
     }
@@ -111,7 +119,9 @@ class CensoprocesoController extends Controller
         return $this->redirect($this->generateUrl('pagina_inicial'));
     }
     
-//******************************    
+    
+    
+// *****************************************************************************    
     public function listaPacienteArrayAction(Request $request) {
         /**/
         try {
@@ -140,5 +150,98 @@ class CensoprocesoController extends Controller
             ]);
         }/**/
      //return $this->redirect($this->generateUrl('pagina_inicial'));
+    }
+    //**************** Datos Internacion
+    
+    public function datosinternacionAction($paciente_id) {
+        setlocale(LC_ALL, "ES_ES");
+        
+        $em=  $this->getDoctrine()->getManager();
+        $paciente=$em->getRepository('PersonaBundle:Paciente')->find($paciente_id);
+        $admisionPaciente=$em->getRepository('CensoBundle:AdmisionPaciente')->findAdmisionPacienteVigente($paciente);
+        $admisionCama=$em->getRepository('CensoBundle:AdmisionCama')->findUltimaAdmisionCama($admisionPaciente);
+        $admisionFecha=$em->getRepository('CensoBundle:AdmisionFecha')->findOneByAdmisionPaciente($admisionPaciente);
+        $admisionDiagnostico=$em->getRepository('CensoBundle:AdmisionDiagnostico')->findOneByAdmisionPaciente($admisionPaciente);
+//        $ndiagnosticos=  count($admisionDiagnosticos);
+        
+        $fadmi=$admisionFecha!=NULL?Util::fechaEspanolCadena($admisionFecha->getFechainternacion()):'Sin definir - aprox. '.Util::fechaEspanolCadena($admisionPaciente->getFecharegistro());
+        $diagnostico=$admisionDiagnostico!=NULL?$admisionDiagnostico->getDiagnostico():'Sin Diagnóstico';
+        $medico=$admisionDiagnostico!=NULL?' - '.$admisionDiagnostico->getMedico():'';
+        $variables=array('admisionpaciente'=>$admisionPaciente,
+            'cama'=>$admisionCama->getCama(),
+            'fadmi'=>$fadmi,
+            'diagnostico'=>$diagnostico.$medico,
+            
+             );
+        
+        return $this->render('HospitalizacionBundle:Censo:datosinternacion.html.twig',$variables);
+    }
+    public function datosinternacionfechaAction($admisionpaciente_id) {
+        
+        $request=$this->getRequest();
+
+        $em=  $this->getDoctrine()->getManager();
+        $admisionPaciente=$em->getRepository('CensoBundle:AdmisionPaciente')->find($admisionpaciente_id);
+        $admisionFecha=$em->getRepository('CensoBundle:AdmisionFecha')->findOneByAdmisionPaciente($admisionPaciente);
+        if($admisionFecha==NULL){
+            $admisionFecha=new AdmisionFecha();
+            $admisionFecha->setAdmisionPaciente($admisionPaciente);
+            $admisionFecha->setFechainternacion($admisionPaciente->getFechaRegistro());
+        }
+        $formulario= $this->createForm(new AdmisionFechaType(),$admisionFecha );
+        $formulario->handleRequest($request);
+        
+        if($formulario->isValid()){
+            if($admisionFecha->getFechainternacion()>$admisionPaciente->getFechaRegistro()){
+                $this->get ('session')->getFlashBag()->add('error','La fecha de internación no puede ser mayor a la fecha del registro del paciente internado');
+            }else{
+                $dif=date_diff($admisionPaciente->getFechaRegistro(),$admisionFecha->getFechainternacion());
+                $dif=$dif->format('%a')+0;
+                if($dif>4)$this->get ('session')->getFlashBag()->add('error','Existe mucha diferencia entre la fecha de registro del paciente y la fecha de internacion. '.$dif.' dias' );
+            }
+            if(!$this->get ('session')->getFlashBag()->has('error')){
+                $em->persist($admisionFecha);$em->flush();
+                
+                $this->get ('session')->getFlashBag()->add('info','Registro de Fecha de internación correcto');
+                return $this->redirect($this->generateUrl('censo_datos_internacion',array('paciente_id'=>$admisionPaciente->getPaciente()->getId())));
+            }
+        }
+        return $this->render('HospitalizacionBundle:Censo:datosinternacionfecha.html.twig',array('formulario' => $formulario->createView(),'admisionPaciente'=>$admisionPaciente));
+    }
+    public function datosinternaciondiagnosticoAction($admisionpaciente_id) {
+        
+        $request=$this->getRequest();
+
+        $em=  $this->getDoctrine()->getManager();
+        $admisionPaciente=$em->getRepository('CensoBundle:AdmisionPaciente')->find($admisionpaciente_id);
+        
+        $admisionDiagnostico=$em->getRepository('CensoBundle:AdmisionDiagnostico')->findOneByAdmisionPaciente($admisionPaciente);
+        if($admisionDiagnostico==NULL){
+            $admisionDiagnostico=new AdmisionDiagnostico();
+            $admisionDiagnostico->setAdmisionPaciente($admisionPaciente);
+      //      $admisionDiagnostico->setFechainternacion($admisionPaciente->getFechaRegistro());
+        }
+        $formulario= $this->createForm(new AdmisionDiagnosticoType(),$admisionDiagnostico);
+        $formulario->handleRequest($request);
+        
+        if($formulario->isValid()){
+            /** Validaciones
+            if($admisionDiagnostico->getFechainternacion()>$admisionPaciente->getFechaRegistro()){
+                $this->get ('session')->getFlashBag()->add('error','La fecha de internación no puede ser mayor a la fecha del registro del paciente internado');
+            }else{
+                $dif=date_diff($admisionPaciente->getFechaRegistro(),$admisionDiagnostico->getFechainternacion());
+                $dif=$dif->format('%a')+0;
+                if($dif>4)$this->get ('session')->getFlashBag()->add('error','Existe mucha diferencia entre la fecha de registro del paciente y la fecha de internacion. '.$dif.' dias' );
+            }/**/
+            if(!$this->get ('session')->getFlashBag()->has('error')){
+                $em->persist($admisionDiagnostico);$em->flush();
+                
+                $this->get ('session')->getFlashBag()->add('info','Registro de Dagnostico de internación correcto');
+                return $this->redirect($this->generateUrl('censo_datos_internacion',array('paciente_id'=>$admisionPaciente->getPaciente()->getId())));
+            }/**/
+        }
+        $emSice=  $this->getDoctrine()->getManager('sice');
+        $medicos=$emSice->getRepository('SiceBundle:Perpersona')->findAllMedicos();
+        return $this->render('HospitalizacionBundle:Censo:datosinternaciondiagnostico.html.twig',array('formulario' => $formulario->createView(),'admisionPaciente'=>$admisionPaciente,'medicos'=>$medicos));
     }
 }

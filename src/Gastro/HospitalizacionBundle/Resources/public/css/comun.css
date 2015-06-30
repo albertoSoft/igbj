@@ -195,6 +195,29 @@ a:visited { color: #2200C1; }
 a:hover   { color: #C06 !important; }
 a:active  { position: relative; top: 1px; }
 
+a.enlaceboton {
+ background-color: #CCC;
+ text-align: center;
+ display: inline-block;
+ margin: 2px;
+ height: auto;
+ width: auto;
+ padding-top: 4px;
+ padding-right: 15px;
+ padding-bottom: 4px;
+ padding-left: 15px;
+ color: #000;
+ text-decoration: none;
+ border: 2px outset #000;
+}
+ 
+/* Usamos la pseudo-clase :hover para añadir
+la animación al pasar el cursor por encima */
+ 
+a.enlaceboton:hover {
+ border: 2px inset #000;
+} 
+
 /* ===========================================================================
    Botones
    ======================================================================== */

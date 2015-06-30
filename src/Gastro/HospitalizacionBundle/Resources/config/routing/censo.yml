@@ -14,9 +14,23 @@ censo_paciente_confirma_traslado:
 censo_paciente_pendiente:
     path:     /cama/liberar/{cama_id}/
     defaults: { _controller: "HospitalizacionBundle:Censoproceso:liberarcama" }
-    
+     
 # ------- AJAX - obtener datos array
 lista_paciente_array:
     path:      /listaarray/paciente/
     defaults: { _controller: "HospitalizacionBundle:Censoproceso:listaPacienteArray" }
     methods:  [GET]
+
+# ------------- Datos internación
+censo_datos_internacion:
+    path:     /internacion/{paciente_id}/
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:datosinternacion" }
+   
+datos_internacion_fecha:
+    path:     /internacion/fecha/{admisionpaciente_id}/
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:datosinternacionfecha" }
+
+datos_internacion_diagnostico:
+    path:     /internacion/diagnostico/{admisionpaciente_id}/
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:datosinternaciondiagnostico" }
+    

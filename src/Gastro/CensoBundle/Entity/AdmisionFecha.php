@@ -24,14 +24,20 @@ class AdmisionFecha
      */
     private $id;
     
-    /** @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente") */
+    /** 
+     * @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente")
+     * @Assert\NotBlank(message="La Admision debe tener un valor")
+     * @Assert\NotNull(message="Debe Seleccionar una Admision Válida")
+     */
     private $admisionPaciente;
     
     /**
      * @var \DateTime
      *
+     * @Assert\Date(message="Debe Introducir un valor fecha")
      * @ORM\Column(name="fechainternacion", type="datetime")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="La fecha debe tener un valor")
+     * @Assert\NotNull(message="Debe Seleccionar una fecha Válida")
      * 
      */
     private $fechainternacion;

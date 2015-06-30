@@ -25,18 +25,19 @@
                 {% for cama in camas[sala.id] %}
                     <li>cama {{ cama.nombre }} : estado: {{ cama.ocupada?'Ocupada':'Libre' }} Pac.: 
                         {% if pacientes[cama.id] %}
-                            <a href="{{ path('censo_cama_cambio',{'cama_id':cama.id}) }}">{{ pacientes[cama.id] }}  </a> 
+                            <a href="{{ path('censo_datos_internacion',{'paciente_id':pacientes[cama.id].id}) }}"> {{ pacientes[cama.id] }}  </a>
                             <img alt="Foto" src="{{ asset('uploads/images/' ~pacientes[cama.id].rutafoto) }}">
+                            <a class="enlaceboton" href="{{ path('censo_cama_cambio',{'cama_id':cama.id}) }}" > CAMBIO </a>
                             {% if not camasVerificadas[cama.id] %}
                             <form method="GET" action="{{ path('confirma_camaocupada', {'cama_id': cama.id,'paciente_id':pacientes[cama.id].id})}}">
-                                <input type="submit" value="Conf.Paciente" />
+                                <input type="submit" value="Confirmar Paciente" />
                             </form>
                             {% endif %}
                         {% else %}
                             <a href="{{ path('censo_paciente', {'cama_id': cama.id}) }}"> LIBRE </a>
                             {% if not camasVerificadas[cama.id] %}
                             <form method="GET" action="{{ path('confirma_camalibre', {'cama_id': cama.id}) }}">
-                                <input type="submit" value="Conf.libre" />
+                                <input type="submit" value="Confirmar libre" />
                             </form>
                             {% endif %}
                         {% endif %}
