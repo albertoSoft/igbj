@@ -33,4 +33,19 @@ datos_internacion_fecha:
 datos_internacion_diagnostico:
     path:     /internacion/diagnostico/{admisionpaciente_id}/
     defaults: { _controller: "HospitalizacionBundle:Censoproceso:datosinternaciondiagnostico" }
+
+datos_internacion_seguro:
+    path:     /internacion/seguro/{admisionpaciente_id}/
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:datosinternacionseguro" }
     
+datos_internacion_referencia:
+    path:     /internacion/referencia/{admisionpaciente_id}/
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:datosinternacionreferencia" }
+    
+datos_internacion_ingresapor:
+    path:     /internacion/ingresapor/{admisionpaciente_id}/
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:datosinternacioningresapor" }
+    
+datos_internacion_servicio:
+    path:     /internacion/servicio/{admisionpaciente_id}/
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:datosinternacionservicio" }

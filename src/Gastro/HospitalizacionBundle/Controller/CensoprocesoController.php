@@ -151,7 +151,7 @@ class CensoprocesoController extends Controller
         }/**/
      //return $this->redirect($this->generateUrl('pagina_inicial'));
     }
-    //**************** Datos Internacion
+//**************** Datos Internacion *********************************************************************************************************
     
     public function datosinternacionAction($paciente_id) {
         setlocale(LC_ALL, "ES_ES");
