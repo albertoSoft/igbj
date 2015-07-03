@@ -1,0 +1,51 @@
+{% extends "HospitalizacionBundle::layout.html.twig"%}
+{% set titulo="Datos de Internación - Pacientes Pendientes: " %}
+
+{% block title  %}
+    {{ titulo }}
+{% endblock %}
+
+{% block cabecera_principal  %}
+    {{ titulo }}
+{% endblock %}
+
+{% block contenido  %}
+    {% for tipo, mensajes in app.session.flashbag.all() %}
+        {% for mensaje in mensajes %}
+            <p class="flash-{{ tipo }}">{{ mensaje }}</p>
+        {% endfor %}
+    {% endfor %}
+    
+    <div style="text-align:center;">
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Nombre Paciente H.C. </th>
+                
+                <th>Edad</th>
+                
+                <th>F. Ingreso</th>
+                <th>Diagnostico - Medico</th>
+                <th>Tipo Pac.</th>
+                <th>ultima Cama</th>
+                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for admisionpaciente in admisiones %}
+            <tr >
+                <td>{{ admisionpaciente.paciente }}</td>
+                
+                <td>{{ admisionpaciente.paciente.edad }}</td>
+                
+                <td> <a href="{{ path('datos_internacion_fecha',{'admisionpaciente_id':admisionpaciente.id}) }}"> fadmi </a></td>
+                <td> <a href="{{ path('datos_internacion_diagnostico',{'admisionpaciente_id':admisionpaciente.id}) }}"> diagnostico</a> </td>
+                <td> <a href="{{ path('datos_internacion_seguro',{'admisionpaciente_id':admisionpaciente.id}) }}"> diagnostico</a> </td>
+                <td> <a href="#"> {{ camas[admisionpaciente.id] }}</a>  </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock  %}

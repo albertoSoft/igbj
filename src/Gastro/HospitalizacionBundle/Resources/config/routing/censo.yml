@@ -14,7 +14,11 @@ censo_paciente_confirma_traslado:
 censo_paciente_pendiente:
     path:     /cama/liberar/{cama_id}/
     defaults: { _controller: "HospitalizacionBundle:Censoproceso:liberarcama" }
-     
+    
+censo_ver_pendientes:
+    path:     /pendientes/listar/
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:pendienteslistar" }
+
 # ------- AJAX - obtener datos array
 lista_paciente_array:
     path:      /listaarray/paciente/

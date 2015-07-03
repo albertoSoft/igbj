@@ -1,0 +1,32 @@
+{% extends "HospitalizacionBundle::layout.html.twig"%}
+{% set titulo="Tipo de atenciónn de "~admisionPaciente.paciente %}
+
+{% block title  %}
+    {{ titulo }}
+{% endblock %}
+
+{% block cabecera_principal  %}
+    {{ titulo }}
+{% endblock %}
+
+{% block contenido  %}
+    {% for tipo, mensajes in app.session.flashbag.all() %}
+        {% for mensaje in mensajes %}
+            <p class="flash-{{ tipo }}">{{ mensaje }}</p>
+        {% endfor %}
+    {% endfor %}
+        
+    <form action="" method="post" {{form_enctype(formulario) }}>
+      {{ form_widget(formulario) }}
+      <input class="boton" type="submit" value="Registrar" />
+    </form>
+    
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    
+    
+{% endblock %}
+
+

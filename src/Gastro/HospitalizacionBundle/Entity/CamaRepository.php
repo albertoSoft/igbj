@@ -109,24 +109,26 @@ class CamaRepository extends EntityRepository
     
     public function cambiarEstadoPacienteAPendiente(Cama $cama) {
         $em=  $this->getEntityManager();
-        $admisioncama=$em->getRepository('CensoBundle:AdmisionCama')->findAdmisionCamaVigenteByCama($cama);
-        if($admisioncama!=NULL){
-            $admisioncama->getAdmisionPaciente()->setPendiente(TRUE);
-            $em->persist($admisioncama);
+        $pacienteEnCama=$this->findPacienteEnCama($cama);
+        if($pacienteEnCama){
+            $admisioncama=$em->getRepository('CensoBundle:AdmisionCama')->findAdmisionCamaVigenteByCama($cama);
+            if($admisioncama!=NULL){
+                $admisioncama->getAdmisionPaciente()->setPendiente(TRUE);
+                $em->persist($admisioncama);
 
-            $unir=$em->getRepository('CensoBundle:AdmisionCama')->findAdmisionUnida($admisioncama);
-            if($unir!=null){
-                $unir->getAdmision()->setPendiente(TRUE);
-                $em->persist($unir);
+                $unir=$em->getRepository('CensoBundle:AdmisionCama')->findAdmisionUnida($admisioncama);
+                if($unir!=null){
+                    $unir->getAdmision()->setPendiente(TRUE);
+                    $em->persist($unir);
+                }
+                $em->flush();
+                $sesion=new Session();
+                $sesion->getFlashBag()->add('info', 'El paciente '.$admisioncama->getAdmisionPaciente()->getPaciente().' pasa a la lista PENDIENTE');
+                return TRUE;
             }
-            $em->flush();
-            $sesion=new Session();
-            $sesion->getFlashBag()->add('info', 'El paciente '.$admisioncama->getAdmisionPaciente()->getPaciente().' pasa a la lista PENDIENTE');
-            return TRUE;
         }
-        else {
-            return FALSE;
-        }
+        return FALSE;
+        
     }
     /*
      *esta funcion existe por defecto llamada con :   findOneBy(array('sala'=>$sala,'nombre'=>$cama)) 

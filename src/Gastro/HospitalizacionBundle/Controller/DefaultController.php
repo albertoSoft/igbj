@@ -69,7 +69,7 @@ class DefaultController extends Controller
             if($seguro!=NULL)
                 $em->getRepository('HospitalizacionBundle:Asignacioncama')->cambiarSeguro($asignacioncama,$seguro);
             else {
-                $this->get('session')->getFlashBag() ->add('error','¡Registro correcto! seguro NULO tipopac: '.$formulario->get('admision')->get('tipoPaciente')->getData().' - Seguro: '.$formulario->get('admision')->get('seguro')->getData());
+                $this->get('session')->getFlashBag() ->add('error','¡Registro incorrecto! seguro NULO / tipopac: '.$formulario->get('admision')->get('tipoPaciente')->getData().' - Seguro: '.$formulario->get('admision')->get('seguro')->getData());
             }
             
             //******************** REGISTRO DE ADMISION SI NO HAY ERRORES

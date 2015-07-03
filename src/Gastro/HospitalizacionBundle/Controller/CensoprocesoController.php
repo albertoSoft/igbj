@@ -17,6 +17,15 @@ use Gastro\CensoBundle\Form\AdmisionFechaType;
 use Gastro\CensoBundle\Entity\AdmisionDiagnostico;
 use Gastro\CensoBundle\Form\AdmisionDiagnosticoType;
 
+use Gastro\CensoBundle\Entity\AdmisionTipoAtencion;
+use Gastro\CensoBundle\Form\AdmisionTipoAtencionType;
+
+use Gastro\CensoBundle\Entity\AdmisionIngresapor;
+use Gastro\CensoBundle\Form\AdmisionIngresaporType;
+
+use Gastro\CensoBundle\Entity\AdmisionServicio;
+use Gastro\CensoBundle\Form\AdmisionServicioType;
+
 use Gastro\HospitalizacionBundle\Util\Util;
 
 class CensoprocesoController extends Controller
@@ -88,10 +97,15 @@ class CensoprocesoController extends Controller
             //paciente NO esta Internado Se puede registrar
             else {
                 if($em->getRepository('CensoBundle:AdmisionPaciente')->findAdmisionPacienteVigente($paciente)==NULL){
+                     // poner pendiente a paciente anterior SI HAY
+                    $em->getRepository('HospitalizacionBundle:Cama')->cambiarEstadoPacienteAPendiente($cama);
+                    //****
                     $em->persist($admisionPaciente);$em->flush();
                     $em->getRepository('CensoBundle:AdmisionCama')->asignarCamaAdmision($admisionPaciente,$cama);
                     $em->getRepository('CensoBundle:Verificacioncama')->verificarCama($cama);
                     $paciente->setInternado(TRUE);$em->persist($paciente);$em->flush();
+                   
+                    
                     $this->get('session')->getFlashBag()->add('info',"Paciente $paciente fue internado a la cama $cama");
                 }else{
                     $this->get('session')->getFlashBag() ->add('error','El paciente tiene una internación anterior que no fue dada de alta - ¡No se puede volver a internar!');
@@ -119,7 +133,16 @@ class CensoprocesoController extends Controller
         return $this->redirect($this->generateUrl('pagina_inicial'));
     }
     
-    
+    public function pendienteslistarAction() {
+        $em=  $this->getDoctrine()->getManager();
+        $admisiones=$em->getRepository('CensoBundle:AdmisionPaciente')->findByPendiente(true);
+        
+        foreach ($admisiones as $admisionPaciente) {
+            $camas[$admisionPaciente->getId()]=$em->getRepository('PersonaBundle:Paciente')->findCamaDelPaciente($admisionPaciente->getPaciente());
+        }
+        
+        return $this->render('CensoBundle:Censo:mostrarpendientes.html.twig',array('admisiones'=>$admisiones,'camas'=>$camas));
+    }
     
 // *****************************************************************************    
     public function listaPacienteArrayAction(Request $request) {
@@ -166,12 +189,27 @@ class CensoprocesoController extends Controller
         
         $fadmi=$admisionFecha!=NULL?Util::fechaEspanolCadena($admisionFecha->getFechainternacion()):'Sin definir - aprox. '.Util::fechaEspanolCadena($admisionPaciente->getFecharegistro());
         $diagnostico=$admisionDiagnostico!=NULL?$admisionDiagnostico->getDiagnostico():'Sin Diagnóstico';
-        $medico=$admisionDiagnostico!=NULL?' - '.$admisionDiagnostico->getMedico():'';
+        $medico=$admisionDiagnostico!=NULL?' - '.$admisionDiagnostico->getMedico():'';/**/
+        
+        $admisionTipoAtencion=$em->getRepository('CensoBundle:AdmisionTipoAtencion')->findOneByAdmisionPaciente($admisionPaciente);
+        $seguro=$admisionTipoAtencion!=NULL?$admisionTipoAtencion->getSeguro():'INSTITUCIONAL';
+        
+        $referencia='No';
+        
+        $admisionIngreso=$em->getRepository('CensoBundle:AdmisionIngresapor')->findOneByAdmisionPaciente($admisionPaciente);
+        $ingreso=$admisionIngreso!=NULL?$admisionIngreso->getNombre():'Sin Def.';
+        
+        $admisionServicio=$em->getRepository('CensoBundle:AdmisionServicio')->findOneByAdmisionPaciente($admisionPaciente);
+        $servicio=$admisionServicio!=NULL?$admisionServicio->getNombre():'Sin Def.';
+        
         $variables=array('admisionpaciente'=>$admisionPaciente,
             'cama'=>$admisionCama->getCama(),
             'fadmi'=>$fadmi,
             'diagnostico'=>$diagnostico.$medico,
-            
+            'seguro'=>$seguro,
+            'referencia'=>$referencia,
+            'ingreso'=>$ingreso,
+            'servicio'=>$servicio,
              );
         
         return $this->render('HospitalizacionBundle:Censo:datosinternacion.html.twig',$variables);
@@ -243,5 +281,45 @@ class CensoprocesoController extends Controller
         $emSice=  $this->getDoctrine()->getManager('sice');
         $medicos=$emSice->getRepository('SiceBundle:Perpersona')->findAllMedicos();
         return $this->render('HospitalizacionBundle:Censo:datosinternaciondiagnostico.html.twig',array('formulario' => $formulario->createView(),'admisionPaciente'=>$admisionPaciente,'medicos'=>$medicos));
+    }
+    
+    public function datosinternacionseguroAction($admisionpaciente_id) {
+        
+        $request=$this->getRequest();
+
+        $em=  $this->getDoctrine()->getManager();
+        $admisionPaciente=$em->getRepository('CensoBundle:AdmisionPaciente')->find($admisionpaciente_id);
+        
+        $admisionSeguro=$em->getRepository('CensoBundle:AdmisionTipoAtencion')->findOneByAdmisionPaciente($admisionPaciente);
+        if($admisionSeguro==NULL){
+            $admisionSeguro=new AdmisionTipoAtencion();
+            $admisionSeguro->setAdmisionPaciente($admisionPaciente);
+      //      $admisionDiagnostico->setFechainternacion($admisionPaciente->getFechaRegistro());
+            $mensajeConSeguro=FALSE;
+        }else{
+            $mensajeConSeguro=TRUE;
+        }
+        $formulario= $this->createForm(new AdmisionTipoAtencionType(),$admisionSeguro);
+        $formulario->handleRequest($request);
+        
+        if($formulario->isValid()){            
+            //**************** SEGURO si se utiliza el listado SELECT con valores del SICE
+            $seguro=$em->getRepository('HospitalizacionBundle:Seguro')->encontrarSeguroDesdeListaSice(2,$formulario->get('seguro')->getData());
+            if($seguro!=NULL){
+                $admisionSeguro->setSeguro ($seguro);
+                /**/
+                $em->persist($admisionSeguro);
+                $em->flush();/**/
+                
+                $this->get('session')->getFlashBag() ->add('info','¡Registro correcto, Paciente de convenio '.$seguro);
+                return $this->redirect($this->generateUrl('censo_datos_internacion',array('paciente_id'=>$admisionPaciente->getPaciente()->getId())));
+            }else{
+                $this->get('session')->getFlashBag() ->add('error','¡Registro incorrecto! seguro NULO  - Seguro: '.$formulario->get('seguro')->getData());
+            }
+        }
+        
+        if ($mensajeConSeguro){$this->get('session')->getFlashBag() ->add('info','¡Paciente de convenio '.$admisionSeguro->getSeguro().'. Para modificar, seleccione otro y registre');}
+        $emSice=  $this->getDoctrine()->getManager('sice');
+        return $this->render('HospitalizacionBundle:Censo:datosinternacionseguro.html.twig',array('formulario' => $formulario->createView(),'admisionPaciente'=>$admisionPaciente));
     }
 }

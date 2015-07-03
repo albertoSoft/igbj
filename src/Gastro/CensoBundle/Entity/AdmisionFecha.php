@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="admisionfecha")
  * @ORM\Entity
- * @UniqueEntity("admisionPaciente")
+ * @UniqueEntity(fields={"admisionPaciente"}, message="Una admisión solo puede tener una fecha de admisión")
  */
 class AdmisionFecha
 {

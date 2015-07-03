@@ -48,7 +48,10 @@ class AdmisionAlta
      */
     private $fechaAlta;
     
-    /** @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente") */
+    /** @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente")
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     */
     private $admisionPaciente;
 
     /** @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\TipoAlta") */
