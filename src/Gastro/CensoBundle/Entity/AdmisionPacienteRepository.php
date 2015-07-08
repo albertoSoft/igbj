@@ -38,6 +38,18 @@ class AdmisionPacienteRepository extends EntityRepository
         
         return $admisionPaciente;
     }
+    public function datosInternacionCompleta(AdmisionPaciente $admisionPaciente) {
+        $em= $this->getEntityManager();
+        if($em->getRepository('CensoBundle:AdmisionFecha')->findOneByAdmisionPaciente($admisionPaciente) &&
+           $em->getRepository('CensoBundle:AdmisionCama')->findOneByAdmisionPaciente($admisionPaciente)  &&
+           $em->getRepository('CensoBundle:AdmisionDiagnostico')->findOneByAdmisionPaciente($admisionPaciente)  &&
+           $em->getRepository('CensoBundle:AdmisionIngresapor')->findOneByAdmisionPaciente($admisionPaciente)  &&
+           $em->getRepository('CensoBundle:AdmisionServicio')->findOneByAdmisionPaciente($admisionPaciente)
+           ){
+               return TRUE;
+        }
+        return FALSE;
+    }
     /**
     public function findAdmisionPacienteVigenteByCamaPaciente(\Gastro\HospitalizacionBundle\Entity\Cama $cama,  \Gastro\PersonaBundle\Entity\Paciente $paciente){
         $em=  $this->getEntityManager();

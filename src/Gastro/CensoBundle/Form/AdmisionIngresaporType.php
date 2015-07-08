@@ -15,9 +15,13 @@ class AdmisionIngresaporType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('admisionPaciente')
-            ->add('ingresapor')
-        ;
+            ->add('admisionPaciente',null,array('attr' => array('readonly' => 'readonly','style'=>'display:none'),'label' => ' '))
+            ->add('ingresapor',NULL,array('mapped'   => true,
+                                          'expanded' => true,
+                                          'required' => TRUE,
+                                          'label'    => 'INGRESA POR :'
+                                          )
+                 );
     }
     
     /**

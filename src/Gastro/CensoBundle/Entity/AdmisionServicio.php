@@ -22,7 +22,7 @@ class AdmisionServicio {
      */
     private $id;
 
-    /** @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente") */
+    /** @ORM\OneToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente") */
     private $admisionPaciente;
     
     /**

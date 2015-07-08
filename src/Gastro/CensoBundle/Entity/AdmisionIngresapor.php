@@ -22,7 +22,7 @@ class AdmisionIngresapor {
      */
     private $id;
 
-    /** @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente")
+    /** @ORM\OneToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente")
      * @Assert\NotNull(message="Debe elegir un valor")
      * @Assert\NotBlank(message="Debe elegir algun valor")
      *  */
@@ -30,6 +30,8 @@ class AdmisionIngresapor {
     
     /**
      * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Ingresapor")
+     * @Assert\NotNull(message="Debe elegir un valor")
+     * @Assert\NotBlank(message="Debe elegir algun valor")
      */
     private $ingresapor;
     

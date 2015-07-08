@@ -44,7 +44,16 @@
                 <td> <a href="{{ path('datos_internacion_ingresapor',{'admisionpaciente_id':admisionpaciente.id}) }}"> {{ingreso}}</a> </td>
                 <td> <a href="{{ path('datos_internacion_servicio',{'admisionpaciente_id':admisionpaciente.id}) }}"> {{servicio }}</a> </td>
             </tr>
-            
+            {% if internacioncompleta %}
+                <tr>
+                    <th colspan="8">
+                    <form action="{{ path('datos_internacion_alta',{'admisionpaciente_id':admisionpaciente.id}) }}" method="POST">
+                        <input type="button" onclick='if(confirm("Esta seguro(a) que Paciente: {{ admisionpaciente.paciente }} fue dado de alta?")){this.form.submit()}' value="El paciente fue dado de alta">
+                    </form>
+                    </th>
+                   
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 {% endblock  %}

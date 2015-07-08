@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Admision
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Gastro\CensoBundle\Entity\AdmisionTipoAltaRepository")
+ * @ORM\Entity()
  * @UniqueEntity("nombre")
  * 
  */

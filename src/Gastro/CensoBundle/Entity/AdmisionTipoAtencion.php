@@ -26,7 +26,7 @@ class AdmisionTipoAtencion {
     private $admisionPaciente;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Seguro")
+     * @ORM\OneToOne(targetEntity="Gastro\HospitalizacionBundle\Entity\Seguro")
      * 
      */
     private $seguro;

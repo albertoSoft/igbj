@@ -26,6 +26,9 @@ use Gastro\CensoBundle\Form\AdmisionIngresaporType;
 use Gastro\CensoBundle\Entity\AdmisionServicio;
 use Gastro\CensoBundle\Form\AdmisionServicioType;
 
+use Gastro\CensoBundle\Entity\AdmisionAlta;
+use Gastro\CensoBundle\Form\AdmisionAltaType;
+
 use Gastro\HospitalizacionBundle\Util\Util;
 
 class CensoprocesoController extends Controller
@@ -196,11 +199,14 @@ class CensoprocesoController extends Controller
         
         $referencia='No';
         
+        $admisionIngreso=new AdmisionIngresapor();
         $admisionIngreso=$em->getRepository('CensoBundle:AdmisionIngresapor')->findOneByAdmisionPaciente($admisionPaciente);
-        $ingreso=$admisionIngreso!=NULL?$admisionIngreso->getNombre():'Sin Def.';
+        $ingreso=$admisionIngreso!=NULL?$admisionIngreso->getIngresapor():'Sin Def.';
         
         $admisionServicio=$em->getRepository('CensoBundle:AdmisionServicio')->findOneByAdmisionPaciente($admisionPaciente);
-        $servicio=$admisionServicio!=NULL?$admisionServicio->getNombre():'Sin Def.';
+        $servicio=$admisionServicio!=NULL?$admisionServicio->getServicio():'Sin Def.';
+        
+        $internacionCompleta=$em->getRepository('CensoBundle:AdmisionPaciente')->datosInternacionCompleta($admisionPaciente);
         
         $variables=array('admisionpaciente'=>$admisionPaciente,
             'cama'=>$admisionCama->getCama(),
@@ -210,7 +216,9 @@ class CensoprocesoController extends Controller
             'referencia'=>$referencia,
             'ingreso'=>$ingreso,
             'servicio'=>$servicio,
+            'internacioncompleta'=>$internacionCompleta,
              );
+        
         
         return $this->render('HospitalizacionBundle:Censo:datosinternacion.html.twig',$variables);
     }
@@ -257,26 +265,18 @@ class CensoprocesoController extends Controller
         if($admisionDiagnostico==NULL){
             $admisionDiagnostico=new AdmisionDiagnostico();
             $admisionDiagnostico->setAdmisionPaciente($admisionPaciente);
-      //      $admisionDiagnostico->setFechainternacion($admisionPaciente->getFechaRegistro());
         }
         $formulario= $this->createForm(new AdmisionDiagnosticoType(),$admisionDiagnostico);
         $formulario->handleRequest($request);
         
         if($formulario->isValid()){
-            /** Validaciones
-            if($admisionDiagnostico->getFechainternacion()>$admisionPaciente->getFechaRegistro()){
-                $this->get ('session')->getFlashBag()->add('error','La fecha de internación no puede ser mayor a la fecha del registro del paciente internado');
-            }else{
-                $dif=date_diff($admisionPaciente->getFechaRegistro(),$admisionDiagnostico->getFechainternacion());
-                $dif=$dif->format('%a')+0;
-                if($dif>4)$this->get ('session')->getFlashBag()->add('error','Existe mucha diferencia entre la fecha de registro del paciente y la fecha de internacion. '.$dif.' dias' );
-            }/**/
+            
             if(!$this->get ('session')->getFlashBag()->has('error')){
                 $em->persist($admisionDiagnostico);$em->flush();
                 
                 $this->get ('session')->getFlashBag()->add('info','Registro de Dagnostico de internación correcto');
                 return $this->redirect($this->generateUrl('censo_datos_internacion',array('paciente_id'=>$admisionPaciente->getPaciente()->getId())));
-            }/**/
+            }
         }
         $emSice=  $this->getDoctrine()->getManager('sice');
         $medicos=$emSice->getRepository('SiceBundle:Perpersona')->findAllMedicos();
@@ -294,7 +294,7 @@ class CensoprocesoController extends Controller
         if($admisionSeguro==NULL){
             $admisionSeguro=new AdmisionTipoAtencion();
             $admisionSeguro->setAdmisionPaciente($admisionPaciente);
-      //      $admisionDiagnostico->setFechainternacion($admisionPaciente->getFechaRegistro());
+      
             $mensajeConSeguro=FALSE;
         }else{
             $mensajeConSeguro=TRUE;
@@ -320,6 +320,104 @@ class CensoprocesoController extends Controller
         
         if ($mensajeConSeguro){$this->get('session')->getFlashBag() ->add('info','¡Paciente de convenio '.$admisionSeguro->getSeguro().'. Para modificar, seleccione otro y registre');}
         $emSice=  $this->getDoctrine()->getManager('sice');
-        return $this->render('HospitalizacionBundle:Censo:datosinternacionseguro.html.twig',array('formulario' => $formulario->createView(),'admisionPaciente'=>$admisionPaciente));
+        return $this->render('HospitalizacionBundle:Censo:datosinternacionseguro.html.twig',array('formulario' => $formulario->createView(),'admisionPaciente'=>$admisionPaciente,'conseguro'=>$mensajeConSeguro));
+    }
+    public function datosinternacioninstitucionalAction($admisionpaciente_id) {
+        $em=  $this->getDoctrine()->getManager();
+        $admisionPaciente=$em->getRepository('CensoBundle:AdmisionPaciente')->find($admisionpaciente_id);
+        
+        $admisionSeguro=$em->getRepository('CensoBundle:AdmisionTipoAtencion')->findOneByAdmisionPaciente($admisionPaciente);
+        if($admisionSeguro!=NULL){
+                /**/
+                $em->remove($admisionSeguro);
+                $em->flush();/**/
+                
+                $this->get('session')->getFlashBag() ->add('info','¡Registro correcto, Paciente INSTITUCIONAL ');
+        }  else {
+            $this->get('session')->getFlashBag() ->add('error','¡El Paciente '.$admisionPaciente->getPaciente().' ya era psciente institucional.');
+        }
+        return $this->redirect($this->generateUrl('censo_datos_internacion',array('paciente_id'=>$admisionPaciente->getPaciente()->getId())));
+    }
+    
+    public function datosinternacioningresaporAction($admisionpaciente_id) {
+        
+        $request=$this->getRequest();
+
+        $em=  $this->getDoctrine()->getManager();
+        $admisionPaciente=$em->getRepository('CensoBundle:AdmisionPaciente')->find($admisionpaciente_id);
+        
+        $admisionIngresapor=$em->getRepository('CensoBundle:AdmisionIngresapor')->findOneByAdmisionPaciente($admisionPaciente);
+        if($admisionIngresapor==NULL){
+            $admisionIngresapor=new AdmisionIngresapor();
+            $admisionIngresapor->setAdmisionPaciente($admisionPaciente);
+        }
+        $formulario= $this->createForm(new AdmisionIngresaporType(),$admisionIngresapor);
+        $formulario->handleRequest($request);
+        
+        if($formulario->isValid()){
+            if(!$this->get ('session')->getFlashBag()->has('error')){
+                $em->persist($admisionIngresapor);$em->flush();
+                
+                $this->get ('session')->getFlashBag()->add('info','Registro de ingreso de internación correcto');
+                return $this->redirect($this->generateUrl('censo_datos_internacion',array('paciente_id'=>$admisionPaciente->getPaciente()->getId())));
+            }
+        }
+        return $this->render('HospitalizacionBundle:Censo:datosinternacioningresapor.html.twig',array('formulario' => $formulario->createView(),'admisionPaciente'=>$admisionPaciente));
+    }
+    public function datosinternacionservicioAction($admisionpaciente_id) {
+        
+        $request=$this->getRequest();
+
+        $em=  $this->getDoctrine()->getManager();
+        $admisionPaciente=$em->getRepository('CensoBundle:AdmisionPaciente')->find($admisionpaciente_id);
+        
+        $admisionServicio=$em->getRepository('CensoBundle:AdmisionServicio')->findOneByAdmisionPaciente($admisionPaciente);
+        if($admisionServicio==NULL){
+            $admisionServicio=new AdmisionServicio();
+            $admisionServicio->setAdmisionPaciente($admisionPaciente);
+        }
+        $formulario= $this->createForm(new AdmisionServicioType(),$admisionServicio);
+        $formulario->handleRequest($request);
+        
+        if($formulario->isValid()){
+            if(!$this->get ('session')->getFlashBag()->has('error')){
+                $em->persist($admisionServicio);$em->flush();
+                
+                $this->get ('session')->getFlashBag()->add('info','Registro de Servicio de internación correcto');
+                return $this->redirect($this->generateUrl('censo_datos_internacion',array('paciente_id'=>$admisionPaciente->getPaciente()->getId())));
+            }
+        }
+        return $this->render('HospitalizacionBundle:Censo:datosinternacionservicio.html.twig',array('formulario' => $formulario->createView(),'admisionPaciente'=>$admisionPaciente));
+    }
+    
+    
+    //******************** ALTA
+    public function datosinternacionaltaAction($admisionpaciente_id) {
+        
+        $request=$this->getRequest();
+
+        $em=  $this->getDoctrine()->getManager();
+        $admisionPaciente=$em->getRepository('CensoBundle:AdmisionPaciente')->find($admisionpaciente_id);
+        
+        $admisionAlta=$em->getRepository('CensoBundle:AdmisionAlta')->findOneByAdmisionPaciente($admisionPaciente);
+        
+        if($admisionAlta==NULL){/**/
+            $admisionAlta=new AdmisionAlta();
+            $admisionAlta->setAdmisionPaciente($admisionPaciente);
+            $admisionAlta->setFechaRegistro(new \Datetime('today'));
+       }
+        $formulario= $this->createForm(new AdmisionAltaType(),$admisionAlta);
+        $formulario->handleRequest($request);
+        
+        if($formulario->isValid()){
+            if ($admisionAlta->getFechaAlta()>$admisionAlta->getFechaRegistro()){
+                                $this->get('session')->getFlashBag()->add('error','La fecha de Alta no puede ser mayor a '.Util::fechaEspanolCadena($admisionAlta->getFechaRegistro())); }
+            if(!$this->get ('session')->getFlashBag()->has('error')){
+                $em->persist($admisionAlta);$em->flush();
+                $this->get ('session')->getFlashBag()->add('info','Registro de Alta de internación correcto');
+                return $this->redirect($this->generateUrl('censo_datos_internacion',array('paciente_id'=>$admisionPaciente->getPaciente()->getId())));
+            }
+       }
+       return $this->render('HospitalizacionBundle:Censo:datosinternacionalta.html.twig',array('formulario' => $formulario->createView(),'admisionPaciente'=>$admisionPaciente));
     }
 }

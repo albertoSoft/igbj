@@ -48,13 +48,16 @@ class AdmisionAlta
      */
     private $fechaAlta;
     
-    /** @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente")
+    /** @ORM\OneToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente")
      * @Assert\NotBlank()
      * @Assert\NotNull()
      */
     private $admisionPaciente;
 
-    /** @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\TipoAlta") */
+    /** @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\TipoAlta") 
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     */
     private $tipoAlta;
 
 
@@ -97,7 +100,7 @@ class AdmisionAlta
      * @param \DateTime $fecha
      * @return AdmisionAlta
      */
-    public function setFecha($fechaAlta)
+    public function setFechaAlta($fechaAlta)
     {
         $this->fechaAlta = $fechaAlta;
 
@@ -109,7 +112,7 @@ class AdmisionAlta
      *
      * @return \DateTime 
      */
-    public function getFecha()
+    public function getFechaAlta()
     {
         return $this->fechaAlta;
     }

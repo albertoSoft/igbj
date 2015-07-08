@@ -1,5 +1,5 @@
 {% extends "HospitalizacionBundle::layout.html.twig"%}
-{% set titulo="Tipo de atención de "~admisionPaciente.paciente %}
+{% set titulo="Alta de "~admisionPaciente.paciente %}
 
 {% block title  %}
     {{ titulo }}
@@ -20,16 +20,16 @@
       {{ form_widget(formulario) }}
       <input class="boton" type="submit" value="Registrar" />
     </form>
-    {% if conseguro %}
-    <form action="{{ path('datos_internacion_institucional', {'admisionpaciente_id': admisionPaciente.id}) }}" method="post" >
-      <input class="boton" type="submit" value=" Paciente Institucional" />
-    </form>
-    {% endif %}
+    
 {% endblock %}
 
 {% block javascript %}
     {{ parent() }}
-    
+    $(function(){
+        $('#{{ formulario.fechaAlta.vars.id }}').datepicker({
+            dateFormat: 'yy-mm-dd',
+        }); 
+    })
     
 {% endblock %}
 

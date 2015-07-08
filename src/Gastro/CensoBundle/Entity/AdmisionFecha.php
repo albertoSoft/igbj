@@ -25,7 +25,7 @@ class AdmisionFecha
     private $id;
     
     /** 
-     * @ORM\ManyToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente")
+     * @ORM\OneToOne(targetEntity="Gastro\CensoBundle\Entity\AdmisionPaciente")
      * @Assert\NotBlank(message="La Admision debe tener un valor")
      * @Assert\NotNull(message="Debe Seleccionar una Admision Válida")
      */

@@ -41,6 +41,10 @@ datos_internacion_diagnostico:
 datos_internacion_seguro:
     path:     /internacion/seguro/{admisionpaciente_id}/
     defaults: { _controller: "HospitalizacionBundle:Censoproceso:datosinternacionseguro" }
+
+datos_internacion_institucional:
+    path:     /internacion/seguro/institucional/{admisionpaciente_id}/
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:datosinternacioninstitucional" }
     
 datos_internacion_referencia:
     path:     /internacion/referencia/{admisionpaciente_id}/
@@ -53,3 +57,7 @@ datos_internacion_ingresapor:
 datos_internacion_servicio:
     path:     /internacion/servicio/{admisionpaciente_id}/
     defaults: { _controller: "HospitalizacionBundle:Censoproceso:datosinternacionservicio" }
+    
+datos_internacion_alta:
+    path:     /internacion/alta/{admisionpaciente_id}/
+    defaults: { _controller: "HospitalizacionBundle:Censoproceso:datosinternacionalta" }
